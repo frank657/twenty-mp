@@ -1,0 +1,12 @@
+<!-- <tabbar /> -->
+<view class="cu-bar tabbar shadow foot" style="border: none">
+  <view wx:for="{{tabs}}" wx:key="index" class="action" bindtap="tabChange" data-cur="{{item.tab}}">
+    <view class='cuIcon-cu-image'>
+      <image src="{{pageCur==item.tab?item.iconCur:item.icon}}"></image>
+    </view>
+    <view class="fsbody"
+      style="color: {{pageCur==item.tab?colorTabCur:colorTab}}">
+      {{item.name}}
+    </view>
+  </view>
+</view>

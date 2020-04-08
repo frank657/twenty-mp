@@ -1,0 +1,12 @@
+<!--index.wxml-->
+<navbar />
+  
+<events wx:if="{{pageCur == 'tab1'}}"/>
+<!-- <tickets wx:if="{{pageCur == 'tab2'}}"/>
+<contact wx:if="{{pageCur == 'tab3'}}"/> -->
+
+<landing wx:if="{{landingActive}}" />
+
+<view class="page-footer"></view>
+
+<!-- <tabbar tabs="{{tabbar}}" pageCur="{{pageCur}}" wx:if="{{tabbarActive}}"/> -->

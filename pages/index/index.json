@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "landing": "/pages/landing/landing",
+    "events": "/pages/events/home/home",
+    "tickets": "/pages/tickets/home/home",
+    "contact": "/pages/contact/home/home"
+  }
+}

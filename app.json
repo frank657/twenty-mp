@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/landing/landing",
+    "pages/events/home/home",
+    "pages/tickets/home/home",
+    "pages/contact/home/home",
+    "pages/events/show/show"
+  ],
+  "usingComponents": {
+    "tabbar": "/components/tabbar/tabbar",
+    "navbar": "/components/navbar/navbar"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Twenty",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

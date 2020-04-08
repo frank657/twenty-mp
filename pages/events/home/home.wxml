@@ -1,0 +1,44 @@
+<view style="height: {{statusBarHeight}}px"></view>
+
+<view class="w100 row-center py20 mb50">
+  <image src="/images/logo.png" mode="aspectFit" style="height: 100rpx;"></image>
+</view>
+
+<view class="mb30">
+  <view class="x-wrapper relative">
+    <view class="f32 bold w-100 text-center ter">RECENTLY VIEWED</view>
+  </view>
+  <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
+  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 390rpx;">
+    <swiper-item wx:for="{{[1,2,3]}}" wx:key="index" class="card-wrapper card-small"> <!-- card-big -->
+      <card event="{{item}}" cardType="recent"/>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="mb50">
+  <view class="x-wrapper relative">
+    <view class="f32 bold w-100 text-center ter">ATTENDING</view>
+  </view>
+  <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
+  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
+    <swiper-item wx:for="{{[1,2,3]}}" wx:key="index" class="card-wrapper card-big"> <!-- card-big -->
+      <card event="{{item}}"/>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="mb50">
+  <view class="x-wrapper relative">
+    <view class="f32 bold w-100 text-center ter">MY EVENTS</view>
+  </view>
+  <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
+  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
+    <swiper-item wx:for="{{[1,2,3]}}" wx:key="index" class="card-wrapper card-big"> <!-- card-big -->
+      <card event="{{item}}"/>
+    </swiper-item>
+  </swiper>
+</view>
+
+<view class="fixed bg-sec f48 white row-center" 
+  style="bottom: 40rpx; right: 40rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px #FFC93C;">+</view>

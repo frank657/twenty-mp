@@ -1,0 +1,19 @@
+<!--components/card/card.wxml-->
+<view class="bg-white card-shadow" style="border-radius: {{cardType=='recent'?'20':'46'}}rpx; overflow: hidden;" bindtap="navToShow">
+  <image src="/images/placeholder.jpeg" style="height: {{cardType=='recent'?'180':'360'}}rpx;" class="w100"></image>
+  <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30 mt'}}">
+    <view class="pri bold mb {{cardType=='recent'?'f26':'f32'}}">Party time</view>
+    <view class="grey {{cardType=='recent'?'f22':'f28'}}">Today</view>
+    <view class="grey {{cardType=='recent'?'f22':'f28'}}">11:00 - 12:00</view>
+    <view wx:if="{{cardType!='recent'}}" class="row-between mt20 w100">
+      <view class="row-start">
+        <image src="/images/placeholder.jpeg" 
+          wx:for="{{[1,2,3]}}"
+          class="mr20"
+          style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" mode="aspectFill"></image>
+        <view style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" class="bg-grey-light white row-center">+8</view>
+      </view>
+      <!-- <view class="bg-sec dib py px20 white bold" style="border-radius: 20rpx;">in</view> -->
+    </view>
+  </view>
+</view>

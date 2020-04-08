@@ -1,0 +1,40 @@
+@import "/app";
+
+.card-swiper {
+	/* height: 420rpx !important; */
+}
+
+.card-swiper swiper-item {
+	/* width: 680rpx; */
+	/* left: 70rpx; */
+	box-sizing: border-box;
+	/* padding: 40rpx 0rpx 70rpx; */
+	overflow: initial;
+}
+
+.card-swiper swiper-item:last-child {
+	padding-right: 20rpx;
+}
+
+.card-swiper swiper-item .swiper-item {
+	/* width: 100%; */
+	display: block;
+	/* height: 100%; */
+	/* border-radius: 10rpx; */
+	/* transform: scale(0.9); */
+	transition: all 0.2s ease-in 0s;
+	overflow: hidden;
+}
+
+.card-swiper swiper-item.cur .swiper-item {
+	transform: none;
+	transition: all 0.2s ease-in 0s;
+}
+
+.card-big {
+	width: 500rpx !important;
+}
+
+.card-small {
+	width: 300rpx !important;
+}

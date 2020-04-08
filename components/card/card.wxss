@@ -1,0 +1,6 @@
+/* components/card/card.wxss */
+@import "/app.wxss";
+
+.card-shadow {
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+}

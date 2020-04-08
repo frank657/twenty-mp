@@ -1,0 +1,114 @@
+/* RESET SYSTEM STYLE */
+/* button::after {
+  border: none;
+}
+
+button {
+  background-color: unset;
+}
+
+button:hover {
+  opacity: 0.8;
+} */
+
+/* To be used when button is not button element e.g. navigator */
+.button {
+  padding-left:14px;
+  padding-right:14px;
+  line-height:2.5;
+}
+
+/* OVERWIRTES SYSTEM DEFAULT */
+.unset-btn {
+  width: unset !important;
+  padding: 0;
+  background: unset;
+  min-height: unset !important;
+  line-height: 0.5;
+}
+
+.btn {
+  text-align:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 16rpx;
+  padding-bottom: 16rpx;
+  padding-left: 40rpx;
+  padding-right: 40rpx;
+  border-radius:0rpx;
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.btn-sm {
+  text-align: center;
+  font-weight: normal;
+  font-size: 24rpx;
+  padding: 20rpx 60rpx;
+  background: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+  /* height: 60rpx !important; */
+  border-radius: 0 !important;
+  width: unset !important;
+  min-height: unset !important;
+}
+
+.btn-transparent {
+  background-color:white;
+  color:#F08302;
+  font-weight:bold;
+}
+
+.btn-orange {
+  background-color:#F08302;
+  color:white;
+  font-weight:bold;
+}
+
+.btn-red {
+  background-color:#FFEFEF;
+  color:#F98A8B;
+}
+
+.btn-ghost-orange {
+  border: solid 1px #F08302;
+  color:#F08302;
+  font-weight:bold;
+}
+
+
+/* FLOATING BUTTON */
+.btn-float {
+  position:fixed;
+  right:20px;
+  bottom:200rpx;
+  opacity:0.7;
+}
+
+.create-lost {
+  position:fixed;
+  right:20px;
+  bottom:220px;
+}
+
+.create-found {
+  position:fixed;
+  right:20px;
+  bottom:160px;
+}
+
+.kill-hover:hover {
+  background: none !important;
+  color: none !important;
+}
+
+.kill-hover:active {
+  background: none !important;
+  color: none !important;
+  filter: drop-shadow(0 1px 5px #24344F)
+}

@@ -1,0 +1,67 @@
+/**index.wxss**/
+.cu-modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1110;
+	opacity: 0;
+	outline: 0;
+	text-align: center;
+	-ms-transform: scale(1.185);
+	transform: scale(1.185);
+	backface-visibility: hidden;
+	perspective: 2000rpx;
+	/* background: rgba(0, 0, 0, 0.6); */
+	transition: all 0.8s ease-in-out 0s;
+	pointer-events: none;
+}
+
+.cu-modal.show {
+	opacity: 1;
+	transition-duration: 0.3s;
+	-ms-transform: scale(1);
+	transform: scale(1);
+	overflow-x: hidden;
+	overflow-y: auto;
+	pointer-events: auto;
+}
+
+.bg-fill {
+  /* height: 100vh;
+  width: 100%; */
+  position: fixed;
+  /* background: black; */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.bg-fill.bg-gradient {
+  background-attachment: fixed !important;
+  background-image: 
+    radial-gradient(
+      circle at top left,
+      #263258 10%,
+      #0d1321 30%,
+      #0e1120 60%,
+      transparent
+    ), radial-gradient(
+      at bottom right,
+      #263258 20%, 
+      #263258 40%, 
+      #0d1321 70%,
+      #0e1120 90%,
+      #0e1120
+    );
+}
+
+.shadowed { 
+  -webkit-filter: drop-shadow(0px 2px 3px rgba(255, 204, 0, 0.5));
+  filter:         drop-shadow(0px 2px 3px rgba(255, 204, 0, 0.5)); 
+  transition: 0.3s;
+}
+
+

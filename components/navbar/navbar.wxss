@@ -1,0 +1,108 @@
+@import '/app.wxss';
+
+.btn-img {
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  height: 36rpx;
+  width: 36rpx;
+  padding: 12rpx;
+}
+
+.logo-lg {
+  width: 265rpx; 
+  height: 80rpx;
+  transition: 0.3s;
+}
+
+.transparent {
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.kill-transparent {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.logo-sm {
+  width: 130rpx; 
+  height: 40rpx;
+  transition: 0.3s;
+}
+
+.overlay.transparent {
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.nav-outer-container {
+  position: fixed;
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  width: 100%;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  position: relative;
+}
+
+.nav-space {
+  height: 50px;
+
+}
+
+.nav-container text {
+  font-size: 17px;
+}
+
+.nav-back-btn {
+  color: white;
+  font-size: 15px;
+
+}
+
+.back-btn-container {
+  height: 100%;
+  width: 20px;
+  /* height: 20px; */
+  margin-right: 40rpx;
+}
+
+/* .back-btn-container image {
+  width: 100%;
+  height: 100%;
+} */
+
+.outer-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 180rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 60rpx;
+  margin-left: 50rpx;
+  /* border-radius: 50%; */
+  /* border: 1px solid white; */
+}
+
+.profile-container image {
+  width: 100%;
+  height: 100%;
+  /* border-radius: 50%; */
+}

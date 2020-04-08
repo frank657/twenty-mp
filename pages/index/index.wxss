@@ -1,0 +1,10 @@
+/**index.wxss**/
+.page-footer {
+  /* margin-top: 30rpx; */
+  min-height: 146rpx;
+  height: calc(100rpx + env(safe-area-inset-bottom) / 2);
+}
+
+page {
+  background-color: #FFFDF8;
+}

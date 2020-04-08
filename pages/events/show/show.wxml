@@ -1,0 +1,51 @@
+<!--pages/events/show/show.wxml-->
+<navbar />
+
+<image src="/images/placeholder.jpeg" class="w100 fixed" style="height: 500rpx;"/>
+
+<view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
+
+  <view class="row-between" style="align-items: flex-start;">
+    <view class="">
+      <view class="bold f40 mb40 pri">Bday party</view>
+      <view class="f32 grey">Today</view>
+      <view class="f32 grey">11:00 - 12:00</view>
+      <view class="row-start mt30">
+        <image src="/images/icons/map-pin.svg" class="icon-mini mr20" mode="aspectFit"></image>
+        <view class="f32 grey">Xnode</view>
+      </view>
+    </view>
+    <image mode="aspectFill" 
+      style="height: 100rpx; width: 100rpx; border-radius: 35%;" 
+      src="/images/placeholder.jpeg"></image>
+  </view>
+
+  <view class="row-between w100 mt50 mb100">
+    <view class="row-start">
+      <image wx:for="{{[1,2,3,4]}}"
+        class="mr20"
+        src="/images/placeholder.jpeg"
+        style="width: 60rpx; height: 60rpx; border-radius: 35%;"></image>
+    </view>
+    <button class="unset-btn" style="margin-right: 0;">
+      <image src="/images/icons/qrcode.svg" style="width: 50rpx; height: 50rpx;" mode="aspectFit"></image>
+    </button>
+  </view>
+  
+  <view class="">
+    <view class="bold f32 ter mb40">Description</view>
+    <view wx:for="{{[1,2,3]}}" class="grey f28">
+      Ante litora error porta sociosqu voluptate maxime ipsam ridiculus veniam nonummy occaecat repudiandae magna nec interdum! Ultricies! Ultrices, quia tristique, voluptates erat orci, curabitur. Conubia hac officiis voluptatibus esse doloribus velit officia vitae nullam! Netus. Sollicitudin. Curabitur dolorum v
+    </view>
+  </view>
+
+  <view class="page-footer"></view>
+
+</view>
+  <view class="row-between show-footer bg-white">
+    <view class="bold ter f28 mr30">Joining?</view>
+    <view class="pa20 bg-sec white bold" style="border-radius: 30rpx;">Yes</view>
+    <view class="pa20 bold grey-light" style="border-radius: 30rpx;">No</view>
+    <view class="pa20 bold grey-light" style="border-radius: 30rpx;">Maybe</view>
+  </view>
+
