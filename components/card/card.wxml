@@ -6,19 +6,23 @@
     <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[0]}}</view>
     <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[1]}}</view>
     <view wx:if="{{cardType!='recent'}}" class="row-between mt20 w100">
-      <view class="row-start">
-        <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2]]}}">
-          <image wx:if="{{item}}"
-            src="{{item.avatar}}"
-            class="mr20"
-            style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" mode="aspectFill"></image>
-        </block>
-        <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}" 
+      <view class="row-between w100">
+        <view class="row-start">
+          <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2]]}}">
+            <image wx:if="{{item}}"
+              src="{{item.avatar}}"
+              class="mr20"
+              style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" mode="aspectFill"></image>
+          </block>
+          <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}" 
+            style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" 
+            class="bg-dim ter row-center">
+            {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}</view>
+        </view>
+        <!-- <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}" 
           style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" 
-          class="bg-dim ter row-center">
-          {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}</view>
+          class="bg-dim ter row-center">in</view> -->
       </view>
-      <!-- <view class="bg-sec dib py px20 white bold" style="border-radius: 20rpx;">in</view> -->
     </view>
   </view>
 </view>
