@@ -16,7 +16,7 @@ Page({
     ]
   },
 
-  onLoad: function () {
+  onShow: function () {
     console.log('page', this)
     BC.getData('events', this, false).then(res=>{
       this.setData({events: res, showLanding: false})

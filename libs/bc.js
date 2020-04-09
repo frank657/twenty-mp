@@ -49,7 +49,7 @@ const getUserInfo = () => {
     wx.getSetting({
       success: res => {
         console.log('wx.getSetting res ==>', res)
-        if (res.authSetting['scope.userInfo']) {
+        if (res.authSetting['scope.userInfo']) {      
           getUserDetails().then(res => {
             if (app.userInfoReadyCallback) app.userInfoReadyCallback('user authorized')
             resolve(res)

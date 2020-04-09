@@ -6,7 +6,7 @@
 
 <view class="mb30" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">
-    <view class="f32 bold w-100 text-center ter">RECENTLY VIEWED</view>
+    <view class="f36 bold w-100 text-left ter pl20">RECENTLY VIEWED</view>
   </view>
   <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
   <swiper class="card-swiper" bindchange="cardSwiper" style="height: 390rpx;">
@@ -18,10 +18,10 @@
 
 <view class="mb50">
   <view class="x-wrapper relative">
-    <view class="f32 bold w-100 text-center ter">ATTENDING</view>
+    <view class="f36 bold w-100 text-left ter pl20">ATTENDING</view>
   </view>
-  <view wx:if="{{!events.rsvped.length}}" class="mx20 mt50 mb100 grey f28 text-center">No attending event</view>
-  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
+  <view wx:if="{{!events.rsvped.length}}" class="mx20 mt50 mb100 grey f28 text-left pl20">No attending event</view>
+  <swiper wx:if="{{events.rsvped.length}}" class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
     <swiper-item wx:for="{{events.rsvped}}" wx:key="index" class="card-wrapper card-big">
       <card event="{{item}}"/>
     </swiper-item>
@@ -30,10 +30,10 @@
 
 <view class="mb50">
   <view class="x-wrapper relative">
-    <view class="f32 bold w-100 text-center ter">MY EVENTS</view>
+    <view class="f36 bold w-100 text-left ter pl20">MY EVENTS</view>
   </view>
-  <view wx:if="{{!events.created.length}}" class="mx20 mt50 mb100 grey f28 text-center">No event created. Create your first event!</view>
-  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
+  <view wx:if="{{!events.created.length}}" class="mx20 mt50 mb100 grey f28 text-left pl20">No event created. Create your first event!</view>
+  <swiper wx:if="{{events.created.length}}" class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
     <swiper-item wx:for="{{events.created}}" wx:key="index" class="card-wrapper card-big">
       <card event="{{item}}"/>
     </swiper-item>

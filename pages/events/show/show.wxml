@@ -31,7 +31,7 @@
       <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2], event.attendees.yes[3]]}}">
         <image wx:if="{{item}}"
           class="mr20"
-          src="/images/placeholder.jpeg"
+          src="{{item.avatar}}"
           style="width: 80rpx; height: 80rpx; border-radius: 35%;"></image>
       </block>
       <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}"
@@ -45,21 +45,24 @@
     </button>
   </view>
   
-  <view class="">
+  <view>
     <view class="bold f32 ter mb40">Description</view>
-    <view wx:for="{{[1,2,3]}}" class="grey f28">{{event.description}}</view>
+    <view class="grey f28">{{event.description}}</view>
   </view>
 
   <view class="page-footer"></view>
 
 </view>
 <view class="row-between show-footer bg-white">
-  <view class="bold ter f28 mr30">Joining?</view>
-  <view class="pa20 bold transition-3 {{answer=='yes'?'bg-sec white':'grey-light'}}" 
-    style="border-radius: 30rpx;" bindtap="join" data-answer="yes">Yes</view>
-  <view class="pa20 bold transition-3 {{answer=='no'?'bg-sec white':'grey-light'}}" 
-    style="border-radius: 30rpx;" bindtap="join" data-answer="no">No</view>
-  <view class="pa20 bold transition-3 {{answer=='maybe'?'bg-sec white':'grey-light'}}" 
-    style="border-radius: 30rpx;" bindtap="join" data-answer="maybe">Maybe</view>
+  <view class="bold ter f28 mr50">Joining?</view>
+  <!-- <view wx:for="{{answers}}"
+    class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
+    style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
+  <button
+    open-type="getUserInfo"
+    bindgetuserinfo="join"
+    wx:for="{{answers}}"
+    class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
+    style="border-radius: 30rpx; min-height: unset !important; width: unset !important;" data-answer="{{item.name}}">{{item.label}}</button>
 </view>
 

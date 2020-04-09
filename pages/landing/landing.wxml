@@ -1,12 +1,12 @@
 <view class="overlay bg-image" style="background: #FFFDF8;">
 
-  <view class="d-flex colum w70 h100 items-center justify-around">
-    <view class="w100 text-center">
-      <image mode="aspectFit" class="w100 mt100" src="/images/logo.png"></image>
+  <view class="column-start w70 h100 items-center justify-around">
+    <view class="w100 text-center mt100 pt50">
+      <image mode="aspectFit" class="w100" src="/images/logo.png"></image>
       <!-- <view class="black">Some title</view> -->
     </view>
 
-    <view class="mb100 flex column items-center">
+    <view class="pt100 flex column items-center">
       <image src="/images/icons/loading.svg" class="icon-ml"></image>
     </view>
   </view>

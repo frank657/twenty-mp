@@ -9,6 +9,10 @@ Page({
     lastDate: BU.getDateFromToday(5)
   },
 
+  signIn() {
+    BC.getUserInfo()
+  },
+
   bindDateChange: function(e) {
     const { type } = e.currentTarget.dataset
     if (type == 'start') { this.setData({ startDate: e.detail.value }) }
@@ -36,6 +40,7 @@ Page({
   },
 
   onLoad: function (options) {
+    BC.userInfoReady(this)
     this.setData({ today: BU.getToday() })
   },
 
@@ -55,12 +60,14 @@ Page({
 
   createEvent(e) {
     const data = e.detail.value
+
     data.start_time = `${data.start_date} ${data.start_time}`
     data.end_time = `${data.end_date} ${data.end_time}`
     delete data.start_date
     delete data.end_date
     console.log(data)
     if (this.data.imgTempFile&&data.title&&data.description&&data.venue_name) {
+      wx.showLoading({title: 'Loading'})
       BC.post(BC.getHost()+'events', data).then(res=>{
         console.log('res', res)
         if (res.status=='success') {
@@ -70,18 +77,17 @@ Page({
           wx.uploadFile({
             url: path, 
             filePath: img,
-            name: `file${id}`,
+            name: 'image',
             header: app.globalData.headers,
-            formData: {
-              'image': img
-            },
+            formData: {},
             success (res){
               const data = JSON.parse(res.data)
               if (data.status == 'success') {
-                wx.navigateTo({
+                wx.redirectTo({
                   url: `/pages/events/show/show?id=${id}`,
                 })
                 console.log('uploaded', data)
+                wx.hideLoading()
               } else {
                 wx.showModal({
                   showCancel: false,
@@ -89,6 +95,7 @@ Page({
                   title: 'Upload failed',
                   content: 'Please try again'
                 })
+                wx.hideLoading()
               }
             }
           })

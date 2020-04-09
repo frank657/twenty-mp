@@ -3,7 +3,15 @@
 </navbar>
 
 <view class="pa40">
-  <form bindsubmit="createEvent">
+  <view wx:if="{{!userInfoAuth}}" class="w100 column-center relative mt100">
+    <view class="f32 mb30 bold ter">Log in to create an event</view>
+    <button open-type="getUserInfo" 
+      bindgetuserinfo="signIn" 
+      style="margin-top: 0;"
+      class="mt100 bold ter f32 btn-footer bg-sec white row-center">Login</button>
+  </view>
+
+  <form wx:if="{{userInfoAuth}}" bindsubmit="createEvent">
     <view style="height: 400rpx; border-radius: 60rpx; overflow: hidden;" 
       class="w100 shadow row-center relative">
       <view class="h100 w100 absolute" bindtap="uploadImage" />
