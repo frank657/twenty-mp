@@ -1,66 +1,42 @@
+const BC = require('../../../libs/bc');
+
 // pages/events/show/show.js
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
 
   },
 
-  /**
-   * Lifecycle function--Called when page load
-   */
+  join(e) {
+    wx.showLoading({ title: 'Loading' })
+    const { answer } = e.currentTarget.dataset
+    console.log(answer)
+    const data = answer
+    // BC.post(`${BC.getHost()}xxxxx`, data).then(res=>{
+      this.setData({answer})
+      wx.showToast({ title: 'Thank you!' })
+    // })
+  },
+
   onLoad: function (options) {
-
+    BC.getData(`events/${this.options.id}`).then(res=>{
+      console.log(res)
+    })
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
+  openMap() {
+    const e = this.data.event
+    wx.openLocation({
+      latitude: e.latitude,
+      longitude: e.longitude,
+    })
   },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
   onShareAppMessage: function () {
-
+    const e = this.data.event
+    return {
+      title: e.title,
+      imageUrl: e.image,
+      path: `/pages/events/show/show?id=${e.id}`
+    }
   }
 })

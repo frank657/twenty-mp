@@ -4,13 +4,13 @@
   <image src="/images/logo.png" mode="aspectFit" style="height: 100rpx;"></image>
 </view>
 
-<view class="mb30">
+<view class="mb30" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">
     <view class="f32 bold w-100 text-center ter">RECENTLY VIEWED</view>
   </view>
   <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
   <swiper class="card-swiper" bindchange="cardSwiper" style="height: 390rpx;">
-    <swiper-item wx:for="{{[1,2,3]}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;"> <!-- card-big -->
+    <swiper-item wx:for="{{events.viewed}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;">
       <card event="{{item}}" cardType="recent"/>
     </swiper-item>
   </swiper>
@@ -20,9 +20,9 @@
   <view class="x-wrapper relative">
     <view class="f32 bold w-100 text-center ter">ATTENDING</view>
   </view>
-  <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
+  <view wx:if="{{!events.rsvped.length}}" class="mx20 mt50 mb100 grey f28 text-center">No attending event</view>
   <swiper class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
-    <swiper-item wx:for="{{[1,2,3]}}" wx:key="index" class="card-wrapper card-big"> <!-- card-big -->
+    <swiper-item wx:for="{{events.rsvped}}" wx:key="index" class="card-wrapper card-big">
       <card event="{{item}}"/>
     </swiper-item>
   </swiper>
@@ -32,13 +32,13 @@
   <view class="x-wrapper relative">
     <view class="f32 bold w-100 text-center ter">MY EVENTS</view>
   </view>
-  <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
+  <view wx:if="{{!events.created.length}}" class="mx20 mt50 mb100 grey f28 text-center">No event created. Create your first event!</view>
   <swiper class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
-    <swiper-item wx:for="{{[1,2,3]}}" wx:key="index" class="card-wrapper card-big"> <!-- card-big -->
+    <swiper-item wx:for="{{events.created}}" wx:key="index" class="card-wrapper card-big">
       <card event="{{item}}"/>
     </swiper-item>
   </swiper>
 </view>
 
 <navigator url="/pages/events/create/create" class="fixed bg-sec f48 white row-center" 
-  style="bottom: 40rpx; right: 40rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px #FFC93C;">+</navigator>
+  style="bottom: 40rpx; right: 40rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.7);">+</navigator>

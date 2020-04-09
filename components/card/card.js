@@ -23,7 +23,7 @@ Component({
   methods: {
     navToShow() {
       wx.navigateTo({
-        url: '/pages/events/show/show',
+        url: `/pages/events/show/show?id=${this.data.event.id}`,
       })
     }
   }

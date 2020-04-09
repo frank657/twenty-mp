@@ -22,6 +22,7 @@ let request = (url, data = {}) => {
 }
 
 let post = (url, data = {}) => {
+  console.log(url, data)
   return new Promise(
     (resolve, reject) => {
       wx.request({

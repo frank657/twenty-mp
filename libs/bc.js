@@ -5,12 +5,12 @@ const launchApp = (app) => {
   userLogin()
   BU.setLanguage(app)
   BU.getSafeArea(app)
-  BU.getFonts()
+  // BU.getFonts()
 }
 
 const getHost = () => {
   const d = getApp().globalData
-  return d.host + d.lang + d.api
+  return d.host + d.api
 }
 
 const userLogin = () => {
@@ -80,18 +80,15 @@ const getUserDetails = () => {
         })
         app.globalData.userInfoAuth = true
         console.log('user need update', userNeedUpdate)
-        // if (app.userAdminReadyCallback) app.userAdminReadyCallback('user admin ready')
         if (userNeedUpdate) {
           console.log('inside user need update, url ==>', url)
           BR.put(url, {user: user}).then(res => {
             app.globalData.userInfo = res.user
-            // if (app.userInfoReadyCallback) app.userInfoReadyCallback('user authorized')
             console.log('user updated?', res)
             resolve(res)
           })
         } else {
           resolve(user)
-          // if (app.userInfoReadyCallback) app.userInfoReadyCallback('user authorized')
         }
       },
       fail(res){resolve(res)}

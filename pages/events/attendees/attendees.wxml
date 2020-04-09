@@ -1,29 +1,29 @@
 <navbar />
 <!--pages/events/attendees/attendees.wxml-->
 <view class="px30 py50">
-  <view class="f36 bold ter mb30">In • 5</view>
+  <view class="f36 bold ter mb30">In • {{attendees.yes.length?attendees.yes.length:0}}</view>
   <view class="mb50" style="padding-left: 80rpx;">
-    <image wx:for="{{[1,2,3,4,5]}}"
+    <image wx:for="{{attendees.yes}}"
       mode="aspectFill" 
       class="mr30 mb30"
       style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-      src="/images/placeholder.jpeg"></image>
+      src="{{item.avatar}}"></image>
   </view>
-  <view class="f36 bold ter mb30">Out • 5</view>
+  <view class="f36 bold ter mb30">Out • {{attendees.yes.length?attendees.yes.length:0}}</view>
   <view class="mb50" style="padding-left: 80rpx;">
-    <image wx:for="{{[1,2,3,4,5]}}"
+    <image wx:for="{{attendees.no}}"
       mode="aspectFill" 
       class="mr30 mb30"
       style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-      src="/images/placeholder.jpeg"></image>
+      src="{{item.avatar}}"></image>
   </view>
-  <view class="f36 bold ter mb30">Maybe • 5</view>
+  <view class="f36 bold ter mb30">Maybe • {{attendees.maybe.length?attendees.maybe.length:0}}</view>
   <view class="mb50" style="padding-left: 80rpx;">
-    <image wx:for="{{[1,2,3,4,5]}}"
+    <image wx:for="{{attendees.maybe}}"
       mode="aspectFill" 
       class="mr30 mb30"
       style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-      src="/images/placeholder.jpeg"></image>
+      src="{{item.avatar}}"></image>
   </view>
 </view>
 

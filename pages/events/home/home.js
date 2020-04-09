@@ -7,7 +7,7 @@ Component({
     })
   },
   properties: {
-
+    events: { type: Object, value: [] }
   },
 
   /**

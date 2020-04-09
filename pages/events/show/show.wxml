@@ -1,46 +1,53 @@
 <!--pages/events/show/show.wxml-->
 <navbar navType='float' />
 
-<image src="/images/placeholder.jpeg" class="w100 fixed" style="height: 500rpx;"/>
+<image src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
 
   <view class="row-between" style="align-items: flex-start;">
     <view class="">
-      <view class="bold f40 mb40 pri">Bday party</view>
-      <view class="f32 grey">Today</view>
-      <view class="f32 grey">11:00 - 12:00</view>
-      <view class="row-start mt30">
+      <view class="bold f40 mb40 pri">{{event.title}}</view>
+      <view class="f32 grey mb">{{event.ui_date[0]}}</view>
+      <view class="f32 grey">{{event.ui_date[1]}}</view>
+      <view class="row-start mt30" bindtap="openMap">
         <image src="/images/icons/map-pin.svg" class="icon-mini mr20" mode="aspectFit"></image>
         <view class="row-start">
-          <view class="f32 grey">Xnode</view>
-          <view class="f24 ter px20 py bg-dim ml30 radius10">see map</view>
+          <view class="f32 grey">{{event.venue_name}}</view>
+          <view wx:if="{{event.longitude&&event.latitude}}" 
+            class="f24 ter px20 py bg-dim ml30 radius10">see map</view>
         </view>
       </view>
     </view>
     <image mode="aspectFill" 
       style="height: 100rpx; width: 100rpx; border-radius: 35%;" 
-      src="/images/placeholder.jpeg"></image>
+      src="{{creator.avatar}}"></image>
   </view>
 
   <view class="row-between w100 mt50 mb100">
-    <view class="row-start">
-      <image wx:for="{{[1,2,3,4]}}"
-        class="mr20"
-        src="/images/placeholder.jpeg"
-        style="width: 80rpx; height: 80rpx; border-radius: 35%;"></image>
-      <view style="height: 80rpx; width: 80rpx; border-radius: 35%;" class="bg-dim ter row-center">+8</view>
-    </view>
-    <button class="unset-btn" style="margin-right: 0;">
-      <image src="/images/icons/qrcode.svg" style="width: 50rpx; height: 50rpx;" mode="aspectFit"></image>
+    <navigator 
+      url="/pages/events/attendees/attendees"
+      class="row-start">
+      <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2], event.attendees.yes[3]]}}">
+        <image wx:if="{{item}}"
+          class="mr20"
+          src="/images/placeholder.jpeg"
+          style="width: 80rpx; height: 80rpx; border-radius: 35%;"></image>
+      </block>
+      <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}"
+        style="height: 80rpx; width: 80rpx; border-radius: 35%;" 
+        class="bg-dim ter row-center">
+        {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}
+        </view>
+    </navigator>
+    <button open-type="share" class="unset-btn" style="margin-right: 0;">
+      <image src="/images/icons/share.svg" style="width: 50rpx; height: 50rpx;" mode="aspectFit"></image>
     </button>
   </view>
   
   <view class="">
     <view class="bold f32 ter mb40">Description</view>
-    <view wx:for="{{[1,2,3]}}" class="grey f28">
-      Ante litora error porta sociosqu voluptate maxime ipsam ridiculus veniam nonummy occaecat repudiandae magna nec interdum! Ultricies! Ultrices, quia tristique, voluptates erat orci, curabitur. Conubia hac officiis voluptatibus esse doloribus velit officia vitae nullam! Netus. Sollicitudin. Curabitur dolorum v
-    </view>
+    <view wx:for="{{[1,2,3]}}" class="grey f28">{{event.description}}</view>
   </view>
 
   <view class="page-footer"></view>
@@ -48,8 +55,11 @@
 </view>
 <view class="row-between show-footer bg-white">
   <view class="bold ter f28 mr30">Joining?</view>
-  <view class="pa20 bg-sec white bold" style="border-radius: 30rpx;">Yes</view>
-  <view class="pa20 bold grey-light" style="border-radius: 30rpx;">No</view>
-  <view class="pa20 bold grey-light" style="border-radius: 30rpx;">Maybe</view>
+  <view class="pa20 bold transition-3 {{answer=='yes'?'bg-sec white':'grey-light'}}" 
+    style="border-radius: 30rpx;" bindtap="join" data-answer="yes">Yes</view>
+  <view class="pa20 bold transition-3 {{answer=='no'?'bg-sec white':'grey-light'}}" 
+    style="border-radius: 30rpx;" bindtap="join" data-answer="no">No</view>
+  <view class="pa20 bold transition-3 {{answer=='maybe'?'bg-sec white':'grey-light'}}" 
+    style="border-radius: 30rpx;" bindtap="join" data-answer="maybe">Maybe</view>
 </view>
 

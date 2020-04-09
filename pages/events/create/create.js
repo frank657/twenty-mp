@@ -1,72 +1,107 @@
 const BC = require('../../../libs/bc');
 const BU = require('../../../libs/bc-utils');
+const app = getApp();
 // pages/events/create/create.js
 Page({
   data: {
     time: '20:00',
-    date: BU.getToday(),
+    today: BU.getToday(),
+    lastDate: BU.getDateFromToday(5)
   },
 
   bindDateChange: function(e) {
-    this.setData({ date: e.detail.value })
+    const { type } = e.currentTarget.dataset
+    if (type == 'start') { this.setData({ startDate: e.detail.value }) }
+    if (type == 'end') { this.setData({ endDate: e.detail.value }) }
   },
 
   bindTimeChange: function(e) {
-    this.setData({ time: e.detail.value })
+    const { type } = e.currentTarget.dataset
+    if (type == 'start') { this.setData({ startTime: e.detail.value }) }
+    if (type == 'end') { this.setData({ endTime: e.detail.value }) }
   },
 
-  onLoad: function (options) {
-    this.setData({
-      today: BU.getToday(), 
+  pinLocation() {
+    const that = this
+    wx.chooseLocation({
+      success(res) {
+        that.setData({
+          venue: res.name,
+          address: res.address,
+          long: res.longitude,
+          lat: res.latitude
+        })
+      },
     })
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
+  onLoad: function (options) {
+    this.setData({ today: BU.getToday() })
   },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
+  uploadImage() {
+    const that = this
+    wx.chooseImage({
+      count: 1,
+      success (res) {
+        const tempFilePaths = res.tempFilePaths
+        that.setData({imgTempFile: tempFilePaths[0]})
+      }
+    })
+  },
+  removeImage() {
+    this.setData({ imgTempFile: null })
   },
 
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
+  createEvent(e) {
+    const data = e.detail.value
+    data.start_time = `${data.start_date} ${data.start_time}`
+    data.end_time = `${data.end_date} ${data.end_time}`
+    delete data.start_date
+    delete data.end_date
+    console.log(data)
+    if (this.data.imgTempFile&&data.title&&data.description&&data.venue_name) {
+      BC.post(BC.getHost()+'events', data).then(res=>{
+        console.log('res', res)
+        if (res.status=='success') {
+          const path = BC.getHost() + '/events/' + res.event.id + '/upload'
+          const img = this.data.imgTempFile
+          const id = res.event.id
+          wx.uploadFile({
+            url: path, 
+            filePath: img,
+            name: `file${id}`,
+            header: app.globalData.headers,
+            formData: {
+              'image': img
+            },
+            success (res){
+              const data = JSON.parse(res.data)
+              if (data.status == 'success') {
+                wx.navigateTo({
+                  url: `/pages/events/show/show?id=${id}`,
+                })
+                console.log('uploaded', data)
+              } else {
+                wx.showModal({
+                  showCancel: false,
+                  confirmText: 'OK',
+                  title: 'Upload failed',
+                  content: 'Please try again'
+                })
+              }
+            }
+          })
 
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
+        }
+      })
+    } else {
+      wx.showModal({
+        showCancel: false,
+        confirmText: 'OK',
+        title: 'Details missing',
+        content: 'Please upload a picture and fill out all the details to continue'
+      })
+    }
   }
 })

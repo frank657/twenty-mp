@@ -12,6 +12,14 @@ const getToday = () => {
   return [year, month, day].map(formatNumber).join('-')
 }
 
+const getDateFromToday = (y=0) => {
+  const date = new Date()
+  const year = date.getFullYear() + y
+  const month = date.getMonth() + 1 
+  const day = date.getDate()
+  return [year, month, day].map(formatNumber).join('-')
+}
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -128,6 +136,7 @@ const querySelect = (cssId, component) => {
 module.exports = {
   formatTime: formatTime,
   getToday: getToday,
+  getDateFromToday: getDateFromToday,
   range: range,
   validateEmail: validateEmail,
   getRpx: getRpx,

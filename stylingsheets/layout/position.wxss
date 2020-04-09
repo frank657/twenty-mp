@@ -58,5 +58,6 @@
   right: -10px;
 }
 
-.ib { display: inline }
-.dib { display: inline-block }
+.dn { display: none; }
+.ib { display: inline; }
+.dib { display: inline-block; }

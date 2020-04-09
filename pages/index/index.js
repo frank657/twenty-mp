@@ -1,10 +1,11 @@
-//index.js
+const BC = require('../../libs/bc.js');
+
 const app = getApp()
 
 Page({
   data: {
     pageName: 'indexMain', //DON'T CHANGE THIS
-    landingActive: false,
+    showLanding: true,
     tabbarActive: true,
     navbarActive: true,
     pageCur: 'tab1',
@@ -16,7 +17,10 @@ Page({
   },
 
   onLoad: function () {
-    setTimeout(() => { this.setData({landingActive: false}) }, 1500); //to be changed
     console.log('page', this)
+    BC.getData('events', this, false).then(res=>{
+      this.setData({events: res, showLanding: false})
+      console.log('events', res)
+    })
   }
 })

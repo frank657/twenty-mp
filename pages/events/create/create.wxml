@@ -1,60 +1,75 @@
 <navbar>
-  CREATE EVENT
+  <view class="ter bold f32">CREATE EVENT</view>
 </navbar>
 
 <view class="pa40">
-  <form>
-    <view style="height: 400rpx; border-radius: 60rpx;" 
-      class="w100 shadow row-center">
-      <view class="column-center">
+  <form bindsubmit="createEvent">
+    <view style="height: 400rpx; border-radius: 60rpx; overflow: hidden;" 
+      class="w100 shadow row-center relative">
+      <view class="h100 w100 absolute" bindtap="uploadImage" />
+      <view class="column-center" wx:if="{{!imgTempFile}}">
         <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" class="my30"></image>
         <text class="bold f32 ter">Upload a photo</text>
       </view>
+      <block wx:if="{{imgTempFile}}">
+        <image src="{{imgTempFile}}" mode="aspectFill" class="w100 h100"></image>
+        <image src="/images/icons/cross.svg" mode="aspectFit" 
+          class="pa absolute" 
+          bindtap="removeImage"
+          style="border-radius: 50%; height: 50rpx; width: 50rpx; left 50%; bottom: 20rpx; background: rgba(255,255,255,0.75);"></image>
+      </block>
     </view>
 
     <formInput title="Title">
-      <input class="bg-dim px20 py radius10"></input>
+      <input name="title" class="text-center bg-dim px20 py radius10"></input>
     </formInput>
     
     <formInput title="When">
       <view class="row-between">
         <view class="text-left w50">
-          <view class="f24">from</view>
+          <view class="f24 grey">from</view>
             
-          <picker name="untilDate" 
-            mode="date" value="{{date}}" start="1900-01-01" end="{{today}}" 
+          <picker name="start_date" 
+            mode="date" value="{{startDate||today}}" start="{{today}}" end="{{lastDate}}" 
             class="f28 w60 py sec f32 w100" 
+            data-type="start"
             bindchange="bindDateChange">
             <view class="picker">
-              {{date}}
+              {{startDate||today}}
             </view>
           </picker>
 
-          <picker name="untilTime" 
-            mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+          <picker name="start_time" 
+            mode="time" value="{{startTime||time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+            data-type="start"
             class="f28 w60 py sec f32 w100">
             <view class="picker">
-              {{time}}
+              {{startTime||time}}
             </view>
           </picker>
 
         </view>
         <view class="text-right w50">
-          <view class="f24">until</view>
-          <picker name="fromDate" 
-            mode="date" value="{{date}}" start="{{today}}" end="2022-12-31" 
+          <view class="f24 grey">until</view>
+          <picker name="end_date" 
+            mode="date" value="{{endDate||startDate||today}}" start="{{startDate||today}}" end="{{lastDate}}" 
             class="f28 w60 py sec f32 w100 text-right" 
+            data-type="end"
             bindchange="bindDateChange">
             <view class="picker">
-              {{date}}
+              {{endDate||startDate||today}}
             </view>
           </picker>
 
-          <picker name="fromTime" 
-            mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+          <picker name="end_time" 
+            mode="time" value="{{endTime||time}}" 
+            start="00:00" 
+            end="23:59" 
+            data-type="end"
+            bindchange="bindTimeChange"
             class="f28 w60 py sec f32 w100 text-right">
             <view class="picker">
-              {{time}}
+              {{endTime||time}}
             </view>
           </picker>
         </view>
@@ -62,16 +77,26 @@
     </formInput>
 
     <formInput title="Where">
-      <input class="bg-dim px20 py radius10"></input>
-      <view class="f28 bold sec text-center mt30">pin location</view>
+      <view class="f32 sec text-center mb30" bindtap="pinLocation">Pin location</view>
+      
+      <block wx:if="{{address}}">
+        <view class="text-center f24 grey my">Address</view>
+        <input name="address" value="{{address}}" class="text-center bg-dim px20 py radius10"></input>
+      </block>
+
+      <view class="text-center f24 grey my">Venue name</view>
+      <input name="venue_name" value="{{venue}}" class="text-center bg-dim px20 py radius10"></input>
+
+      <input class="dn" name="latitude" value="{{lat}}"></input>
+      <input class="dn" name="longitude" value="{{long}}"></input>
     </formInput>
 
     <formInput title="Description">
-      <textarea class="bg-dim px20 py radius10 box-b"></textarea>
+      <textarea name="description" class="bg-dim px20 py radius10 box-b"></textarea>
     </formInput>
 
-    <view style="height: 200rpx;"></view>
+    <!-- <view style="height: 200rpx;"></view> -->
 
-    <button class="bold ter f28 btn-footer bg-sec white row-center">Create</button>
+    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Create</button>
   </form>
 </view>
