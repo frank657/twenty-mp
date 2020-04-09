@@ -12,7 +12,10 @@
       <view class="f32 grey">11:00 - 12:00</view>
       <view class="row-start mt30">
         <image src="/images/icons/map-pin.svg" class="icon-mini mr20" mode="aspectFit"></image>
-        <view class="f32 grey">Xnode</view>
+        <view class="row-start">
+          <view class="f32 grey">Xnode</view>
+          <view class="f24 ter px20 py bg-dim ml30 radius10">see map</view>
+        </view>
       </view>
     </view>
     <image mode="aspectFill" 
@@ -25,7 +28,8 @@
       <image wx:for="{{[1,2,3,4]}}"
         class="mr20"
         src="/images/placeholder.jpeg"
-        style="width: 60rpx; height: 60rpx; border-radius: 35%;"></image>
+        style="width: 80rpx; height: 80rpx; border-radius: 35%;"></image>
+      <view style="height: 80rpx; width: 80rpx; border-radius: 35%;" class="bg-dim ter row-center">+8</view>
     </view>
     <button class="unset-btn" style="margin-right: 0;">
       <image src="/images/icons/qrcode.svg" style="width: 50rpx; height: 50rpx;" mode="aspectFit"></image>

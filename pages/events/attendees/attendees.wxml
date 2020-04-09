@@ -1,7 +1,7 @@
 <navbar />
 <!--pages/events/attendees/attendees.wxml-->
 <view class="px30 py50">
-  <view class="f36 bold ter mb30">In</view>
+  <view class="f36 bold ter mb30">In • 5</view>
   <view class="mb50">
     <image wx:for="{{[1,2,3,4,5]}}"
       mode="aspectFill" 
@@ -9,7 +9,7 @@
       style="height: 140rpx; width: 140rpx; border-radius: 35%;" 
       src="/images/placeholder.jpeg"></image>
   </view>
-  <view class="f36 bold ter mb30">Out</view>
+  <view class="f36 bold ter mb30">Out • 5</view>
   <view class="mb50">
     <image wx:for="{{[1,2,3,4,5]}}"
       mode="aspectFill" 
@@ -17,7 +17,7 @@
       style="height: 140rpx; width: 140rpx; border-radius: 35%;" 
       src="/images/placeholder.jpeg"></image>
   </view>
-  <view class="f36 bold ter mb30">Maybe</view>
+  <view class="f36 bold ter mb30">Maybe • 5</view>
   <view class="mb50">
     <image wx:for="{{[1,2,3,4,5]}}"
       mode="aspectFill" 
