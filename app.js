@@ -18,6 +18,6 @@ App({
     userInfo: null,
     api: '/api/v1/',
     host: 'http://localhost:3000'
-    // host: ''
+    // host: 'https://twenty.brainchild-tech.cn'
   }
 })

@@ -4,12 +4,12 @@
   <image src="/images/logo.png" mode="aspectFit" style="height: 100rpx;"></image>
 </view>
 
-<view class="mb30" wx:if="{{events.viewed.length}}">
+<view class="mb50" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">
     <view class="f36 bold w-100 text-left ter pl20">RECENTLY VIEWED</view>
   </view>
   <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
-  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 390rpx;">
+  <swiper class="card-swiper" bindchange="cardSwiper" style="height: 400rpx;">
     <swiper-item wx:for="{{events.viewed}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;">
       <card event="{{item}}" cardType="recent"/>
     </swiper-item>
