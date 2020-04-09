@@ -32,7 +32,7 @@
 }
 
 .card-big {
-	width: 500rpx !important;
+	width: 580rpx !important;
 }
 
 .card-small {

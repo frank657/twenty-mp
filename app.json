@@ -5,7 +5,9 @@
     "pages/events/home/home",
     "pages/tickets/home/home",
     "pages/contact/home/home",
-    "pages/events/show/show"
+    "pages/events/show/show",
+    "pages/events/create/create",
+    "pages/events/attendees/attendees"
   ],
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",

@@ -6,6 +6,10 @@ Component({
     shrinkLogo: {
       type: Boolean,
       value: false
+    },
+    navType: {
+      type: String,
+      value: 'stack'
     }
   },
   data: {

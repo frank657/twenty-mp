@@ -1,0 +1,6 @@
+<view class="w100 px40 py50 mt50 box-b shadow" style="border-radius: 40rpx;">
+  <view class="text-center bold f32 ter mb30">{{title}}</view>
+  <view class="w100">
+    <slot />
+  </view>
+</view>

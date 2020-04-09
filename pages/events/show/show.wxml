@@ -1,5 +1,5 @@
 <!--pages/events/show/show.wxml-->
-<navbar />
+<navbar navType='float' />
 
 <image src="/images/placeholder.jpeg" class="w100 fixed" style="height: 500rpx;"/>
 
@@ -42,10 +42,10 @@
   <view class="page-footer"></view>
 
 </view>
-  <view class="row-between show-footer bg-white">
-    <view class="bold ter f28 mr30">Joining?</view>
-    <view class="pa20 bg-sec white bold" style="border-radius: 30rpx;">Yes</view>
-    <view class="pa20 bold grey-light" style="border-radius: 30rpx;">No</view>
-    <view class="pa20 bold grey-light" style="border-radius: 30rpx;">Maybe</view>
-  </view>
+<view class="row-between show-footer bg-white">
+  <view class="bold ter f28 mr30">Joining?</view>
+  <view class="pa20 bg-sec white bold" style="border-radius: 30rpx;">Yes</view>
+  <view class="pa20 bold grey-light" style="border-radius: 30rpx;">No</view>
+  <view class="pa20 bold grey-light" style="border-radius: 30rpx;">Maybe</view>
+</view>
 

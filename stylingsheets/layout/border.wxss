@@ -5,7 +5,12 @@
 .bb { border-bottom: solid 1px; }
 
 .circle { border-radius: 50%; }
-.rounded { border-radius: 5px; }
+.rounded { border-radius: 6rpx; }
+.radius10 { border-radius: 10rpx; }
+.radius20 { border-radius: 20rpx; }
+.radius30 { border-radius: 30rpx; }
+.radius40 { border-radius: 40rpx; }
+.radius50 { border-radius: 50rpx; }
 
 .bn { border: 0px !important; }
 .b2 { border-width: 2rpx; }

@@ -1,31 +1,13 @@
 /* fonts */
 /* fontface to be loaded in js for faster performance */
-@font-face {
-  font-family: 'Montserrat';
-  src: url(https://bc-fonts.oss-cn-shanghai.aliyuncs.com/montserrat/Montserrat-Bold.ttf) format('truetype');
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url(https://bc-fonts.oss-cn-shanghai.aliyuncs.com/montserrat/Montserrat-Medium.ttf) format('truetype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url(https://bc-fonts.oss-cn-shanghai.aliyuncs.com/montserrat/Montserrat-Regular.ttf) format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+@import 'font.wxss';
 
 page {
   /* colors (DON'T CHANGE VARIABLE NAMES)*/
   --pri: #FF6F3C;
   --sec: #FF9A3C;
   --ter: #155263;
+  --dim: rgba(0,0,0,0.02);
   --white: #fff;
   --black: #000;
   --white: #fff;
@@ -50,7 +32,7 @@ page {
   --bottomSafe: env(safe-area-inset-bottom);
 
   /* fonts */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 
   /* other styles */
   box-sizing: border-box;
@@ -60,10 +42,6 @@ page {
   /* content f28 */
   /* color: var(--greyDark); */
   font-size: 28rpx;
-}
-
-.en-b {
-  font-family: 'Montserrat bold';
 }
 
 .wrapper {

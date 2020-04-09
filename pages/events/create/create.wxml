@@ -1,0 +1,77 @@
+<navbar>
+  CREATE EVENT
+</navbar>
+
+<view class="pa40">
+  <form>
+    <view style="height: 400rpx; border-radius: 60rpx;" 
+      class="w100 shadow row-center">
+      <view class="column-center">
+        <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" class="my30"></image>
+        <text class="bold f32 ter">Upload a photo</text>
+      </view>
+    </view>
+
+    <formInput title="Title">
+      <input class="bg-dim px20 py radius10"></input>
+    </formInput>
+    
+    <formInput title="When">
+      <view class="row-between">
+        <view class="text-left w50">
+          <view class="f24">from</view>
+            
+          <picker name="untilDate" 
+            mode="date" value="{{date}}" start="1900-01-01" end="{{today}}" 
+            class="f28 w60 py sec f32 w100" 
+            bindchange="bindDateChange">
+            <view class="picker">
+              {{date}}
+            </view>
+          </picker>
+
+          <picker name="untilTime" 
+            mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+            class="f28 w60 py sec f32 w100">
+            <view class="picker">
+              {{time}}
+            </view>
+          </picker>
+
+        </view>
+        <view class="text-right w50">
+          <view class="f24">until</view>
+          <picker name="fromDate" 
+            mode="date" value="{{date}}" start="{{today}}" end="2022-12-31" 
+            class="f28 w60 py sec f32 w100 text-right" 
+            bindchange="bindDateChange">
+            <view class="picker">
+              {{date}}
+            </view>
+          </picker>
+
+          <picker name="fromTime" 
+            mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+            class="f28 w60 py sec f32 w100 text-right">
+            <view class="picker">
+              {{time}}
+            </view>
+          </picker>
+        </view>
+      </view>
+    </formInput>
+
+    <formInput title="Where">
+      <input class="bg-dim px20 py radius10"></input>
+      <view class="f28 bold sec text-center mt30">pin location</view>
+    </formInput>
+
+    <formInput title="Description">
+      <textarea class="bg-dim px20 py radius10 box-b"></textarea>
+    </formInput>
+
+    <view style="height: 200rpx;"></view>
+
+    <button class="bold ter f28 btn-footer bg-sec white row-center">Create</button>
+  </form>
+</view>

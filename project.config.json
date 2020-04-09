@@ -53,6 +53,21 @@
 					"id": -1,
 					"name": "Event Show",
 					"pathName": "pages/events/show/show",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "create",
+					"pathName": "pages/events/create/create",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "attendees",
+					"pathName": "pages/events/attendees/attendees",
+					"query": "",
 					"scene": null
 				}
 			]

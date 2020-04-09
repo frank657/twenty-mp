@@ -1,0 +1,13 @@
+/* pages/events/create/create.wxss */
+
+.btn-footer {
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 80rpx;
+  margin-bottom: 80rpx;
+}
