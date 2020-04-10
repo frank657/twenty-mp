@@ -1,3 +1,4 @@
+const app = getApp()
 // pages/events/home/home.js
 Component({
   attached() {
@@ -7,7 +8,7 @@ Component({
     })
   },
   properties: {
-    events: { type: Object, value: [] }
+    events: { type: Object, value: [], observer() {this.setData({settings: app.globalData.settings})} }
   },
 
   /**

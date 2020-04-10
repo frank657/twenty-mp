@@ -138,6 +138,7 @@ const login = (url, code) => {
     BR.post(url, { code: code }).then((res) => {
       const app = getApp()
       app.globalData.headers = res.headers
+      app.globalData.settings = res.settings
       app.globalData.userInfo = res.user
 
       if (app.tokenReadyCallback) {
