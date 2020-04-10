@@ -66,6 +66,7 @@
     bindgetuserinfo="join"
     wx:for="{{answers}}"
     class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
-    style="border-radius: 30rpx; min-height: unset !important; width: unset !important;" data-answer="{{item.name}}">{{item.label}}</button>
+    style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
+    data-answer="{{item.name}}">{{item.label}}</button>
 </view>
 
