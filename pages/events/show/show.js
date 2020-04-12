@@ -7,7 +7,41 @@ Page({
       {name: 'yes', label: 'Yes'},
       {name: 'no', label: 'No'},
       {name: 'maybe', label: 'Maybe'}
-    ]
+    ],
+    showMore: false
+  },
+
+  clickMore() {
+    this.setData({showMore: !this.data.showMore})
+  },
+
+  deleteEvent() {
+    const that = this
+    wx.showModal({
+      cancelColor: '#000',
+      cancelText: 'Back',
+      confirmText: 'Confirm',
+      title: 'Cancel Event',
+      content: 'You are about to cancel this event. Do you want to confirm?',
+      success(res) { 
+        console.log(res)
+        if (res.confirm) {
+          const path = `${BC.getHost()}/events/${that.data.event.id}`
+          BC.del(path).then(res=>{
+            console.log(res)
+            if (res.status=='success') {
+              if (getCurrentPages().length>1) {
+                wx.navigateBack()
+              } else {
+                wx.reLaunch({ url: '/pages/index/index' })
+              }
+            }
+          })
+        } else if (res.cancel) {
+          that.setData({showMore: false})
+        }
+      }
+    })
   },
 
   join(e) {
@@ -43,8 +77,9 @@ Page({
     })
   },
 
-  onLoad: function (options) {
-    wx.showLoading({ title: 'Loading', })
+  onShow() {
+    this.setData({ showMore: false })
+    wx.showLoading({ title: 'Loading' })
     BC.userInfoReady(this)
     BC.getData(`events/${this.options.id}`).then(res=>{
       wx.hideLoading()
@@ -53,7 +88,10 @@ Page({
 
   openMap() {
     const e = this.data.event
+
     wx.openLocation({
+      name: e.venue_name,
+      address: e.address,
       latitude: e.latitude,
       longitude: e.longitude,
     })

@@ -2,9 +2,11 @@
 <view class="bg-white card-shadow" style="border-radius: {{cardType=='recent'?'20':'46'}}rpx; overflow: hidden;" bindtap="navToShow">
   <image src="{{event.image}}" style="height: {{cardType=='recent'?'180':'360'}}rpx;" class="w100" mode="aspectFill"></image>
   <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30 mt'}}">
-    <view class="pri bold mb {{cardType=='recent'?'f26 mt':'f32 mt20'}}">{{event.title}}</view>
-    <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[0]}}</view>
-    <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[1]}}</view>
+    <view class="pri bold mb {{cardType=='recent'?'f26 mt':'f32 mt20'}}">
+      {{cardType=='recent'?event.title_very_short:event.title_short}}
+      </view>
+    <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[cardType=='recent'?6:4]}}</view>
+    <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[cardType=='recent'?7:5]}}</view>
     <view wx:if="{{cardType!='recent'}}" class="row-between mt20 w100">
       <view class="row-between w100">
         <view class="row-start">

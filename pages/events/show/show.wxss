@@ -10,3 +10,9 @@
   border-radius: 50rpx 50rpx 0 0;
   padding: 50rpx 80rpx;
 }
+
+.float-btn {
+  width: 100rpx; 
+  height: 100rpx; 
+  border-radius: 50%;
+}

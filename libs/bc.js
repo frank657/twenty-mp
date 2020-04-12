@@ -18,7 +18,7 @@ const userLogin = () => {
     let app = getApp()
     wx.login({
       success: res => {
-        console.log(res)
+        console.log('code', res)
         login(`${getHost()}login`, res.code).then(res=> {
           console.log('login res ==>', res)
           getUserInfo();
@@ -135,9 +135,10 @@ const lastPage = () => {
 const login = (url, code) => {
   console.log(url)
   return new Promise((resolve, reject) => {
-    BR.post(url, { code: code }).then((res) => {
+    BR.post(url, { code: code, version: getApp().globalData.version }).then((res) => {
       const app = getApp()
       app.globalData.headers = res.headers
+      app.globalData.approval_version = res.approval_version
       app.globalData.settings = res.settings
       app.globalData.userInfo = res.user
 

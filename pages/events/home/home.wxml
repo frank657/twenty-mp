@@ -40,5 +40,14 @@
   </swiper>
 </view>
 
-<navigator wx:if="{{settings.show_create}}" url="/pages/events/create/create" class="fixed bg-sec f48 white row-center" 
-  style="bottom: 40rpx; right: 40rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.7);">+</navigator>
+<view class="column-center">
+  <view class="row-center">
+    <view class="f24 grey bold">Made with</view>
+    <image src="/images/icons/love.svg" mode="aspectFit" class="icon-mini mx"></image>
+    <view class="f24 grey bold">by</view>
+  </view>
+  <image src="/images/codepanda.png" mode="aspectFit" style="width: 350rpx; height: 350rpx;"></image>
+</view>
+
+<navigator wx:if="{{!approval_version}}" url="/pages/events/create/create" class="fixed bg-sec f48 white row-center" 
+  style="bottom: 60rpx; right: 60rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.7);">+</navigator>

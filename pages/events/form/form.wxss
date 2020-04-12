@@ -1,4 +1,4 @@
-/* pages/events/create/create.wxss */
+@import "/app";
 
 .btn-footer {
   /* position: fixed; */

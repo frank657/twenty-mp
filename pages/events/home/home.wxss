@@ -36,5 +36,5 @@
 }
 
 .card-small {
-	width: 300rpx !important;
+	width: 310rpx !important;
 }

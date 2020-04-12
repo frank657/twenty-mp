@@ -10,19 +10,20 @@
       <view class="bold f40 mb40 pri">{{event.title}}</view>
       <view class="f32 grey mb">{{event.ui_date[0]}}</view>
       <view class="f32 grey">{{event.ui_date[1]}}</view>
-      <view class="row-start mt30" bindtap="openMap">
-        <image src="/images/icons/map-pin.svg" class="icon-mini mr20" mode="aspectFit"></image>
-        <view class="row-start">
-          <view class="f32 grey">{{event.venue_name}}</view>
-          <view wx:if="{{event.longitude&&event.latitude}}" 
-            class="f24 ter px20 py bg-dim ml30 radius10">see map</view>
-        </view>
-      </view>
     </view>
     <image mode="aspectFill" 
       class="ml20"
       style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" 
       src="{{creator.avatar}}"></image>
+  </view>
+
+  <view class="row-start mt30 w100" bindtap="openMap">
+    <image src="/images/icons/map-pin.svg" class="icon-mini mr20" mode="aspectFit"></image>
+    <view class="row-start">
+      <view class="f32 grey">{{event.venue_name}}</view>
+      <view wx:if="{{event.longitude&&event.latitude}}" 
+        class="f24 ter px20 py bg-dim ml30 radius10" style="flex-shrink: 0;">see map</view>
+    </view>
   </view>
 
   <view class="row-between w100 mt50 mb100">
@@ -35,11 +36,18 @@
           src="{{item.avatar}}"
           style="width: 80rpx; height: 80rpx; border-radius: 35%;"></image>
       </block>
-      <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}"
+
+      <view wx:if="{{event.attendees.yes.length>4||!event.attendees.yes.length}}"
         style="height: 80rpx; width: 80rpx; border-radius: 35%;" 
-        class="bg-dim ter row-center">
-        {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}
+        class="bg-dim ter row-center mr20">
+        {{event.attendees.yes.length>3?event.attendees.yes.length-3:0}}
         </view>
+
+      <!-- <view style="height: 80rpx; width: 80rpx; border-radius: 35%;" 
+        class="bg-dim ter row-center f24">
+        list
+        </view> -->
+
     </navigator>
     <button open-type="share" class="unset-btn" style="margin-right: 0;">
       <image src="/images/icons/share.svg" 
@@ -50,13 +58,31 @@
   
   <view>
     <view class="bold f32 ter mb40">Description</view>
-    <view class="grey f28">{{event.description}}</view>
+    <text class="grey f28">{{event.description}}</text>
   </view>
 
-  <view class="page-footer"></view>
+  <view style="height: 150rpx;"/>
+
 
 </view>
 <view class="row-between show-footer bg-white">
+
+  <view wx:if="{{userInfo.id == creator.id}}" class="absolute" style="right: 40rpx; top: -180rpx;">
+    <view wx:if="{{showMore}}" style="top: -130rpx;" bindtap="deleteEvent"
+      class="absolute bg-sec row-center white f24 bold float-btn transition-3">
+      cancel
+    </view>
+    <navigator wx:if="{{showMore}}" style="left: -130rpx;" url="/pages/events/edit/edit?id={{event.id}}"
+      class="absolute bg-sec row-center white f24 bold float-btn transition-3">
+      edit
+    </navigator>
+    <view class="bg-sec row-center white f24 bold {{showMore?'':'opacity-3'}} transition-3 float-btn" 
+      style="{{showMore?'box-shadow: 0px 5px 20px rgba(255, 201, 60, 0.7)':''}};"
+      bindtap="clickMore">
+      {{showMore?'hide':'more'}}
+    </view>
+  </view>
+
   <view class="bold ter f28 mr50">Joining?</view>
   <!-- <view wx:for="{{answers}}"
     class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 

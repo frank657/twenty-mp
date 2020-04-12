@@ -61,14 +61,14 @@
 					"id": 0,
 					"name": "Event Show",
 					"pathName": "pages/events/show/show",
-					"query": "id=1",
+					"query": "id=5",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "create",
 					"pathName": "pages/events/create/create",
-					"query": "",
+					"query": "id=2",
 					"scene": null
 				},
 				{
