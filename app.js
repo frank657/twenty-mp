@@ -18,7 +18,7 @@ App({
     lang: 'en', // cn or en
     userInfo: null,
     api: '/api/v1/',
-    host: 'http://localhost:3000'
-    // host: 'https://twenty.brainchild-tech.cn'
+    // host: 'http://localhost:3000'
+    host: 'https://twenty.brainchild-tech.cn'
   }
 })
