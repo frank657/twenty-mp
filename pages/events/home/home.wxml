@@ -1,7 +1,7 @@
 <view style="height: {{statusBarHeight}}px"></view>
 
 <view class="w100 row-center py20 mb50">
-  <image src="/images/logo.png" mode="aspectFit" style="height: 100rpx;"></image>
+  <image src="/images/logo.png" mode="widthFix" style="width: 200rpx;"></image>
 </view>
 
 <view class="mb50" wx:if="{{events.viewed.length}}">
@@ -49,5 +49,5 @@
   <image src="/images/codepanda.png" mode="aspectFit" style="width: 350rpx; height: 350rpx;"></image>
 </view>
 
-<navigator wx:if="{{!approval_version}}" url="/pages/events/create/create" class="fixed bg-sec f48 white row-center" 
+<navigator url="/pages/events/create/create" class="fixed bg-sec f48 white row-center" 
   style="bottom: 60rpx; right: 60rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.7);">+</navigator>

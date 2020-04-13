@@ -65,6 +65,7 @@
 
 
 </view>
+
 <view class="row-between show-footer bg-white">
 
   <view wx:if="{{userInfo.id == creator.id}}" class="absolute" style="right: 40rpx; top: -180rpx;">

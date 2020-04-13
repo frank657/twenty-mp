@@ -2,7 +2,7 @@
 
   <view class="column-start w70 h100 items-center justify-around">
     <view class="w100 text-center mt100 pt50">
-      <image mode="aspectFit" class="w100" src="/images/logo.png"></image>
+      <image mode="aspectFit" style="width: 250rpx;" src="/images/logo.png"></image>
       <!-- <view class="black">Some title</view> -->
     </view>
 
