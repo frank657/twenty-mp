@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"preloadBackgroundData": false,
@@ -61,7 +61,7 @@
 					"id": 0,
 					"name": "Event Show",
 					"pathName": "pages/events/show/show",
-					"query": "id=5",
+					"query": "id=6",
 					"scene": null
 				},
 				{

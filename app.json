@@ -10,6 +10,11 @@
     "pages/events/attendees/attendees",
     "pages/events/edit/edit"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "Authorize location to continue"
+    }
+  },
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
     "navbar": "/components/navbar/navbar"

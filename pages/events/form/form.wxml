@@ -7,7 +7,7 @@
       <!-- <block wx:if="{{formType=='create'}}"> -->
         <view class="column-center" wx:if="{{!imgTempFile&&!event.image}}">
           <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" class="my30"></image>
-          <text class="bold f32 ter">Upload a photo</text>
+          <text class="bold f32 ter">Upload a Photo</text>
         </view>
         
         <block wx:if="{{imgTempFile||event.image}}">
@@ -102,6 +102,38 @@
 
       <input class="dn" name="latitude" value="{{lat||event.latitude}}"></input>
       <input class="dn" name="longitude" value="{{long||event.longitude}}"></input>
+    </formInput>
+
+    <formInput title="Maximum Attendees">
+      <view class="px20">
+        <view class="row-between">
+
+          <view class="row-start" bindtap="selectMaxCapacity" data-max-capacity="{{false}}">
+            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+              class="mr20 transition-3 {{!maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
+            </view>
+            <view class="transition-3 {{!maxCapacity?'sec':'grey-light'}}">
+              No limit
+            </view>
+          </view>
+
+          <view class="row-start" bindtap="selectMaxCapacity" data-max-capacity="{{true}}">
+            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+              class="mr20 transition-3 {{maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
+            </view>
+            <view class="transition-3 {{maxCapacity?'sec':'grey-light'}}">
+              limited spots
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view wx:if="{{maxCapacity}}" class="column-center">
+        <view class="text-center f24 grey mb mt50">Maximum</view>
+        <input name="max_capacity" type="number" value="{{formType=='edit'?event.max_capacity:''}}"
+          class="text-center bg-dim px20 py radius10 w30" 
+          auto-focus="{{maxCapacity}}"></input>
+      </view>
     </formInput>
 
     <formInput title="Description">

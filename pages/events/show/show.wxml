@@ -26,9 +26,16 @@
     </view>
   </view>
 
-  <view class="row-between w100 mt50 mb100">
-    <navigator 
-      url="/pages/events/attendees/attendees"
+  <view class="row-between">
+    <view class="bold f32 ter mt50 mb40">Attendees{{event.max_capacity?' (max '+event.max_capacity+')':''}}</view>
+    <button open-type="share" class="unset-btn" style="margin-right: 0;">
+      <image src="/images/icons/share.svg" 
+        style="width: 50rpx; height: 50rpx;" 
+        mode="aspectFit"></image>
+    </button>
+  </view>
+  <navigator url="/pages/events/attendees/attendees" class="row-between w100 mb100">
+    <view 
       class="row-start">
       <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2], event.attendees.yes[3]]}}">
         <image wx:if="{{item}}"
@@ -48,13 +55,10 @@
         list
         </view> -->
 
-    </navigator>
-    <button open-type="share" class="unset-btn" style="margin-right: 0;">
-      <image src="/images/icons/share.svg" 
-        style="width: 50rpx; height: 50rpx;" 
-        mode="aspectFit"></image>
-    </button>
-  </view>
+    </view>
+    <view wx:if="{{event.attendees.yes.length>0||event.attendees.no.length>0||event.attendees.maybe.length>0}}" 
+      class="f24 ter px20 py bg-dim ml30 radius10" style="flex-shrink: 0;">View all</view>
+  </navigator>
   
   <view>
     <view class="bold f32 ter mb40">Description</view>

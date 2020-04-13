@@ -58,11 +58,14 @@ Page({
             this.setData({event: res.event, attending_status: res.attending_status})
             wx.showToast({ title: 'Thank you!' })
           } else {
+            wx.hideLoading()
+            const title = res.title ? res.title : 'Failed to sign up'
+            const content = res.msg ? res.msg : 'Please try again'
             wx.showModal({
               showCancel: false,
               confirmText: 'OK',
-              title: 'Failed to sign up',
-              content: 'Please try again'
+              title: title,
+              content: content
             })
           }
         })

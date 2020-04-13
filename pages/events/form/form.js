@@ -8,17 +8,31 @@ Component({
   },
   
   properties: {
-    event: { type: Object, value: '' },
+    event: { type: Object, value: '', observer() {this.setCapacity()} },
     formType: { type: String, value: 'create'}
   },
 
   data: {
     time: '20:00',
     today: BU.getToday(),
-    lastDate: BU.getDateFromToday(5)
+    lastDate: BU.getDateFromToday(5),
+    maxCapacity: false
   },
 
   methods: {
+    setCapacity() {
+      const event = this.data.event
+      if (event) {
+        if (event.max_capacity) {
+          this.setData({maxCapacity: true})
+        }
+      }
+    },
+    selectMaxCapacity(e) {
+      const { maxCapacity } = e.currentTarget.dataset
+      this.setData({ maxCapacity })
+    },
+
     bindDateChange: function(e) {
       const { type } = e.currentTarget.dataset
       if (type == 'start') { this.setData({ startDate: e.detail.value }) }
@@ -32,16 +46,26 @@ Component({
     },
   
     pinLocation() {
+      console.log('clicked')
       const that = this
-      wx.chooseLocation({
+      wx.authorize({
+        scope: 'scope.userLocation',
         success(res) {
-          that.setData({
-            venue: res.name,
-            address: res.address,
-            long: res.longitude,
-            lat: res.latitude
+          console.log(res)
+          wx.chooseLocation({
+            success(res) {
+              that.setData({
+                venue: res.name,
+                address: res.address,
+                long: res.longitude,
+                lat: res.latitude
+              })
+            },
           })
         },
+        fail(res) {
+          console.log(res)
+        }
       })
     },
   
@@ -77,20 +101,25 @@ Component({
       delete data.end_date
       console.log(data)
 
-      if ((this.data.imgTempFile||this.data.event.image)&&data.title&&data.description&&data.venue_name) {
+      const pd = this.data
+      const has_image = pd.imgTempFile||pd.event.image 
+      const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
+      const has_details = data.title&&data.description&&data.venue_name
+
+      if (has_image&&has_max_or_unlimited&&has_details) {
         wx.showLoading({title: 'Loading'})        
-        if (this.data.formType=='create') {
+        if (pd.formType=='create') {
           BC.post(BC.getHost()+'events', data).then(res=>{
             if (res.status=='success') {
               this.uploadFile(res.event.id)
             }
           })
-        } else if (this.data.formType=='edit') {
-          const id = this.data.event.id
+        } else if (pd.formType=='edit') {
+          const id = pd.event.id
           BC.put(BC.getHost()+'events/'+id, data).then(res=>{
             console.log('here', res)
             if (res.status=='success') {
-              if (this.data.imgTempFile) {
+              if (pd.imgTempFile) {
                 this.uploadFile(res.event.id)
               } else {
                 wx.navigateBack()
