@@ -30,7 +30,8 @@ Component({
     },
     selectMaxCapacity(e) {
       const { maxCapacity } = e.currentTarget.dataset
-      this.setData({ maxCapacity })
+      const focusMaxCap = maxCapacity
+      this.setData({ maxCapacity, focusMaxCap })
     },
 
     bindDateChange: function(e) {

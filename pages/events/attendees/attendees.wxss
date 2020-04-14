@@ -1,1 +1,5 @@
 /* pages/events/attendees/attendees.wxss */
+.blur-user {
+  filter: blur(2px);
+  opacity: 0.3;
+}

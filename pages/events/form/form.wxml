@@ -132,7 +132,7 @@
         <view class="text-center f24 grey mb mt50">Maximum</view>
         <input name="max_capacity" type="number" value="{{formType=='edit'?event.max_capacity:''}}"
           class="text-center bg-dim px20 py radius10 w30" 
-          auto-focus="{{maxCapacity}}"></input>
+          auto-focus="{{focusMaxCap}}"></input>
       </view>
     </formInput>
 
