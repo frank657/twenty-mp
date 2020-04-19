@@ -14,7 +14,7 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.0.5',
+    version: '1.0.7',
     lang: 'en', // cn or en
     userInfo: null,
     api: '/api/v1/',

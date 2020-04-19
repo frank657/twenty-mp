@@ -152,6 +152,7 @@ Component({
           const data = JSON.parse(res.data)
           if (data.status == 'success') {
             if (formType=='create') {
+              console.log('event created')
               wx.redirectTo({
                 url: `/pages/events/show/show?id=${id}`,
               })
