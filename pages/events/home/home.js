@@ -15,13 +15,19 @@ Component({
    * Component initial data
    */
   data: {
-
+    showUpcomingAtt: true,
+    showUpcomingMine: true
   },
 
   /**
    * Component methods
    */
   methods: {
-    
+    changeAttending() {
+      this.setData({showUpcomingAtt: !this.data.showUpcomingAtt})
+    },
+    changeMine() {
+      this.setData({showUpcomingMine: !this.data.showUpcomingMine})
+    }
   }
 })

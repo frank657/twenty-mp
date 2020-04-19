@@ -1,6 +1,7 @@
 {
   "component": true,
   "usingComponents": {
-    "card": "/components/card/card"
+    "card": "/components/card/card",
+    "card-section": "./card-section/card-section"
   }
 }
