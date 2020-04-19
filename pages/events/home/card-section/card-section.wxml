@@ -1,4 +1,6 @@
-<view wx:if="{{!events.length}}" class="mx20 mt50 mb100 grey f28 text-left pl20">You are not attending any events yet.</view>
+<view wx:if="{{!events.length}}" class="mx20 mt50 mb100 grey f28 text-left pl20">
+  {{noEventText}}
+</view>
 <swiper wx:if="{{events.length}}" class="card-swiper" bindchange="cardSwiper" style="height: 700rpx;">
   <swiper-item wx:for="{{events}}" wx:key="index" class="card-wrapper card-big">
     <card event="{{item}}"/>

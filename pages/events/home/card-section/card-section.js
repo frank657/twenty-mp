@@ -4,7 +4,8 @@ Component({
    * Component properties
    */
   properties: {
-    events: { type: Array, value: [] }
+    events: { type: Array, value: [] },
+    noEventText: { type: String, value: 'No events' }
   },
 
   /**

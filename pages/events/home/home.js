@@ -8,7 +8,7 @@ Component({
     })
   },
   properties: {
-    events: { type: Object, value: [], observer() {this.setData({approval_version: app.globalData.approval_version})} }
+    events: { type: Object, value: [], observer() {this.setData({approval_version: app.globalData.approval_version, recentCur: 0})} }
   },
 
   /**
