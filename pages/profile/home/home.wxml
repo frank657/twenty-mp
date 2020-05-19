@@ -1,0 +1,71 @@
+<navbar hideTitleBar="{{true}}" />
+
+<view wx:if="{{!userInfoAuth}}" class="row-center" style="height: 80vh;">
+  <view class="column-center">
+    <view class="bold grey-light f48 mb20">Hi there!</view>
+    <view class="bold ter f36 mb40">Please log in to see your profile</view>
+    <button open-type="getUserInfo" 
+      bindgetuserinfo="signIn" 
+      style="margin-top: 0;"
+      class="mt100 bold ter f32 btn-footer bg-sec white row-center">Login</button>
+  </view>
+</view>
+
+<block wx:if="{{userInfoAuth}}">
+  <view class="px60 py20 mb60">
+    <view class="flex justify-between">
+      <view class="w30">
+        <image src="{{organization.avatar}}" class="avatar-ml shadow shrink0" mode="aspectFill"></image>
+      </view>
+      <view class="w70">
+        <view class="bold grey-light f40 mt">Hello</view>
+        <view class="bold mb20 ter f48">{{organization.name}}</view>
+        <view class="dib">
+          <view class="{{organization.is_private?'bg-red-light':'bg-green'}} px20 py white radius50 f24 row-start">
+            <picker range="{{profile_type}}" value="{{organization.is_private?1:0}}" 
+              bindchange="selectProfileType">
+              <view>{{organization.is_private?'Private Profile':'Public Profile'}}</view>
+            </picker>
+            <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- stats + description -->
+    <!-- <view class="flex mt20">
+      <view class="w30">
+        <view class="mb30">
+          <view class="f28 grey-light mb">Followers</view>
+          <view class="f40 bold">100</view>
+        </view>
+        <view>
+          <view class="f28 grey-light mb">Events</view>
+          <view class="f40 bold">100</view>
+        </view>
+      </view>
+
+      <view class="w70 row-start">
+        <view class="px40 py20 b-dotted b b-grey-light grey-light radius20">Add some description</view>
+      </view>
+      
+      <view class="w70 dn">
+        <text>Something Something Something Something Something Something Something </text>
+      </view>
+    </view> -->
+  </view>
+
+  <view class="mb50">
+    <view class="x-wrapper relative row-between">
+      <view class="f36 bold w-100 text-left ter pl20">MY EVENTS</view>
+      <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
+        <view class="absolute bg-sec h100 transition-3" 
+          style="{{showUpcoming?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>
+        <view class="w50 px20 py transition-3 {{showUpcoming?'white':'grey-light'}} z1 f24">upcoming</view>
+        <view class="w50 px20 py transition-3 {{showUpcoming?'grey-light':'white'}} z1 f24">past</view>
+      </view>
+    </view>
+
+    <card-section cardType="profile" events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" />
+  </view>
+</block>

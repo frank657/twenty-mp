@@ -25,3 +25,4 @@
 .br40 { border-radius: 40rpx; }
 
 .shadow { box-shadow: 0px 10px 45px -12px rgba(216, 216, 216, 0.7); }
+.b-dotted { border-style: dotted; }

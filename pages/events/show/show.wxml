@@ -1,6 +1,8 @@
 <!--pages/events/show/show.wxml-->
 <navbar navType='float' />
 
+<!-- <scroll-view>bindrefresherpulling
+</scroll-view> -->
 <image src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
@@ -11,10 +13,12 @@
       <view class="f32 grey mb">{{event.ui_date[0]}}</view>
       <view class="f32 grey">{{event.ui_date[1]}}</view>
     </view>
-    <image mode="aspectFill" 
-      class="ml20"
-      style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" 
-      src="{{creator.avatar}}"></image>
+    <navigator url="/pages/organizers/show/show?id={{creator.id}}">
+      <image mode="aspectFill" 
+        class="ml20"
+        style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" 
+        src="{{creator.avatar}}"></image>
+    </navigator>
   </view>
 
   <view class="row-start mt30 w100" bindtap="openMap">
@@ -95,7 +99,7 @@
 
 <view class="row-between show-footer bg-white">
 
-  <view wx:if="{{userInfo.id == creator.id}}" class="absolute" style="right: 40rpx; top: -180rpx;">
+  <view wx:if="{{userInfo.organization.id == creator.id}}" class="absolute" style="right: 40rpx; top: -180rpx;">
     <view wx:if="{{showMore}}" style="top: -130rpx;" bindtap="deleteEvent"
       class="absolute bg-sec row-center white f24 bold float-btn transition-3">
       cancel
@@ -111,16 +115,23 @@
     </view>
   </view>
 
-  <view class="bold ter f28 mr50">Joining?</view>
-  <!-- <view wx:for="{{answers}}"
-    class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
-    style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
-  <button
-    open-type="getUserInfo"
-    bindgetuserinfo="join"
-    wx:for="{{answers}}"
-    class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
-    style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
-    data-answer="{{item.name}}">{{item.label}}</button>
+  <block wx:if="{{event.signup_opens}}">
+    <view class="bold ter f28 mr50">Joining?</view>
+    <!-- <view wx:for="{{answers}}"
+      class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
+      style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
+    <button
+      open-type="getUserInfo"
+      bindgetuserinfo="join"
+      wx:for="{{answers}}"
+      class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
+      style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
+      data-answer="{{item.name}}">{{item.label}}</button>
+  </block>
+  <block wx:else>
+    <view class="w100 row-center">
+      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is not open yet</view>
+    </view>
+  </block>
 </view>
 

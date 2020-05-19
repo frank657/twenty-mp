@@ -98,6 +98,7 @@ Component({
       const data = e.detail.value
       data.start_time = `${data.start_date} ${data.start_time}`
       data.end_time = `${data.end_date} ${data.end_time}`
+      data.organization_id = app.globalData.userInfo.organization.id
       delete data.start_date
       delete data.end_date
       console.log(data)

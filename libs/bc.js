@@ -52,6 +52,7 @@ const getUserInfo = () => {
         if (res.authSetting['scope.userInfo']) {      
           getUserDetails().then(res => {
             if (app.userInfoReadyCallback) app.userInfoReadyCallback('user authorized')
+            if (app.orgRcb) app.orgRcb()
             resolve(res)
           })
         } else {

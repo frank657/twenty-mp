@@ -6,5 +6,5 @@
 }
 
 page {
-  background-color: #FFFDF8;
+  background-color: var(--dimYellow);
 }

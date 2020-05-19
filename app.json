@@ -3,12 +3,12 @@
     "pages/index/index",
     "pages/landing/landing",
     "pages/events/home/home",
-    "pages/tickets/home/home",
-    "pages/contact/home/home",
+    "pages/profile/home/home",
     "pages/events/show/show",
     "pages/events/create/create",
     "pages/events/attendees/attendees",
-    "pages/events/edit/edit"
+    "pages/events/edit/edit",
+    "pages/organizers/show/show"
   ],
   "permission": {
     "scope.userLocation": {
@@ -17,7 +17,8 @@
   },
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
-    "navbar": "/components/navbar/navbar"
+    "navbar": "/components/navbar/navbar",
+    "card-section": "/components/card-section/card-section"
   },
   "window": {
     "backgroundTextStyle": "light",

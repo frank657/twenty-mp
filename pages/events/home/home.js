@@ -1,5 +1,6 @@
-const app = getApp()
-// pages/events/home/home.js
+const app = getApp();
+const BC = require("../../../libs/bc");
+
 Component({
   attached() {
     const sysInfo = wx.getSystemInfoSync();
@@ -8,21 +9,23 @@ Component({
     })
   },
   properties: {
-    events: { type: Object, value: [], observer() {this.setData({approval_version: app.globalData.approval_version, recentCur: 0})} }
+    events: { type: Object, value: [], observer() { this.loadData() } }
   },
 
-  /**
-   * Component initial data
-   */
   data: {
     showUpcomingAtt: true,
     showUpcomingMine: true
   },
 
-  /**
-   * Component methods
-   */
+  ready() {
+    // BC.getData('events')
+  },
+
   methods: {
+    loadData() {
+      this.setData({approval_version: app.globalData.approval_version, recentCur: 0})
+    },
+
     changeAttending() {
       this.setData({showUpcomingAtt: !this.data.showUpcomingAtt})
     },
