@@ -3,15 +3,16 @@
     <view style="height: 400rpx; border-radius: 60rpx; overflow: hidden;" 
       class="w100 shadow row-center relative">
       <view class="h100 w100 absolute" bindtap="uploadImage" />
-
       <!-- <block wx:if="{{formType=='create'}}"> -->
-        <view class="column-center" wx:if="{{!imgTempFile&&!event.image}}">
-          <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" class="my30"></image>
+        <view class="column-center" wx:if="{{!imgTempFile&&!event.image&&!template.image}}">
+          <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" 
+            class="my30"></image>
           <text class="bold f32 ter">Upload a Photo</text>
         </view>
         
-        <block wx:if="{{imgTempFile||event.image}}">
-          <image src="{{event.image||imgTempFile}}" mode="aspectFill" class="w100 h100"></image>
+        <block wx:if="{{imgTempFile||event.image||template.image}}">
+          <image src="{{template.image||event.image||imgTempFile}}" mode="aspectFill" 
+            class="w100 h100"></image>
           <image src="/images/icons/cross.svg" mode="aspectFit" 
             class="pa absolute" 
             bindtap="removeImage"
@@ -31,7 +32,8 @@
     </view>
 
     <formInput title="Title">
-      <input name="title" class="text-center bg-dim px20 py radius10" value="{{formType=='edit'?event.title:''}}"></input>
+      <input wx:if="{{formType=='edit'}}" name="title" class="text-center bg-dim px20 py radius10" value="{{event.title}}"></input>
+      <input wx:else name="title" class="text-center bg-dim px20 py radius10" value="{{template?template.title:''}}"></input>
     </formInput>
     
     <formInput title="When">
@@ -92,16 +94,16 @@
     <formInput title="Where">
       <view class="f32 sec text-center mb30" bindtap="pinLocation">Pin location</view>
       
-      <block wx:if="{{address||event.address}}">
+      <block wx:if="{{address||event.address||template.venue_name}}">
         <view class="text-center f24 grey my">Address</view>
-        <input name="address" value="{{address||event.address}}" class="text-center bg-dim px20 py radius10"></input>
+        <input name="address" value="{{address||event.address||template.address}}" class="text-center bg-dim px20 py radius10"></input>
       </block>
 
       <view class="text-center f24 grey my">Venue name</view>
-      <input name="venue_name" value="{{venue||event.venue_name}}" class="text-center bg-dim px20 py radius10"></input>
+      <input name="venue_name" value="{{venue||event.venue_name||template.venue_name}}" class="text-center bg-dim px20 py radius10"></input>
 
-      <input class="dn" name="latitude" value="{{lat||event.latitude}}"></input>
-      <input class="dn" name="longitude" value="{{long||event.longitude}}"></input>
+      <input class="dn" name="latitude" value="{{lat||event.latitude||template.latitude}}"></input>
+      <input class="dn" name="longitude" value="{{long||event.longitude||template.longitude}}"></input>
     </formInput>
 
     <formInput title="Maximum Attendees">
@@ -130,14 +132,22 @@
       
       <view wx:if="{{maxCapacity}}" class="column-center">
         <view class="text-center f24 grey mb mt50">Maximum</view>
-        <input name="max_capacity" type="number" value="{{formType=='edit'?event.max_capacity:''}}"
+        <input wx:if="{{formType=='edit'}}" name="max_capacity" type="number" 
+          value="{{event.max_capacity}}"
+          class="text-center bg-dim px20 py radius10 w30" 
+          auto-focus="{{focusMaxCap}}"></input>
+        <input wx:else name="max_capacity" type="number" 
+          value="{{template?template.max_capacity:''}}"
           class="text-center bg-dim px20 py radius10 w30" 
           auto-focus="{{focusMaxCap}}"></input>
       </view>
     </formInput>
 
     <formInput title="Description">
-      <textarea name="description" class="bg-dim px20 py radius10 box-b" value="{{formType=='edit'?event.description:''}}"></textarea>
+      <textarea wx:if="{{formType=='edit'}}" name="description" maxlength="-1" 
+        class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
+      <textarea wx:else name="description" maxlength="-1" 
+        class="bg-dim px20 py radius10 box-b" value="{{template?template.description:''}}"></textarea>
     </formInput>
 
     <!-- <view style="height: 200rpx;"></view> -->

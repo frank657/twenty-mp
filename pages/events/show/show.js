@@ -100,6 +100,11 @@ Page({
     })
   },
 
+  navToOrganizer() {
+    const url = `/pages/organizers/show/show?id=${this.data.creator.id}`
+    wx.navigateTo({ url })
+  },
+
   onShareAppMessage: function () {
     const e = this.data.event
     return {

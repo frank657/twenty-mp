@@ -4,18 +4,20 @@
   <image src="/images/logo.png" mode="widthFix" style="width: 150rpx;"></image>
 </view>
 
-<view class="mb20 x-wrapper">
-  <view class="f36 bold w-100 text-left ter pl20">FOLLOWED ORGANIZERS</view>
-</view>
-<scroll-view class="w100 mb60" scroll-x>
-  <view class="w100 row-start nowrap avatar-container box-b">
-    <view class="avt" wx:for="{{events.followings}}">
-      <navigator url="/pages/organizers/show/show?id={{item.id}}" class="py20 px">
-        <image src="{{item.avatar}}" mode="aspectFill" class="avatar-ml card-shadow"></image>
-      </navigator>
-    </view>
+<block wx:if="{{events.followings.length}}">
+  <view class="mb20 x-wrapper">
+    <view class="f36 bold w-100 text-left ter pl20">FOLLOWED ORGANIZERS</view>
   </view>
-</scroll-view>
+  <scroll-view class="w100 mb60" scroll-x>
+    <view class="w100 row-start nowrap avatar-container box-b">
+      <view class="avt" wx:for="{{events.followings}}" wx:key="index">
+        <navigator url="/pages/organizers/show/show?id={{item.id}}" class="py20 px">
+          <image src="{{item.avatar}}" mode="aspectFill" class="avatar-ml card-shadow"></image>
+        </navigator>
+      </view>
+    </view>
+  </scroll-view>
+</block>
 
 <view class="mb50" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">

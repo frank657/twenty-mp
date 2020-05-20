@@ -15,8 +15,15 @@ Component({
   ready() {
     this.getOrganization()
     BC.userInfoReady(this)
+
   },
   
+  pageLifetimes: {
+    show() { 
+      this.getOrganization()
+    },
+  },
+
   methods: {
     signIn() {
       BC.getUserInfo()
@@ -34,6 +41,7 @@ Component({
       BC.getData(`organizations/${org_id}`, this)
     },
     changeUpcoming() {
+      this.getData()
       this.setData({showUpcoming: !this.data.showUpcoming})
     },
     selectProfileType(e) {
