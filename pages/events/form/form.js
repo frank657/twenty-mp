@@ -47,7 +47,7 @@ Component({
       if (type == 'start') { this.setData({ startTime: e.detail.value }) }
       if (type == 'end') { this.setData({ endTime: e.detail.value }) }
     },
-  
+
     pinLocation() {
       console.log('clicked')
       const that = this

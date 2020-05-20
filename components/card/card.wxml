@@ -60,9 +60,9 @@
         </picker>
 
       </view>
-      <!-- <picker range="{{adminShowMore}}" value="{{index}}">
+      <picker range="{{adminShowMore}}" value="{{index}}" bindchange="selectOption">
         <image src="/images/icons/more.svg" mode="aspectFit" class="icon-sm"></image>
-      </picker> -->
+      </picker>
     </view>
   </view>
 </view>

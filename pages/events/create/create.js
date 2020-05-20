@@ -17,7 +17,8 @@ Page({
 
   loadTemplate() {
     if (this.options.template) {
-      BC.getData(`events/${this.options.template}`)
+      wx.showLoading()
+      BC.getData(`events/${this.options.template}`).then(res=>wx.hideLoading())
     }
   }
 })

@@ -14,6 +14,9 @@ Page({
     ]
   },
 
+  onLoad(options) {
+    if (options.tab) {this.setData({pageCur: options.tab})}
+  },
   onShow: function () {
     BC.getData('events', this, false).then(res=>{
       this.setData({events: res, showLanding: false})

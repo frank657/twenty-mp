@@ -114,7 +114,7 @@
         class="absolute bg-sec row-center white f22 float-btn transition-3">
         cancel
       </view>
-      <navigator style="top: -260rpx;" url="/pages/events/edit/edit?id={{event.id}}"
+      <navigator style="top: -260rpx;" url="/pages/events/edit/edit?event={{event.id}}"
         class="absolute bg-sec row-center white f22 float-btn transition-3">
         edit
       </navigator>

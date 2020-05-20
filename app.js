@@ -1,6 +1,6 @@
 const BC = require('libs/bc.js');
 let dev;
-dev = true
+// dev = true
 
 //app.js
 App({
@@ -16,7 +16,7 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.1.0',
+    version: '1.1.1',
     lang: 'en', // cn or en
     userInfo: null,
     // env: 'dev',
