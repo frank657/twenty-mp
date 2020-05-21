@@ -4,14 +4,14 @@
       class="w100 shadow row-center relative">
       <view class="h100 w100 absolute" bindtap="uploadImage" />
       <!-- <block wx:if="{{formType=='create'}}"> -->
-        <view class="column-center" wx:if="{{!imgTempFile&&!event.image&&!template.image}}">
+        <view class="column-center" wx:if="{{hasNoImage||!imgTempFile&&!event.image&&!template.image}}">
           <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" 
             class="my30"></image>
           <text class="bold f32 ter">Upload a Photo</text>
         </view>
-        
-        <block wx:if="{{imgTempFile||event.image||template.image}}">
-          <image src="{{template.image||event.image||imgTempFile}}" mode="aspectFill" 
+        <!-- wx:if="{{!hasNoImage&&hasNewImage&&(imgTempFile||event.image||template.image)}}" -->
+        <block wx:else>
+          <image src="{{imgTempFile||template.image||event.image}}" mode="aspectFill" 
             class="w100 h100"></image>
           <image src="/images/icons/cross.svg" mode="aspectFit" 
             class="pa absolute" 

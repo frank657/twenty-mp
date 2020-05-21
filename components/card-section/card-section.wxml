@@ -5,6 +5,6 @@
 
 <swiper wx:if="{{events.length}}" class="card-swiper" style="height: {{cardType=='profile'?800:700}}rpx;">
   <swiper-item wx:for="{{events}}" wx:key="index" class="card-wrapper card-big">
-    <card event="{{item}}" cardType="{{cardType}}"/>
+    <card event="{{item}}" cardType="{{cardType}}" bind:compTriggeredEvent="compTriggeredEvent"/>
   </swiper-item>
 </swiper>

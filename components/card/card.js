@@ -54,11 +54,12 @@ Component({
             BC.del(path).then(res=>{
               console.log(res)
               if (res.status=='success') {
-                if (getCurrentPages().length>1) {
-                  wx.navigateBack()
-                } else {
-                  wx.reLaunch({ url: '/pages/index/index?tab=tab2' })
-                }
+                // if (getCurrentPages().length>1) {
+                //   wx.navigateBack()
+                // } else {
+                //   wx.reLaunch({ url: '/pages/index/index?tab=tab2' })
+                // }
+                that.triggerEvent('compTriggeredEvent', {func: 'getData'})
               }
             })
           }

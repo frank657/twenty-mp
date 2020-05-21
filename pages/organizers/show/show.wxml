@@ -16,7 +16,13 @@
   </view>
 </view>
 
-<view class="mb50">
+<view wx:if="{{organization.is_private}}" class="px60">
+  <view class="b grey-light row-center radius30 pa50 text-center" style="border-style: dashed;">
+    <view class="f32" style="line-height: 1.5;">This is a private profile. Events organized by private organizers are not displayed on organizer profile.</view>
+  </view>
+</view>
+
+<view wx:else class="mb50">
   <view class="x-wrapper relative row-center">
     <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
       <view class="absolute bg-sec h100 transition-3" 

@@ -6,7 +6,27 @@
 <image src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
+  <view wx:if="{{userInfo.organization.id == creator.id}}" class="row-start mb30">
+    <picker class="px20 py f22 mr radius50 {{event.is_published?'bg-green':'bg-red-light'}}" 
+      range="{{adminPublish}}"
+      value="{{event.is_published?0:1}}"
+      bindchange="publishEvent">
+      <view class="row-start">
+        <view class="white">{{event.is_published?'Published':'Unpublished'}}</view>
+        <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+      </view>
+    </picker>
 
+    <picker class="px20 py f22 mr radius50 {{event.signup_opens?'bg-green':'bg-red-light'}}" 
+      range="{{adminSignup}}"
+      value="{{event.signup_opens?0:1}}"
+      bindchange="openSignup">
+      <view class="row-start">
+        <view class="white">{{event.signup_opens?'Signup open':'Signup closed'}}</view>
+        <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+      </view>
+    </picker>
+  </view>
   <view class="row-between" style="align-items: flex-start;">
     <view class="">
       <view class="bold f40 mb40 pri">{{event.title}}</view>

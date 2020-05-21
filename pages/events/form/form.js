@@ -1,6 +1,7 @@
 const BC = require('../../../libs/bc');
 const BU = require('../../../libs/bc-utils');
 const app = getApp();
+const { CoverImage } = require('../../../utils/cover-image')
 
 Component({
   attached() {
@@ -79,21 +80,33 @@ Component({
         success (res) {
           const tempFilePaths = res.tempFilePaths
           that.setData({imgTempFile: tempFilePaths[0]})
-          const {event, template} = that.data
-          if (event) event.image = null
-          if (template) template.image = null
-          that.setData({ event, template })
+          // const {event, template} = that.data
+          // if (event) event.image = null
+          // if (template) template.image = null
+          // that.setData({ event, template })
+          that.setData({hasNewImage: true, hasNoImage: false})
         }
       })
     },
     removeImage() {
-      const {event, template} = this.data
-      const imgTempFile = null
-      if (event) event.image = null
-      if (template) template.image = null
-      this.setData({ event, template, imgTempFile })
+      // const {event, template} = this.data
+      // const imgTempFile = null
+      // if (event) event.image = null
+      // if (template) template.image = null
+      // this.setData({ event, template, imgTempFile })
+      console.log('has image?', this.hasImage(), this.data)
+      this.setData({hasNewImage: false, imgTempFile: null, hasNoImage: true})
     },
   
+    hasImage() {
+      const pd = this.data
+      const hasImage = !pd.hasNoImage
+      const hasNewImage = pd.hasNewImage && pd.imgTempFile
+      const hasEventImage = (pd.event?pd.event.image:false)
+      const hasTemplateImage = (pd.template?pd.template.image:false)
+      return hasImage && (hasNewImage||hasEventImage||hasTemplateImage)
+    },
+
     submitEvent(e) {
       const data = e.detail.value
       data.start_time = `${data.start_date} ${data.start_time}`
@@ -104,7 +117,7 @@ Component({
 
       const pd = this.data
 
-      const has_image = pd.imgTempFile||(pd.event?pd.event.image:null)||(pd.template?pd.template.image:null)
+      const has_image = this.hasImage()
       const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
       const has_details = data.title&&data.description&&data.venue_name
 
@@ -122,7 +135,7 @@ Component({
           BC.put(BC.getHost()+'events/'+id, data).then(res=>{
             console.log('here', res)
             if (res.status=='success') {
-              if (pd.imgTempFile) {
+              if (pd.hasNewImage&&pd.imgTempFile) {
                 this.uploadFile(res.event.id)
               } else {
                 wx.navigateBack()
@@ -153,7 +166,8 @@ Component({
     },
 
     uploadFile(id) {
-      const formType = this.data.formType
+      const pd = this.data
+      const formType = pd.formType
       const path = `${BC.getHost()}events/${id}/upload`
       var img;
 
@@ -190,13 +204,12 @@ Component({
         })
       }
 
-      if (this.data.imgTempFile) { 
-        img = this.data.imgTempFile
+      if (pd.imgTempFile&&pd.hasNewImage) { 
+        img = pd.imgTempFile
         upload(path, img)
-      } else if (this.data.template.image) {
+      } else if (!pd.hasNoImage&&pd.template.image) {
         this.getImagePath(img).then(res=>upload(path, res))
       }
-
     }
   }
 })

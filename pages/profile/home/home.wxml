@@ -66,6 +66,7 @@
       </view>
     </view>
 
-    <card-section cardType="profile" events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" />
+    <card-section cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
+      events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" />
   </view>
 </block>

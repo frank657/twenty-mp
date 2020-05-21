@@ -25,6 +25,13 @@ Component({
   },
 
   methods: {
+    compTriggeredEvent(e) {
+      const func = e.detail.func
+      if (func == 'getData') {
+        this.getData()
+      }
+    },
+
     signIn() {
       BC.getUserInfo()
     },

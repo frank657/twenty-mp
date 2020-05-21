@@ -11,5 +11,8 @@ Component({
   },
 
   methods: {
+    compTriggeredEvent(e) {
+      this.triggerEvent('compTriggeredEvent', e.detail) 
+    }
   }
 })
