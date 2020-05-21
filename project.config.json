@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"preloadBackgroundData": false,
@@ -21,7 +21,9 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.10.0",
@@ -61,7 +63,7 @@
 					"id": 0,
 					"name": "Event Show",
 					"pathName": "pages/events/show/show",
-					"query": "id=14",
+					"query": "id=3",
 					"scene": null
 				},
 				{
@@ -76,6 +78,13 @@
 					"name": "attendees",
 					"pathName": "pages/events/attendees/attendees",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "organizer",
+					"pathName": "pages/organizers/show/show",
+					"query": "id=2",
 					"scene": null
 				}
 			]

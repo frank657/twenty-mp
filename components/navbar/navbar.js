@@ -3,14 +3,10 @@ const BC = require('../../libs/bc.js')
 
 Component({
   properties: {
-    shrinkLogo: {
-      type: Boolean,
-      value: false
-    },
-    navType: {
-      type: String,
-      value: 'stack'
-    }
+    shrinkLogo: { type: Boolean, value: false },
+    navType: { type: String, value: 'stack' },
+    hideTitleBar: { type: Boolean, value: false },
+    background: { type: String, value: 'transparent' }
   },
   data: {
     backgroundColor: 'transparent',

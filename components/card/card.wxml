@@ -1,16 +1,24 @@
 <!--components/card/card.wxml-->
-<view class="bg-white card-shadow" style="border-radius: {{cardType=='recent'?'20':'46'}}rpx; overflow: hidden;" bindtap="navToShow">
+<view class="bg-white card-shadow relative" style="border-radius: {{cardType=='recent'?'20':'46'}}rpx; overflow: hidden;">
   <image src="{{event.image}}" style="height: {{cardType=='recent'?'180':'360'}}rpx;" class="w100" mode="aspectFill"></image>
   <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30 mt'}}">
+    <!-- Signed up & viewed -->
+    <!-- <view wx:if="{{cardType=='profile'}}" class="row-start">
+      <view class="row-start">
+        <image src="/images/icons/check.svg" mode="aspectFit" class="icon-mini"></image>
+        <view></view>
+      </view>
+    </view> -->
+    
     <view class="pri bold mb {{cardType=='recent'?'f26 mt':'f32 mt20'}}">
       {{cardType=='recent'?event.title_very_short:event.title_short}}
       </view>
     <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[cardType=='recent'?6:4]}}</view>
     <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[cardType=='recent'?7:5]}}</view>
-    <view wx:if="{{cardType!='recent'}}" class="row-between mt20 w100">
+    <view wx:if="{{cardType=='event'}}" class="row-between mt20 w100">
       <view class="row-between w100">
         <view class="row-start">
-          <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2]]}}">
+          <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2]]}}" wx:key="index">
             <image wx:if="{{item}}"
               src="{{item.avatar}}"
               class="mr20"
@@ -25,6 +33,36 @@
           style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" 
           class="bg-dim ter row-center">in</view> -->
       </view>
+    </view>
+
+    <view class="absolute pos-fill z1" bindtap="navToShow"></view>
+    <!-- admin -->
+    <view wx:if="{{cardType=='profile'}}" class="row-between mt20 relative z9">
+      <view class="row-start">
+        <picker class="px20 py f22 mr radius50 {{event.is_published?'bg-green':'bg-red-light'}}" 
+          range="{{adminPublish}}"
+          value="{{event.is_published?0:1}}"
+          bindchange="publishEvent">
+          <view class="row-start">
+            <view class="white">{{event.is_published?'Published':'Unpublished'}}</view>
+            <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+          </view>
+        </picker>
+
+        <picker class="px20 py f22 mr radius50 {{event.signup_opens?'bg-green':'bg-red-light'}}" 
+          range="{{adminSignup}}"
+          value="{{event.signup_opens?0:1}}"
+          bindchange="openSignup">
+          <view class="row-start">
+            <view class="white">{{event.signup_opens?'Signup open':'Signup closed'}}</view>
+            <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+          </view>
+        </picker>
+
+      </view>
+      <picker range="{{adminShowMore}}" value="{{index}}" bindchange="selectOption">
+        <image src="/images/icons/more.svg" mode="aspectFit" class="icon-sm"></image>
+      </picker>
     </view>
   </view>
 </view>

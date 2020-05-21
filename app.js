@@ -1,4 +1,6 @@
 const BC = require('libs/bc.js');
+let dev;
+// dev = true
 
 //app.js
 App({
@@ -14,11 +16,16 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.0.7',
+    version: '1.1.1',
     lang: 'en', // cn or en
     userInfo: null,
+    // env: 'dev',
+    env: dev?'dev':'prod',
+    host: {
+      prod: 'https://twenty.brainchild-tech.cn',
+      stag: 'https://twenty-staging.brainchild-tech.cn',
+      dev: 'http://localhost:3000'
+    },
     api: '/api/v1/',
-    // host: 'http://localhost:3000'
-    host: 'https://twenty.brainchild-tech.cn'
-  }
+  },
 })

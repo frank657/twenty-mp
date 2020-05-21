@@ -18,7 +18,7 @@ page {
   --yellow: #ffca00;
   --orange: #F08302;
   --red: #BF3F50;
-  --redLight: #d86964;
+  --redLight: #E67A7A;
   --purple: #d5a2ff;
   --navy: #0f1221;
   --blue: #242e49;
@@ -29,7 +29,9 @@ page {
   --blueCreamDark: #757b95;
   --blueCreamVDark: #2b3451;
   --blueGradient: linear-gradient(to left, #0575e6, #021b79);
+  --dimYellow: #FFFDF8;
   --bottomSafe: env(safe-area-inset-bottom);
+
 
   /* fonts */
   font-family: 'Roboto', sans-serif;

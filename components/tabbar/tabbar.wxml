@@ -1,12 +1,19 @@
 <!-- <tabbar /> -->
-<view class="cu-bar tabbar shadow foot" style="border: none">
+<view class="cu-bar tabbar shadow foot relative" style="border: none; border-radius: 50rpx 50rpx 0 0;">
+  <view class="w100 absolute row-center" style="top: 0;">
+    <navigator url="/pages/events/create/create" class="relative bg-pri white row-center" 
+      style="width: 100rpx; height: 100rpx; border-radius: 50%; top: -50rpx; box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.7);">
+      <image src="/images/tabbar/plus.svg" style="width: 40rpx; height: 40rpx;" mode="aspectFit"></image>
+    </navigator>
+  </view>
+
   <view wx:for="{{tabs}}" wx:key="index" class="action" bindtap="tabChange" data-cur="{{item.tab}}">
     <view class='cuIcon-cu-image'>
       <image src="{{pageCur==item.tab?item.iconCur:item.icon}}"></image>
     </view>
-    <view class="fsbody"
+    <!-- <view class="fsbody"
       style="color: {{pageCur==item.tab?colorTabCur:colorTab}}">
       {{item.name}}
-    </view>
+    </view> -->
   </view>
 </view>

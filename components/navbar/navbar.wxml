@@ -1,9 +1,11 @@
 <view>
   <!-- FULL BG OF NAVBAR -->
-  <view class="nav-outer-container {{navType=='float'?'fixed':''}}" style="background: {{navType=='float'?'transparent':'white'}}">
+  <view  wx:if="{{!hideTitleBar}}" 
+    class="nav-outer-container {{navType=='float'?'fixed':''}}" 
+    style="background: {{background}}">
     
     <!-- TOP BG OF NAVBAR -->
-    <view style="height: {{statusBarHeight}}px; background: transparent;"></view>
+    <view style="height: {{statusBarHeight}}px; background: {{background}};"></view>
     
     <!-- BOTTOM BG OF NAVBAR -->
     <view class="nav-container">
@@ -30,7 +32,7 @@
   
   <!-- Space that prevent position fixed nav-container from collapsing -->
   <view class="{{navType=='float'?'fixed':''}}">
-    <view style="height: {{statusBarHeight}}px; background: transparent;"></view>
-    <view class="nav-space"></view>
+    <view style="height: {{statusBarHeight}}px; background: {{background}};"></view>
+    <view class="nav-space" wx:if="{{!hideTitleBar}}"></view>
   </view>
 </view>

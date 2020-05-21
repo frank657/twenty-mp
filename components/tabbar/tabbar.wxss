@@ -20,9 +20,9 @@
 
 .cu-bar.tabbar {
 	padding: 0;
-  padding-top: 36rpx !important;
-	height: calc(100rpx + env(safe-area-inset-bottom) / 2);
-	padding-bottom: calc(env(safe-area-inset-bottom) / 2 + 30rpx);
+  padding-top: 20rpx !important;
+	/* height: calc(100rpx + env(safe-area-inset-bottom) / 2); */
+	padding-bottom: calc(env(safe-area-inset-bottom) / 2 + 20rpx);
 }
 
 .cu-bar.tabbar.shadow {
@@ -40,10 +40,6 @@
 	line-height: 1;
 	margin: 0;
 	overflow: initial;
-}
-
-.cu-bar.tabbar .action .cuIcon-cu-image {
-	margin: 0 auto 16rpx auto;
 }
 
 .cu-bar.tabbar .action .cuIcon-cu-image image {

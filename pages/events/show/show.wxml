@@ -1,20 +1,45 @@
 <!--pages/events/show/show.wxml-->
 <navbar navType='float' />
 
+<!-- <scroll-view>bindrefresherpulling
+</scroll-view> -->
 <image src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
+  <view wx:if="{{userInfo.organization.id == creator.id}}" class="row-start mb30">
+    <picker class="px20 py f22 mr radius50 {{event.is_published?'bg-green':'bg-red-light'}}" 
+      range="{{adminPublish}}"
+      value="{{event.is_published?0:1}}"
+      bindchange="publishEvent">
+      <view class="row-start">
+        <view class="white">{{event.is_published?'Published':'Unpublished'}}</view>
+        <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+      </view>
+    </picker>
 
+    <picker class="px20 py f22 mr radius50 {{event.signup_opens?'bg-green':'bg-red-light'}}" 
+      range="{{adminSignup}}"
+      value="{{event.signup_opens?0:1}}"
+      bindchange="openSignup">
+      <view class="row-start">
+        <view class="white">{{event.signup_opens?'Signup open':'Signup closed'}}</view>
+        <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+      </view>
+    </picker>
+  </view>
   <view class="row-between" style="align-items: flex-start;">
     <view class="">
       <view class="bold f40 mb40 pri">{{event.title}}</view>
       <view class="f32 grey mb">{{event.ui_date[0]}}</view>
       <view class="f32 grey">{{event.ui_date[1]}}</view>
     </view>
-    <image mode="aspectFill" 
-      class="ml20"
-      style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" 
-      src="{{creator.avatar}}"></image>
+    <view class="ml20">
+      <image mode="aspectFill" 
+        bindtap="{{!creator.is_private?'navToOrganizer':''}}"
+        class="{{!creator.is_private?'b b4 b-sec':''}}"
+        style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" 
+        src="{{creator.avatar}}"></image>
+    </view>
   </view>
 
   <view class="row-start mt30 w100" bindtap="openMap">
@@ -39,7 +64,7 @@
     <navigator url="/pages/events/attendees/attendees" class="row-between w100 mb30">
       <view 
         class="row-start">
-        <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2], event.attendees.yes[3]]}}">
+        <block wx:for="{{[event.attendees.yes[0], event.attendees.yes[1], event.attendees.yes[2], event.attendees.yes[3]]}}" wx:key="index">
           <image wx:if="{{item}}"
             class="mr20"
             src="{{item.avatar}}"
@@ -83,27 +108,41 @@
     </view>
   </view>
 
-  <view>
+  <view class="mb100">
     <view class="bold f32 ter mb40">Description</view>
     <text class="grey f28">{{event.description}}</text>
   </view>
 
-  <view style="height: 150rpx;"/>
+  <view class="w100 row-center">
+    <navigator url="/pages/events/create/create"
+      class="b radius20 px30 py20 grey-light" 
+      style="border-style: dashed">Create your own event</navigator>
+  </view>
 
-
+  <view style="height: 170rpx;"/>
 </view>
 
-<view class="row-between show-footer bg-white">
 
-  <view wx:if="{{userInfo.id == creator.id}}" class="absolute" style="right: 40rpx; top: -180rpx;">
-    <view wx:if="{{showMore}}" style="top: -130rpx;" bindtap="deleteEvent"
-      class="absolute bg-sec row-center white f24 bold float-btn transition-3">
-      cancel
-    </view>
-    <navigator wx:if="{{showMore}}" style="left: -130rpx;" url="/pages/events/edit/edit?id={{event.id}}"
-      class="absolute bg-sec row-center white f24 bold float-btn transition-3">
-      edit
-    </navigator>
+<view class="row-between show-footer bg-white">
+  
+  <view wx:if="{{showMore}}" bindtap="clickMore" 
+    class="fixed pos-fill z8" style="background-color: rgba(0,0,0,0.3)"></view>
+
+  <view wx:if="{{userInfo.organization.id == creator.id}}" class="absolute z9" style="right: 40rpx; top: -180rpx;">
+    <block wx:if="{{showMore}}">
+      <view style="top: -390rpx;" bindtap="deleteEvent"
+        class="absolute bg-sec row-center white f22 float-btn transition-3">
+        cancel
+      </view>
+      <navigator style="top: -260rpx;" url="/pages/events/edit/edit?event={{event.id}}"
+        class="absolute bg-sec row-center white f22 float-btn transition-3">
+        edit
+      </navigator>
+      <navigator style="top: -130rpx;" url="/pages/events/create/create?template={{event.id}}"
+        class="absolute bg-sec row-center white f22 float-btn transition-3">
+        duplicate
+      </navigator>
+    </block>
     <view class="bg-sec row-center white f24 bold {{showMore?'':'opacity-3'}} transition-3 float-btn" 
       style="{{showMore?'box-shadow: 0px 5px 20px rgba(255, 201, 60, 0.7)':''}};"
       bindtap="clickMore">
@@ -111,16 +150,22 @@
     </view>
   </view>
 
-  <view class="bold ter f28 mr50">Joining?</view>
-  <!-- <view wx:for="{{answers}}"
-    class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
-    style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
-  <button
-    open-type="getUserInfo"
-    bindgetuserinfo="join"
-    wx:for="{{answers}}"
-    class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
-    style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
-    data-answer="{{item.name}}">{{item.label}}</button>
+  <block wx:if="{{event.signup_opens}}">
+    <view class="bold ter f28 mr50">Joining?</view>
+    <!-- <view wx:for="{{answers}}"
+      class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
+      style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
+    <button
+      open-type="getUserInfo"
+      bindgetuserinfo="join"
+      wx:for="{{answers}}" wx:key="index"
+      class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
+      style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
+      data-answer="{{item.name}}">{{item.label}}</button>
+  </block>
+  <block wx:else>
+    <view class="w100 row-center">
+      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is not open yet</view>
+    </view>
+  </block>
 </view>
-

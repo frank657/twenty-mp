@@ -38,3 +38,17 @@
 .card-small {
 	width: 340rpx !important;
 }
+
+.avatar-container .avt{
+	/* padding-right: 16rpx !important; */
+}
+.avatar-container .avt:first-child{
+	padding-left: 30rpx !important;
+}
+.avatar-container .avt:last-child{
+	padding-right: 30rpx !important;
+}
+
+.card-shadow {
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.08);
+}
