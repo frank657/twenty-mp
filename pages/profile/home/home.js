@@ -15,7 +15,6 @@ Component({
   ready() {
     this.getOrganization()
     BC.userInfoReady(this)
-
   },
   
   pageLifetimes: {
@@ -43,14 +42,18 @@ Component({
         this.getData()
       }
     },
+
     getData() {
+      wx.showLoading()
       const org_id = app.globalData.userInfo.organization.id
-      BC.getData(`organizations/${org_id}`, this)
+      BC.getData(`organizations/${org_id}`, this).then(res=>wx.hideLoading())
     },
+
     changeUpcoming() {
       this.getData()
       this.setData({showUpcoming: !this.data.showUpcoming})
     },
+    
     selectProfileType(e) {
       const is_private = e.detail.value == 1
       if (is_private != this.data.organization.is_private) {

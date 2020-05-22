@@ -18,8 +18,10 @@ Page({
     if (options.tab) {this.setData({pageCur: options.tab})}
   },
   onShow: function () {
+    if (!this.data.showLanding) wx.showLoading()
     BC.getData('events', this, false).then(res=>{
       this.setData({events: res, showLanding: false})
+      wx.hideLoading()
     })
   }
 })

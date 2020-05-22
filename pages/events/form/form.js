@@ -9,19 +9,35 @@ Component({
   },
   
   properties: {
-    template: { type: Object, value: null, observer() {this.setCapacity()} },
-    event: { type: Object, value: null, observer() {this.setCapacity()} },
+    template: { type: Object, value: null, observer() { this.loadFields() } },
+    event: { type: Object, value: null, observer() { this.loadFields() } },
     formType: { type: String, value: 'create'}
   },
 
   data: {
     time: '20:00',
+    defaultEndTime: '21:00',
     today: BU.getToday(),
     lastDate: BU.getDateFromToday(5),
     maxCapacity: false,
+    signupOpen: false,
+    eventPublished: true,
+    signupInfo: "When the signup is closed, users cannot register themselves for your event. You can toggle between open or close at any time from your profile page or from the event page.",
+    publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page."
   },
 
   methods: {
+    loadFields() {
+      this.setCapacity()
+      if (this.data.event) { this.loadSignupAndPublished('event') }
+      if (this.data.template) { this.loadSignupAndPublished('template') }
+    },
+    loadSignupAndPublished(type) {
+      const signupOpen = this.data[type].signup_opens
+      const eventPublished = this.data[type].is_published
+      this.setData({ signupOpen, eventPublished })
+    },
+
     setCapacity() {
       const {event, template} = this.data
       if (event) {
@@ -37,6 +53,9 @@ Component({
       this.setData({ maxCapacity, focusMaxCap })
     },
 
+    selectSignupOpen(e) { this.setData({ signupOpen: e.currentTarget.dataset.select }) },
+    selectPublished(e) { this.setData({ eventPublished: e.currentTarget.dataset.select }) },
+
     bindDateChange: function(e) {
       const { type } = e.currentTarget.dataset
       if (type == 'start') { this.setData({ startDate: e.detail.value }) }
@@ -47,6 +66,10 @@ Component({
       const { type } = e.currentTarget.dataset
       if (type == 'start') { this.setData({ startTime: e.detail.value }) }
       if (type == 'end') { this.setData({ endTime: e.detail.value }) }
+    },
+
+    setDefaultEndTime(startTime) {
+      // add 1 hour to start time as default end time
     },
 
     pinLocation() {
@@ -120,7 +143,7 @@ Component({
       const has_image = this.hasImage()
       const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
       const has_details = data.title&&data.description&&data.venue_name
-
+      console.log(data)
       if (has_image&&has_max_or_unlimited&&has_details) {
         wx.showLoading({title: 'Loading'})        
         if (pd.formType=='create') {

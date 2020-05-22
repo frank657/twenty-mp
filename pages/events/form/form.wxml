@@ -77,14 +77,14 @@
 
           <picker name="end_time" 
             mode="time" 
-            value="{{endTime||startTime||event.form_date.end.time||time}}" 
+            value="{{endTime||startTime||event.form_date.end.time||defaultEndTime}}" 
             start="00:00" 
             end="23:59" 
             data-type="end"
             bindchange="bindTimeChange"
             class="f28 w60 py sec f32 w100 text-right">
             <view class="picker">
-              {{endTime||startTime||event.form_date.end.time||time}}
+              {{endTime||startTime||event.form_date.end.time||defaultEndTime}}
             </view>
           </picker>
         </view>
@@ -124,7 +124,7 @@
               class="mr20 transition-3 {{maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
             </view>
             <view class="transition-3 {{maxCapacity?'sec':'grey-light'}}">
-              limited spots
+              Limited spots
             </view>
           </view>
         </view>
@@ -149,6 +149,58 @@
       <textarea wx:else name="description" maxlength="-1" 
         class="bg-dim px20 py radius10 box-b" value="{{template?template.description:''}}"></textarea>
     </formInput>
+
+
+    <formInput title="Signup Open" info="{{signupInfo}}">
+      <view class="px20">
+        <view class="row-between">
+          <input class="dn" name="signup_opens" value="{{signupOpen}}"></input>
+          <view class="row-start" bindtap="selectSignupOpen" data-select="{{true}}">
+            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+              class="mr20 transition-3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
+            </view>
+            <view class="transition-3 {{signupOpen?'sec':'grey-light'}}">
+              Open
+            </view>
+          </view>
+
+          <view class="row-start" bindtap="selectSignupOpen" data-select="{{false}}">
+            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+              class="mr20 transition-3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
+            </view>
+            <view class="transition-3 {{!signupOpen?'sec':'grey-light'}}">
+              Closed
+            </view>
+          </view>
+        </view>
+      </view>
+    </formInput>
+
+    <formInput title="Show as Published" info="{{publishInfo}}">
+      <view class="px20">
+        <view class="row-between">
+          <input class="dn" name="is_published" value="{{eventPublished}}"></input>
+          <view class="row-start" bindtap="selectPublished" data-select="{{true}}">
+            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+              class="mr20 transition-3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
+            </view>
+            <view class="transition-3 {{eventPublished?'sec':'grey-light'}}">
+              Published
+            </view>
+          </view>
+
+          <view class="row-start" bindtap="selectPublished" data-select="{{false}}">
+            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+              class="mr20 transition-3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
+            </view>
+            <view class="transition-3 {{!eventPublished?'sec':'grey-light'}}">
+              Unpublished
+            </view>
+          </view>
+        </view>
+      </view>
+    </formInput>
+
 
     <!-- <view style="height: 200rpx;"></view> -->
 

@@ -1,5 +1,9 @@
 <view class="w100 px40 py50 mt50 box-b shadow" style="border-radius: 40rpx;">
-  <view class="text-center bold f32 ter mb30">{{title}}</view>
+  <view class="text-center bold f32 ter mb30 relative">
+    <view>{{title}}</view>
+    <view wx:if="{{info}}" bindtap="showInfo" class="f20 bg-dim grey-light circle row-center absolute r0 t0" 
+      style="width: 24rpx; height: 24rpx; padding: 6rpx;">?</view>
+  </view>
   <view class="w100">
     <slot />
   </view>
