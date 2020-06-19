@@ -1,0 +1,4 @@
+<!-- <view catchtap="buttonClick" style="width: 25px; height: 25px;" class="b circle b-grey-light grey flex justify-center items-center"> -->
+<view catchtap="buttonClick" style="width: 25px; height: 25px;" class="circle bg-sec white flex justify-center items-center">
+  {{title}}
+</view>

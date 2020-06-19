@@ -23,12 +23,14 @@ Component({
     signupOpen: false,
     eventPublished: true,
     signupInfo: "When the signup is closed, users cannot register themselves for your event. You can toggle between open or close at any time from your profile page or from the event page.",
-    publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page."
+    publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page.",
+    answers: []
   },
 
   methods: {
     loadFields() {
       this.setCapacity()
+      this.setAnswers()
       if (this.data.event) { this.loadSignupAndPublished('event') }
       if (this.data.template) { this.loadSignupAndPublished('template') }
     },
@@ -36,6 +38,18 @@ Component({
       const signupOpen = this.data[type].signup_opens
       const eventPublished = this.data[type].is_published
       this.setData({ signupOpen, eventPublished })
+    },
+
+    setAnswers() {
+      const { event, template } = this.data
+      if (event) {
+        // if (event.max_capacity) this.setData({ maxCapacity: true })
+        this.setData({ answers: event.answers })
+      }
+      if (template) {
+        // if (template.max_capacity) this.setData({ maxCapacity: true })
+        this.setData({ answers: template.answers })
+      }
     },
 
     setCapacity() {
@@ -132,6 +146,7 @@ Component({
 
     submitEvent(e) {
       const data = e.detail.value
+      data['answers'] = this.data.answers
       data.start_time = `${data.start_date} ${data.start_time}`
       data.end_time = `${data.end_date} ${data.end_time}`
       data.organization_id = app.globalData.userInfo.organization.id
@@ -143,8 +158,11 @@ Component({
       const has_image = this.hasImage()
       const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
       const has_details = data.title&&data.description&&data.venue_name
+      const has_qa = ((data.question && data.answers.length) || (!data.question && !data.answers.length)) ? true : false
+      
+      console.log('has q&a?', has_qa)
       console.log(data)
-      if (has_image&&has_max_or_unlimited&&has_details) {
+      if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
         wx.showLoading({title: 'Loading'})        
         if (pd.formType=='create') {
           BC.post(BC.getHost()+'events', data).then(res=>{
@@ -233,6 +251,28 @@ Component({
       } else if (!pd.hasNoImage&&pd.template.image) {
         this.getImagePath(img).then(res=>upload(path, res))
       }
+    },
+    addRemoveAnswers(e) {
+      console.log('on form', e)
+      let answers = this.data.answers
+      if (e.detail.action == 'add') {
+        answers.push("")
+        this.setData({ answers })
+        console.log(this.data)
+      } else {
+        console.log('removing')
+        answers.splice(e.detail.index, 1)
+        this.setData({ answers })
+      }
+      console.log('answers:', this.data.answers)
+    },
+    addAnswer(e) {
+      console.log('addAnswer', e)
+      let answers = this.data.answers
+      // answers.push(e.detail.value)
+      answers[e.target.dataset.index] = e.detail.value
+      this.setData({ answers })
+      console.log('answers:', this.data.answers)
     }
   }
 })

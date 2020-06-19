@@ -123,7 +123,7 @@
 </view>
 
 
-<view class="row-between show-footer bg-white">
+<view wx:if="{{!showQuestion}}" class="show-footer bg-white">
   
   <view wx:if="{{showMore}}" bindtap="clickMore" 
     class="fixed pos-fill z8" style="background-color: rgba(0,0,0,0.3)"></view>
@@ -151,21 +151,54 @@
   </view>
 
   <block wx:if="{{event.signup_opens}}">
-    <view class="bold ter f28 mr50">Joining?</view>
-    <!-- <view wx:for="{{answers}}"
-      class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
-      style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
-    <button
-      open-type="getUserInfo"
-      bindgetuserinfo="join"
-      wx:for="{{answers}}" wx:key="index"
-      class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
-      style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
-      data-answer="{{item.name}}">{{item.label}}</button>
+    <view class="row-between">
+      <view class="bold ter f28 mr50">Joining?</view>
+      <!-- <view wx:for="{{answers}}"
+        class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
+        style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
+      <button
+        open-type="getUserInfo"
+        bindgetuserinfo="join"
+        wx:for="{{answers}}" wx:key="index"
+        class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
+        style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
+        data-answer="{{item.name}}">{{item.label}}</button>
+    </view>
   </block>
-  <block wx:else>
+
+  <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt50">
+    <view class="ter f24">{{event.question}}</view>
+    <view class="grey f24">{{event.answers[selectedAnswer]}} <text catchtap="changeAnswer" class="ml20 medium sec" style="text-decoration: underline;">Change answer</text> </view> 
+  </view>
+
+  <!-- <view wx:if="{{showQuestion}}" class="flex column">
+    <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>
+    <view class="w100 mt20">
+      <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}">
+        <view class="bg-dim pa20 radius10 grey flex justify-between items-center">
+          {{(selectedAnswer != null) ? event.answers[selectedAnswer] : 'Choose an answer.. '}} <image style="width: 10px; height: 10px;" src="/images/icons/down_arrow.png"></image> 
+        </view>
+      </picker>
+    </view>
+    <button bindtap="submitAnswer" class="b b-sec w100 mt30 bold f32 btn-footer bg-white sec row-center">OK</button>
+  </view> -->
+
+  <block wx:if="{{!event.signup_opens}}">
     <view class="w100 row-center">
       <view class="px30 py20 radius30 bold bg-grey-light white">Signup is not open yet</view>
     </view>
   </block>
+</view>
+
+<!-- <view wx:else class="row-between show-footer bg-white flex column"> -->
+<view wx:if="{{showQuestion}}" class="row-between show-footer bg-white flex column">
+  <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>
+  <view class="w100 mt20">
+    <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}">
+      <view class="bg-dim pa20 radius10 grey flex justify-between items-center">
+        {{(selectedAnswer != null) ? event.answers[selectedAnswer] : 'Choose an answer.. '}} <image style="width: 10px; height: 10px;" src="/images/icons/down_arrow.png"></image> 
+      </view>
+    </picker>
+  </view>
+  <button bindtap="submitAnswer" class="b b-sec w100 mt30 bold f32 btn-footer bg-white sec row-center">OK</button>
 </view>

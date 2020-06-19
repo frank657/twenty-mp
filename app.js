@@ -19,8 +19,8 @@ App({
     version: '1.1.3',
     lang: 'en', // cn or en
     userInfo: null,
-    // env: 'dev',
-    env: dev?'dev':'prod',
+    env: 'dev',
+    // env: dev?'dev':'prod',
     host: {
       prod: 'https://twenty.brainchild-tech.cn',
       stag: 'https://twenty-staging.brainchild-tech.cn',

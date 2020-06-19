@@ -150,6 +150,30 @@
         class="bg-dim px20 py radius10 box-b" value="{{template?template.description:''}}"></textarea>
     </formInput>
 
+    <formInput title="Additional Question">
+      <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
+      <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
+      <view wx:if="{{answers.length}}" class="mt20 flex column w100">
+        <block wx:for="{{answers}}" wx:key="index">
+          <!-- <view class="grey py px20 mr20">{{index + 1}}</view> -->
+          <view class="flex w100 mb20">
+            <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" />
+            <view class="ml20 w100">
+              <input bindblur="addAnswer" data-index="{{index}}" class="bg-dim px20 py radius10" value="{{item}}"></input>
+            </view>
+          </view>
+        </block>
+      </view>
+
+      <view class="mt20 flex w100">
+        <!-- <view class="b circle b-grey-light grey py px20 mr20">+</view> -->
+        <plus bind:plusclicked="addRemoveAnswers" title="+" />
+        <view class="ml20 w100 py px20 grey-light">
+          Click to add an answer
+        </view>
+      </view>
+    </formInput>
+
 
     <formInput title="Signup Open" info="{{signupInfo}}">
       <view class="px20">
@@ -175,6 +199,8 @@
         </view>
       </view>
     </formInput>
+
+    
 
     <formInput title="Show as Published" info="{{publishInfo}}">
       <view class="px20">
