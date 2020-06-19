@@ -84,7 +84,17 @@ Page({
     wx.showLoading({ title: 'Loading' })
     const data = { attendee: { status: this.data.answer, selected_answer: this.data.selectedAnswer } }
     console.log('data', data)
-    this.submitRsvp(data);
+    if (this.data.selectedAnswer != null) {
+      this.submitRsvp(data);
+    } else {
+      wx.hideLoading()
+      wx.showModal({
+        showCancel: false,
+        confirmText: 'OK',
+        title: 'Failed',
+        content: 'Please choose an answer'
+      })
+    }
   },
 
   join(e) {
@@ -124,6 +134,9 @@ Page({
         this.setData({ event: res.event, attending_status: res.attending_status, selectedAnswer: res.selected_answer })
         wx.showToast({ title: 'Thank you!' })
         this.setData({ showQuestion: false })
+        if (res.event.question != '' && res.selected_answer != null) {
+          this.setData({ showAnswer: true })
+        }
       } else {
         wx.hideLoading()
         const title = res.title ? res.title : 'Failed to sign up'
