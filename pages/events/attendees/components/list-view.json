@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "list-view-item": "./list-view-item"
+  }
+}

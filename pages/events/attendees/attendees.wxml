@@ -1,76 +1,83 @@
 <navbar />
 <!--pages/events/attendees/attendees.wxml-->
-<view class="px30 py50">
-  <view class="f36 bold ter mb30">In • {{attendees.yes.length?attendees.yes.length:0}}</view>
+<block wx:if="{{listView}}">
+  <list-view bind:updateattendee attendees="{{attendees}}" event="{{event}}" />
+</block>
 
-  <block wx:if="{{attendees.yes_answers}}">
-    <block wx:for="{{attendees.yes_answers}}">
-      <view class="f34 sec mb30" style="padding-left: 80rpx; padding-right: 30rpx;">{{item[0]}} • {{item[1].length}}</view>
+<block wx:else>
 
-      <view class="mb50 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
-        <view style="width: 120rpx;" class="mb30 relative" wx:for="{{item[1]}}">
-          <image bindtap="tapUser"
-            data-id="{{item.id}}"
-            mode="aspectFill" 
-            class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
-            style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-            src="{{item.avatar}}"></image>
-          <view wx:if="{{selectedId==item.id}}" 
-            class="f24 text-center absolute w100"
-            style="top: 130rpx;">{{item.nickname}}</view>
+  <view class="px30 py50">
+    <view class="f36 bold ter mb30">In • {{attendees.yes.length?attendees.yes.length:0}}</view>
+
+    <block wx:if="{{attendees.yes_answers}}">
+      <block wx:for="{{attendees.yes_answers}}">
+        <view class="f34 sec mb30" style="padding-left: 80rpx; padding-right: 30rpx;">{{item[0]}} • {{item[1].length}}</view>
+
+        <view class="mb50 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
+          <view style="width: 120rpx;" class="mb30 relative" wx:for="{{item[1]}}">
+            <image bindtap="tapUser"
+              data-id="{{item.id}}"
+              mode="aspectFill" 
+              class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
+              style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
+              src="{{item.avatar}}"></image>
+            <view wx:if="{{selectedId==item.id}}" 
+              class="f24 text-center absolute w100"
+              style="top: 130rpx;">{{item.nickname}}</view>
+          </view>
+          <view wx:for="{{item[1].length%4>0?4-item[1].length%4:[]}}" style="width: 120rpx"></view>
         </view>
-        <view wx:for="{{item[1].length%4>0?4-item[1].length%4:[]}}" style="width: 120rpx"></view>
-      </view>
 
+      </block>
     </block>
-  </block>
 
-  <view class="mb100 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
-    <view wx:if="{{!attendees.yes_answers}}" style="width: 120rpx;" class="mb30 relative" wx:for="{{attendees.yes}}">
-      <image bindtap="tapUser"
-        data-id="{{item.id}}"
-        mode="aspectFill" 
-        class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
-        style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-        src="{{item.avatar}}"></image>
-      <view wx:if="{{selectedId==item.id}}" 
-        class="f24 text-center absolute w100"
-        style="top: 130rpx;">{{item.nickname}}</view>
+    <view class="mb100 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
+      <view wx:if="{{!attendees.yes_answers}}" style="width: 120rpx;" class="mb30 relative" wx:for="{{attendees.yes}}">
+        <image bindtap="tapUser"
+          data-id="{{item.id}}"
+          mode="aspectFill" 
+          class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
+          style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
+          src="{{item.avatar}}"></image>
+        <view wx:if="{{selectedId==item.id}}" 
+          class="f24 text-center absolute w100"
+          style="top: 130rpx;">{{item.nickname}}</view>
+      </view>
+      <view wx:for="{{attendees.yes.length%4>0?4-attendees.yes.length%4:[]}}" style="width: 120rpx"></view>
     </view>
-    <view wx:for="{{attendees.yes.length%4>0?4-attendees.yes.length%4:[]}}" style="width: 120rpx"></view>
-  </view>
 
-  <view class="f36 bold ter mb30">Out • {{attendees.no.length?attendees.no.length:0}}</view>
-  <view class="mb100 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
-    <view style="width: 120rpx;" class="mb30 relative" wx:for="{{attendees.no}}">
-      <image bindtap="tapUser"
-        data-id="{{item.id}}"
-        mode="aspectFill" 
-        class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
-        style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-        src="{{item.avatar}}"></image>
-      <view wx:if="{{selectedId==item.id}}" 
-        class="f24 text-center absolute w100"
-        style="top: 130rpx;">{{item.nickname}}</view>
+    <view class="f36 bold ter mb30">Out • {{attendees.no.length?attendees.no.length:0}}</view>
+    <view class="mb100 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
+      <view style="width: 120rpx;" class="mb30 relative" wx:for="{{attendees.no}}">
+        <image bindtap="tapUser"
+          data-id="{{item.id}}"
+          mode="aspectFill" 
+          class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
+          style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
+          src="{{item.avatar}}"></image>
+        <view wx:if="{{selectedId==item.id}}" 
+          class="f24 text-center absolute w100"
+          style="top: 130rpx;">{{item.nickname}}</view>
+      </view>
+      <view wx:for="{{attendees.no.length%4>0?4-attendees.no.length%4:[]}}" style="width: 120rpx"></view>
     </view>
-    <view wx:for="{{attendees.no.length%4>0?4-attendees.no.length%4:[]}}" style="width: 120rpx"></view>
-  </view>
 
-  <view class="f36 bold ter mb30">Maybe • {{attendees.maybe.length?attendees.maybe.length:0}}</view>
-  <view class="mb100 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
-    <view style="width: 120rpx;" class="mb30 relative" wx:for="{{attendees.maybe}}">
-      <image bindtap="tapUser"
-        data-id="{{item.id}}"
-        mode="aspectFill" 
-        class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
-        style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
-        src="{{item.avatar}}"></image>
-      <view wx:if="{{selectedId==item.id}}" 
-        class="f24 text-center absolute w100"
-        style="top: 130rpx;">{{item.nickname}}</view>
+    <view class="f36 bold ter mb30">Maybe • {{attendees.maybe.length?attendees.maybe.length:0}}</view>
+    <view class="mb100 row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
+      <view style="width: 120rpx;" class="mb30 relative" wx:for="{{attendees.maybe}}">
+        <image bindtap="tapUser"
+          data-id="{{item.id}}"
+          mode="aspectFill" 
+          class="mr30 transition-3 {{selectedId&&selectedId!=item.id?'blur-user':''}}"
+          style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
+          src="{{item.avatar}}"></image>
+        <view wx:if="{{selectedId==item.id}}" 
+          class="f24 text-center absolute w100"
+          style="top: 130rpx;">{{item.nickname}}</view>
+      </view>
+      <view wx:for="{{attendees.maybe.length%4>0?4-attendees.maybe.length%4:[]}}" style="width: 120rpx"></view>
     </view>
-    <view wx:for="{{attendees.maybe.length%4>0?4-attendees.maybe.length%4:[]}}" style="width: 120rpx"></view>
-  </view>
 
-</view>
+  </view>
+</block>
 

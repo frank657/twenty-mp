@@ -2,12 +2,13 @@ const BC = require('../../../libs/bc');
 
 Page({
   data: {
-    selectedId: null
+    selectedId: null,
+    listView: true,
   },
 
   onLoad: function (options) {
     wx.hideShareMenu()
-    this.setData({attendees: BC.lastPage().data.event.attendees})    
+    this.setData({ attendees: BC.lastPage().data.event.attendees, event: BC.lastPage().data.event})    
   },
 
   tapUser(e) {
