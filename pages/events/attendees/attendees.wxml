@@ -1,11 +1,12 @@
 <navbar />
 <!--pages/events/attendees/attendees.wxml-->
+<!-- IF ORGANIZER, GO TO LIST VIEW -->
 <block wx:if="{{listView}}">
   <list-view bind:updateattendee attendees="{{attendees}}" event="{{event}}" />
 </block>
 
+<!-- ATTENDEES NORMAL VIEW -->
 <block wx:else>
-
   <view class="px30 py50">
     <view class="f36 bold ter mb30">In • {{attendees.yes.length?attendees.yes.length:0}}</view>
 
