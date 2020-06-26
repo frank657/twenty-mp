@@ -1,23 +1,14 @@
-// pages/events/form/components/plusButton.js
 Component({
-  /**
-   * Component properties
-   */
   properties: {
     title: {type: String},
-    index: {type: Number}
+    index: {type: Number},
+    disable: {type: Boolean, value: false}
   },
 
-  /**
-   * Component initial data
-   */
   data: {
 
   },
 
-  /**
-   * Component methods
-   */
   methods: {
     buttonClick() {
       console.log('buttton clicked, title:', this.data.title, 'index', this.data.index)

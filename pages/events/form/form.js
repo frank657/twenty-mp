@@ -152,7 +152,7 @@ Component({
 
     submitEvent(e) {
       const data = e.detail.value
-      // data['answers'] = this.data.answers
+      data['answers'] = this.data.answers
       data.start_time = `${data.start_date} ${data.start_time}`
       data.end_time = `${data.end_date} ${data.end_time}`
       data.organization_id = app.globalData.userInfo.organization.id
@@ -164,17 +164,19 @@ Component({
       const has_image = this.hasImage()
       const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
       const has_details = data.title&&data.description&&data.venue_name
-      // const has_qa = ((data.question && data.answers.length) || (!data.question && !data.answers.length)) ? true : false
-      const has_qa = true
+      const has_qa = ((data.question && data.answers.length) || (!data.question && !data.answers.length))
+      // const has_qa = true
       
-      // console.log('has q&a?', has_qa)
+      console.log('has q&a?', has_qa)
 
       console.log(data)
-      
+      // const existingAnswers = this.data.answers.filter(a=>a.id)
+      // const newAnswers = this.data.answers.filter(a=>!a.id)
+      const body = this.data.answers.length ? {event: data, answers: this.data.answers} : {event: data}
+
       if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
-        wx.showLoading({title: 'Loading'})        
+        wx.showLoading({title: 'Loading'})    
         if (pd.formType=='create') {
-          const body = this.data.answers.length ? {event: data, answers: this.data.answers} : {event: data}
           BC.post(BC.getHost()+'events', body).then(res=>{
             console.log('form res', res)
             if (res.status=='success') {
@@ -183,7 +185,7 @@ Component({
           })
         } else if (pd.formType=='edit') {
           const id = pd.event.id
-          BC.put(BC.getHost()+'events/'+id, data).then(res=>{
+          BC.put(BC.getHost()+'events/'+id, body).then(res=>{
             console.log('here', res)
             if (res.status=='success') {
               if (pd.hasNewImage&&pd.imgTempFile) {
@@ -191,7 +193,7 @@ Component({
               } else {
                 wx.navigateBack()
               }
-            } 
+            }
           })
         }
       } else {
@@ -199,7 +201,7 @@ Component({
           showCancel: false,
           confirmText: 'OK',
           title: 'Details missing',
-          content: 'Please upload a picture and fill out all the details to continue'
+          content: 'Please upload a picture and fill out all the details to continue.'
         })
       }
     },
@@ -277,21 +279,27 @@ Component({
       console.log('answers:', this.data.answers)
     },
     addAnswer(e) {
-      console.log('addAnswer', e, 'answers', answers)
       let answers = this.data.answers
       const index = e.target.dataset.index
       // answers.push(e.detail.value)
+      // let answer = answers[index]
+      const value = e.detail.value
+      answers[index].id ? answers[index].content = value : answers[index] = value
+       
+      this.setData({ answers })
       
-      if (this.data.formType=='create') {
-        answers[index] = e.detail.value
-        this.setData({ answers })
-        console.log('answers:', this.data.answers)
-      } else {
-        const current_answer = this.data.event.answers[index]['content']
-        if (current_answer != e.detail.value) {
-          BC.put(BC.getHost() + 'answers/' + e.currentTarget.dataset.id, { content: e.detail.value })
-        }
-      }
+      console.log('answers:', this.data.answers)
+
+      // if (this.data.formType=='create') {
+      //   answers[index] = e.detail.value
+      //   this.setData({ answers })
+      // console.log('answers:', this.data.answers)
+      // } else {
+      //   const current_answer = this.data.event.answers[index]['content']
+      //   if (current_answer != e.detail.value) {
+      //     BC.put(BC.getHost() + 'answers/' + e.currentTarget.dataset.id, { content: e.detail.value })
+      //   }
+      // }
       
     },
   }

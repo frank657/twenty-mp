@@ -209,20 +209,20 @@
       <formInput title="Custom Question" info="{{questionInfo}}">
         <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
         <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
+        
         <view wx:if="{{answers.length}}" class="mt20 flex column w100">
           <block wx:for="{{answers}}" wx:key="index">
-            <!-- <view class="grey py px20 mr20">{{index + 1}}</view> -->
             <view class="flex w100 mb20">
-              <plus wx:if="{{formType=='create'}}" bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" />
-              <view class="{{formType=='create'?'ml20':'ml50'}} w100">
-                <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}" class="{{formType=='create'?'bg-dim':'bg-grey-light'}} px20 py radius10" value="{{formType=='create'?item:item.content}}"></input>
+              <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" disable="{{item.id}}" />
+              <view class="ml20 w100">
+                <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}" 
+                  class="bg-dim px20 py radius10" value="{{item.id?item.content:item}}"></input>
               </view>
             </view>
           </block>
         </view>
 
         <view class="mt20 flex w100">
-          <!-- <view class="b circle b-grey-light grey py px20 mr20">+</view> -->
           <plus bind:plusclicked="addRemoveAnswers" title="+" />
           <view class="ml20 w100 py px20 grey-light">
             Click to add an answer
