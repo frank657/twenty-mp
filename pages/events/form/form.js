@@ -152,7 +152,7 @@ Component({
 
     submitEvent(e) {
       const data = e.detail.value
-      data['answers'] = this.data.answers
+      const answers = this.data.answers
       data.start_time = `${data.start_date} ${data.start_time}`
       data.end_time = `${data.end_date} ${data.end_time}`
       data.organization_id = app.globalData.userInfo.organization.id
@@ -164,15 +164,15 @@ Component({
       const has_image = this.hasImage()
       const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
       const has_details = data.title&&data.description&&data.venue_name
-      const has_qa = ((data.question && data.answers.length) || (!data.question && !data.answers.length))
+      const has_qa = ((data.question && answers.length) || (!data.question && !answers.length))
       // const has_qa = true
       
       console.log('has q&a?', has_qa)
 
       console.log(data)
-      // const existingAnswers = this.data.answers.filter(a=>a.id)
-      // const newAnswers = this.data.answers.filter(a=>!a.id)
-      const body = this.data.answers.length ? {event: data, answers: this.data.answers} : {event: data}
+      // const existingAnswers = answers.filter(a=>a.id)
+      // const newAnswers = answers.filter(a=>!a.id)
+      const body = answers.length ? {event: data, answers: answers} : {event: data}
 
       if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
         wx.showLoading({title: 'Loading'})    
