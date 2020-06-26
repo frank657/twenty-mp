@@ -167,7 +167,7 @@
   <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
     <view class="grey f24">{{event.question}}</view>
     <view class="flex items-center mt">
-      <view class="ter f24 medium">{{event.answers[selectedAnswer]}}</view>
+      <view class="ter f24 medium">{{selected_answer.content}}</view>
       <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
     </view>
   </view>
@@ -195,9 +195,9 @@
 <view wx:if="{{showQuestion}}" class="row-between show-footer bg-white flex column">
   <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>
   <view class="w100 mt20">
-    <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}">
+    <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}" range-key="content">
       <view class="bg-dim pa20 radius10 grey flex justify-between items-center">
-        {{(selectedAnswer != null) ? event.answers[selectedAnswer] : 'Choose an answer.. '}} <image style="width: 10px; height: 10px;" src="/images/icons/down_arrow.png"></image> 
+        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : 'Choose an answer.. '}} <image style="width: 10px; height: 10px;" src="/images/icons/down_arrow.png"></image> 
       </view>
     </picker>
   </view>

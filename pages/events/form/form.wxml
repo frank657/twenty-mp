@@ -215,7 +215,7 @@
             <view class="flex w100 mb20">
               <plus wx:if="{{formType=='create'}}" bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" />
               <view class="{{formType=='create'?'ml20':'ml50'}} w100">
-                <input bindblur="addAnswer" data-index="{{index}}" class="{{formType=='create'?'bg-dim':'bg-grey-light'}} px20 py radius10" value="{{item}}"></input>
+                <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}" class="{{formType=='create'?'bg-dim':'bg-grey-light'}} px20 py radius10" value="{{formType=='create'?item:item.content}}"></input>
               </view>
             </view>
           </block>

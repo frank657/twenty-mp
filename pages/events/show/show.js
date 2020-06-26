@@ -82,7 +82,9 @@ Page({
   submitAnswer(e) {
     // this.setData({ showQuestion: false })
     wx.showLoading({ title: 'Loading' })
-    const data = { attendee: { status: this.data.answer, selected_answer: this.data.selectedAnswer } }
+    
+    
+    const data = { attendee: { status: this.data.answer, answer_id: this.data.event.answers[this.data.selectedAnswer]['id'] } }
     console.log('data', data)
     if (this.data.selectedAnswer != null) {
       this.submitRsvp(data);
@@ -131,7 +133,7 @@ Page({
     BC.post(`${BC.getHost()}events/${this.data.event.id}/attendee`, data).then(res => {
       console.log('signed', res)
       if (res.status == 'success') {
-        this.setData({ event: res.event, attending_status: res.attending_status, selectedAnswer: res.selected_answer })
+        this.setData({ event: res.event, attending_status: res.attending_status, selected_answer: res.selected_answer })
         wx.showToast({ title: 'Thank you!' })
         this.setData({ showQuestion: false })
         if (res.event.question != '' && res.selected_answer != null) {
@@ -156,7 +158,8 @@ Page({
     wx.showLoading({ title: 'Loading' })
     BC.userInfoReady(this)
     BC.getData(`events/${this.options.id}`).then(res=>{
-      this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
+      this.setData({ answer: res.attending_status })
+      // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {
         this.setData({ showAnswer: true })
       }

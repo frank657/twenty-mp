@@ -1,6 +1,6 @@
 const BC = require('libs/bc.js');
 let dev;
-// dev = true
+dev = true
 
 //app.js
 App({
