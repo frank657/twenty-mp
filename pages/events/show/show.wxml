@@ -119,12 +119,10 @@
       style="border-style: dashed">Create your own event</navigator>
   </view>
 
-  <view style="height: 170rpx;"/>
+  <view style="height: {{(selectedAnswer||selectedAnswer==0)&&answer=='yes'?300:170}}rpx;"/>
 </view>
 
-
 <view wx:if="{{!showQuestion}}" class="show-footer bg-white">
-  
   <view wx:if="{{showMore}}" bindtap="clickMore" 
     class="fixed pos-fill z8" style="background-color: rgba(0,0,0,0.3)"></view>
 
@@ -166,9 +164,12 @@
     </view>
   </block>
 
-  <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt50">
-    <view class="ter f24">{{event.question}}</view>
-    <view class="grey f24">{{event.answers[selectedAnswer]}} <text catchtap="changeAnswer" class="ml20 medium sec" style="text-decoration: underline;">Change answer</text> </view> 
+  <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
+    <view class="grey f24">{{event.question}}</view>
+    <view class="flex items-center mt">
+      <view class="ter f24 medium">{{event.answers[selectedAnswer]}}</view>
+      <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
+    </view>
   </view>
 
   <!-- <view wx:if="{{showQuestion}}" class="flex column">
@@ -185,7 +186,7 @@
 
   <block wx:if="{{!event.signup_opens}}">
     <view class="w100 row-center">
-      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is not open yet</view>
+      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is closed or not open yet</view>
     </view>
   </block>
 </view>
@@ -200,5 +201,7 @@
       </view>
     </picker>
   </view>
-  <button bindtap="submitAnswer" class="b b-sec w100 mt30 bold f32 btn-footer bg-white sec row-center">OK</button>
+  <!-- <button bindtap="submitAnswer" class="b b-sec w50 mt30 bold f32 btn-footer bg-white sec row-center">Select</button> -->
+  <button bindtap="submitAnswer" class="mt30 bold ter f28 btn-footer bg-sec white row-center">Select</button>
+
 </view>

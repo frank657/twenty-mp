@@ -1,0 +1,11 @@
+<view style="width: 120rpx;" 
+  class="mb30 relative {{selected?'z9':''}}">
+  <image bindtap="tapUser"
+    mode="aspectFill" 
+    class="mr30 transition-3 {{(selectedId&&!selected)||showBlur?'blur-user':''}}"
+    style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
+    src="{{user.avatar}}"></image>
+  <view wx:if="{{selected}}" 
+    class="f24 text-center absolute w100"
+    style="top: 130rpx;">{{user.nickname}}</view>
+</view>

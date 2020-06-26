@@ -16,11 +16,11 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.1.3',
+    version: '1.2.0',
+    versionChecked: false,
     lang: 'en', // cn or en
     userInfo: null,
-    env: 'dev',
-    // env: dev?'dev':'prod',
+    env: dev?'dev':'prod', // for staging change version number to higher than prod version
     host: {
       prod: 'https://twenty.brainchild-tech.cn',
       stag: 'https://twenty-staging.brainchild-tech.cn',

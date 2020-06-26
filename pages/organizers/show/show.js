@@ -7,7 +7,8 @@ Page({
   },
 
   onLoad: function (options) {
-    BC.getData(`organizations/${options.id}`)
+    wx.showLoading()
+    BC.getData(`organizations/${options.id}`).then(res=>wx.hideLoading())
   },
 
   changeUpcoming() {

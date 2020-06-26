@@ -150,83 +150,86 @@
         class="bg-dim px20 py radius10 box-b" value="{{template?template.description:''}}"></textarea>
     </formInput>
 
-    <formInput title="Additional Question">
-      <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
-      <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
-      <view wx:if="{{answers.length}}" class="mt20 flex column w100">
-        <block wx:for="{{answers}}" wx:key="index">
-          <!-- <view class="grey py px20 mr20">{{index + 1}}</view> -->
-          <view class="flex w100 mb20">
-            <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" />
-            <view class="ml20 w100">
-              <input bindblur="addAnswer" data-index="{{index}}" class="bg-dim px20 py radius10" value="{{item}}"></input>
+    <!-- <view class="column-center my50" bindtap="showOtherOptions">
+      <view class="bold sec f32 w100 text-center mb20">{{showOther?'Hide':'Show'}} other options</view>
+      <image src="/images/icons/arrow-{{showOther?'up':'down'}}.svg" mode="aspectFit" class="icon-ms"></image>
+    </view> -->
+    <!--  class="{{showOther?'':'dn'}}" -->
+    <view>
+      <formInput title="Signup Open" info="{{signupInfo}}">
+        <view class="px20">
+          <view class="row-between">
+            <input class="dn" name="signup_opens" value="{{signupOpen}}"></input>
+            <view class="row-start" bindtap="selectSignupOpen" data-select="{{true}}">
+              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+                class="mr20 transition-3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
+              </view>
+              <view class="transition-3 {{signupOpen?'sec':'grey-light'}}">
+                Open
+              </view>
             </view>
-          </view>
-        </block>
-      </view>
 
-      <view class="mt20 flex w100">
-        <!-- <view class="b circle b-grey-light grey py px20 mr20">+</view> -->
-        <plus bind:plusclicked="addRemoveAnswers" title="+" />
-        <view class="ml20 w100 py px20 grey-light">
-          Click to add an answer
-        </view>
-      </view>
-    </formInput>
-
-
-    <formInput title="Signup Open" info="{{signupInfo}}">
-      <view class="px20">
-        <view class="row-between">
-          <input class="dn" name="signup_opens" value="{{signupOpen}}"></input>
-          <view class="row-start" bindtap="selectSignupOpen" data-select="{{true}}">
-            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-              class="mr20 transition-3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
-            </view>
-            <view class="transition-3 {{signupOpen?'sec':'grey-light'}}">
-              Open
-            </view>
-          </view>
-
-          <view class="row-start" bindtap="selectSignupOpen" data-select="{{false}}">
-            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-              class="mr20 transition-3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
-            </view>
-            <view class="transition-3 {{!signupOpen?'sec':'grey-light'}}">
-              Closed
+            <view class="row-start" bindtap="selectSignupOpen" data-select="{{false}}">
+              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+                class="mr20 transition-3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
+              </view>
+              <view class="transition-3 {{!signupOpen?'sec':'grey-light'}}">
+                Closed
+              </view>
             </view>
           </view>
         </view>
-      </view>
-    </formInput>
+      </formInput>
 
-    
+      <formInput title="Show as Published" info="{{publishInfo}}">
+        <view class="px20">
+          <view class="row-between">
+            <input class="dn" name="is_published" value="{{eventPublished}}"></input>
+            <view class="row-start" bindtap="selectPublished" data-select="{{true}}">
+              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+                class="mr20 transition-3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
+              </view>
+              <view class="transition-3 {{eventPublished?'sec':'grey-light'}}">
+                Published
+              </view>
+            </view>
 
-    <formInput title="Show as Published" info="{{publishInfo}}">
-      <view class="px20">
-        <view class="row-between">
-          <input class="dn" name="is_published" value="{{eventPublished}}"></input>
-          <view class="row-start" bindtap="selectPublished" data-select="{{true}}">
-            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-              class="mr20 transition-3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
-            </view>
-            <view class="transition-3 {{eventPublished?'sec':'grey-light'}}">
-              Published
-            </view>
-          </view>
-
-          <view class="row-start" bindtap="selectPublished" data-select="{{false}}">
-            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-              class="mr20 transition-3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
-            </view>
-            <view class="transition-3 {{!eventPublished?'sec':'grey-light'}}">
-              Unpublished
+            <view class="row-start" bindtap="selectPublished" data-select="{{false}}">
+              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+                class="mr20 transition-3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
+              </view>
+              <view class="transition-3 {{!eventPublished?'sec':'grey-light'}}">
+                Unpublished
+              </view>
             </view>
           </view>
         </view>
-      </view>
-    </formInput>
+      </formInput>
 
+      <formInput title="Custom Question" info="{{questionInfo}}">
+        <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
+        <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
+        <view wx:if="{{answers.length}}" class="mt20 flex column w100">
+          <block wx:for="{{answers}}" wx:key="index">
+            <!-- <view class="grey py px20 mr20">{{index + 1}}</view> -->
+            <view class="flex w100 mb20">
+              <plus wx:if="{{formType=='create'}}" bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" />
+              <view class="{{formType=='create'?'ml20':'ml50'}} w100">
+                <input bindblur="addAnswer" data-index="{{index}}" class="{{formType=='create'?'bg-dim':'bg-grey-light'}} px20 py radius10" value="{{item}}"></input>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view class="mt20 flex w100">
+          <!-- <view class="b circle b-grey-light grey py px20 mr20">+</view> -->
+          <plus bind:plusclicked="addRemoveAnswers" title="+" />
+          <view class="ml20 w100 py px20 grey-light">
+            Click to add an answer
+          </view>
+        </view>
+      </formInput>
+    </view>
 
     <!-- <view style="height: 200rpx;"></view> -->
 
