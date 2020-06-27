@@ -266,8 +266,10 @@ Component({
     },
     addRemoveAnswers(e) {
       console.log('on form', e)
+      const action = e.detail.action || e.currentTarget.dataset.action
+      console.log('action', action)
       let answers = this.data.answers
-      if (e.detail.action == 'add') {
+      if (action == 'add') {
         answers.push("")
         this.setData({ answers })
         console.log(this.data)
@@ -285,7 +287,7 @@ Component({
       // let answer = answers[index]
       const value = e.detail.value
       answers[index].id ? answers[index].content = value : answers[index] = value
-       
+      
       this.setData({ answers })
       
       console.log('answers:', this.data.answers)

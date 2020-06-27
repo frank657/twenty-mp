@@ -114,12 +114,12 @@
   </view>
 
   <view class="w100 row-center">
-    <navigator url="/pages/events/create/create"
+    <navigator url="/pages/events/create/create" open-type="redirect"
       class="b radius20 px30 py20 grey-light" 
       style="border-style: dashed">Create your own event</navigator>
   </view>
 
-  <view style="height: {{(selectedAnswer||selectedAnswer==0)&&answer=='yes'?300:170}}rpx;"/>
+  <view style="height: {{selected_answer&&answer=='yes'?300:170}}rpx;"/>
 </view>
 
 <view wx:if="{{!showQuestion}}" class="show-footer bg-white">
@@ -136,7 +136,7 @@
         class="absolute bg-sec row-center white f22 float-btn transition-3">
         edit
       </navigator>
-      <navigator style="top: -130rpx;" url="/pages/events/create/create?template={{event.id}}"
+      <navigator style="top: -130rpx;" open-type="redirect" url="/pages/events/create/create?template={{event.id}}"
         class="absolute bg-sec row-center white f22 float-btn transition-3">
         duplicate
       </navigator>
