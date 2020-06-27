@@ -108,7 +108,7 @@ Page({
         this.setData({ answer })  
         console.log(answer)
         console.log('question', this.data.event.question)
-        if (answer == 'yes' && this.data.event.question != '') {
+        if (answer == 'yes' && this.data.event.question && this.data.event.question != '') {
           console.log('show question and answers')
           this.setData({ showQuestion: true })
         } else {

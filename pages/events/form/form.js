@@ -11,7 +11,7 @@ Component({
   properties: {
     template: { type: Object, value: null, observer() { this.loadFields() } },
     event: { type: Object, value: null, observer() { this.loadFields() } },
-    formType: { type: String, value: 'create'}
+    formType: { type: String, value: 'create' }
   },
 
   data: {
@@ -26,7 +26,7 @@ Component({
     publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page.",
     questionInfo: "Custom question is useful if you need the attendees to make a choice. For example: 'What are you bringing for picnic?', attendees can choose drinks, bread, salad, etc. In the attendees list, you will then have an overview of the choices made",
     answers: [],
-    showOther: false,
+    showOther: false
   },
 
   methods: {

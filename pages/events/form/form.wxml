@@ -206,29 +206,31 @@
         </view>
       </formInput>
 
-      <formInput title="Custom Question" info="{{questionInfo}}">
-        <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
-        <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
-        
-        <view wx:if="{{answers.length}}" class="mt20 flex column w100">
-          <block wx:for="{{answers}}" wx:key="index">
-            <view class="flex w100 mb20">
-              <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" disable="{{item.id}}" />
-              <view class="ml20 w100">
-                <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}" 
-                  class="bg-dim px20 py radius10" value="{{item.id?item.content:item}}"></input>
+      <block wx:if="{{formType=='create'||event.can_add_question}}">
+        <formInput title="Custom Question" info="{{questionInfo}}">
+          <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
+          <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
+          
+          <view wx:if="{{answers.length}}" class="mt20 flex column w100">
+            <block wx:for="{{answers}}" wx:key="index">
+              <view class="flex w100 mb20">
+                <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" disable="{{item.id}}" />
+                <view class="ml20 w100">
+                  <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}" 
+                    class="bg-dim px20 py radius10" value="{{item.id?item.content:item}}"></input>
+                </view>
               </view>
-            </view>
-          </block>
-        </view>
-
-        <view class="mt20 flex w100">
-          <plus bind:plusclicked="addRemoveAnswers" title="+" />
-          <view class="ml20 w100 py px20 grey-light">
-            Click to add an answer
+            </block>
           </view>
-        </view>
-      </formInput>
+
+          <view class="mt20 flex w100">
+            <plus bind:plusclicked="addRemoveAnswers" title="+" />
+            <view class="ml20 w100 py px20 grey-light">
+              Click to add an answer
+            </view>
+          </view>
+        </formInput>
+      </block>
     </view>
 
     <!-- <view style="height: 200rpx;"></view> -->
