@@ -16,3 +16,11 @@
   height: 100rpx; 
   border-radius: 50%;
 }
+
+.btn-footer {
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.5);
+  border-radius: 80rpx;
+  padding: 24rpx 0;
+}

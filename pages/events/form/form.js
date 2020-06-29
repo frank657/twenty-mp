@@ -11,7 +11,7 @@ Component({
   properties: {
     template: { type: Object, value: null, observer() { this.loadFields() } },
     event: { type: Object, value: null, observer() { this.loadFields() } },
-    formType: { type: String, value: 'create'}
+    formType: { type: String, value: 'create' }
   },
 
   data: {
@@ -20,15 +20,23 @@ Component({
     today: BU.getToday(),
     lastDate: BU.getDateFromToday(5),
     maxCapacity: false,
-    signupOpen: false,
+    signupOpen: true,
     eventPublished: true,
     signupInfo: "When the signup is closed, users cannot register themselves for your event. You can toggle between open or close at any time from your profile page or from the event page.",
-    publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page."
+    publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page.",
+    questionInfo: "Custom question is useful if you need the attendees to make a choice. For example: 'What are you bringing for picnic?', attendees can choose drinks, bread, salad, etc. In the attendees list, you will then have an overview of the choices made",
+    answers: [],
+    showOther: false
   },
 
   methods: {
+    showOtherOptions() {
+      this.setData({showOther: !this.data.showOther})
+    },
+
     loadFields() {
       this.setCapacity()
+      this.setAnswers()
       if (this.data.event) { this.loadSignupAndPublished('event') }
       if (this.data.template) { this.loadSignupAndPublished('template') }
     },
@@ -36,6 +44,18 @@ Component({
       const signupOpen = this.data[type].signup_opens
       const eventPublished = this.data[type].is_published
       this.setData({ signupOpen, eventPublished })
+    },
+
+    setAnswers() {
+      const { event, template } = this.data
+      if (event) {
+        // if (event.max_capacity) this.setData({ maxCapacity: true })
+        this.setData({ answers: event.answers })
+      }
+      if (template) {
+        // if (template.max_capacity) this.setData({ maxCapacity: true })
+        this.setData({ answers: template.answers })
+      }
     },
 
     setCapacity() {
@@ -132,6 +152,7 @@ Component({
 
     submitEvent(e) {
       const data = e.detail.value
+      const answers = this.data.answers
       data.start_time = `${data.start_date} ${data.start_time}`
       data.end_time = `${data.end_date} ${data.end_time}`
       data.organization_id = app.globalData.userInfo.organization.id
@@ -143,11 +164,20 @@ Component({
       const has_image = this.hasImage()
       const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
       const has_details = data.title&&data.description&&data.venue_name
+      const has_qa = ((data.question && answers.length) || (!data.question && !answers.length))
+      // const has_qa = true
+      
+      console.log('has q&a?', has_qa)
+
       console.log(data)
-      if (has_image&&has_max_or_unlimited&&has_details) {
-        wx.showLoading({title: 'Loading'})        
+      // const existingAnswers = answers.filter(a=>a.id)
+      // const newAnswers = answers.filter(a=>!a.id)
+      const body = answers.length ? {event: data, answers: answers} : {event: data}
+
+      if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
+        wx.showLoading({title: 'Loading'})    
         if (pd.formType=='create') {
-          BC.post(BC.getHost()+'events', data).then(res=>{
+          BC.post(BC.getHost()+'events', body).then(res=>{
             console.log('form res', res)
             if (res.status=='success') {
               this.uploadFile(res.event.id)
@@ -155,7 +185,7 @@ Component({
           })
         } else if (pd.formType=='edit') {
           const id = pd.event.id
-          BC.put(BC.getHost()+'events/'+id, data).then(res=>{
+          BC.put(BC.getHost()+'events/'+id, body).then(res=>{
             console.log('here', res)
             if (res.status=='success') {
               if (pd.hasNewImage&&pd.imgTempFile) {
@@ -163,7 +193,7 @@ Component({
               } else {
                 wx.navigateBack()
               }
-            } 
+            }
           })
         }
       } else {
@@ -171,7 +201,7 @@ Component({
           showCancel: false,
           confirmText: 'OK',
           title: 'Details missing',
-          content: 'Please upload a picture and fill out all the details to continue'
+          content: 'Please upload a picture and fill out all the details to continue.'
         })
       }
     },
@@ -233,6 +263,46 @@ Component({
       } else if (!pd.hasNoImage&&pd.template.image) {
         this.getImagePath(img).then(res=>upload(path, res))
       }
-    }
+    },
+    addRemoveAnswers(e) {
+      console.log('on form', e)
+      const action = e.detail.action || e.currentTarget.dataset.action
+      console.log('action', action)
+      let answers = this.data.answers
+      if (action == 'add') {
+        answers.push("")
+        this.setData({ answers })
+        console.log(this.data)
+      } else {
+        console.log('removing')
+        answers.splice(e.detail.index, 1)
+        this.setData({ answers })
+      }
+      console.log('answers:', this.data.answers)
+    },
+    addAnswer(e) {
+      let answers = this.data.answers
+      const index = e.target.dataset.index
+      // answers.push(e.detail.value)
+      // let answer = answers[index]
+      const value = e.detail.value
+      answers[index].id ? answers[index].content = value : answers[index] = value
+      
+      this.setData({ answers })
+      
+      console.log('answers:', this.data.answers)
+
+      // if (this.data.formType=='create') {
+      //   answers[index] = e.detail.value
+      //   this.setData({ answers })
+      // console.log('answers:', this.data.answers)
+      // } else {
+      //   const current_answer = this.data.event.answers[index]['content']
+      //   if (current_answer != e.detail.value) {
+      //     BC.put(BC.getHost() + 'answers/' + e.currentTarget.dataset.id, { content: e.detail.value })
+      //   }
+      // }
+      
+    },
   }
 })

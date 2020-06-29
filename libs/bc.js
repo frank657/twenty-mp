@@ -21,6 +21,7 @@ const userLogin = (app) => {
           console.log('login res ==>', res)
           versionControl(app, app.globalData.version, res.settings.version)
             .then(res=>{
+              app.versionChecked = true
               console.log(res)
               getUserInfo();
               resolve(res)
@@ -133,24 +134,25 @@ const getUserPhone = () => {
 
 const getData = (path, page = thisPage(), shouldSetData = true) => {
   const app = getApp()
-  
-  return new Promise((resolve, reject) => {
-    if (!app.globalData.headers) {
-      // const url = getHost() + path
-      app.tokenReadyCallback = res => {
-        console.log(res)
-        BR.get(getHost() + path).then((res) => {
-          console.log('data', res)
-          if (shouldSetData) page.setData(res)
-          resolve(res)
-        })
-      }
-    } else {
+
+  const getRequest = () => {
+    return new Promise((resolve, reject) => {
       BR.get(getHost() + path).then((res) => {
         console.log('data', res)
         if (shouldSetData) page.setData(res)
         resolve(res)
       })
+    })
+  }
+
+  return new Promise((resolve, reject) => {
+    if (!app.globalData.headers) {
+      app.tokenReadyCallback = res => {
+        console.log(res)
+        getRequest().then(res => resolve(res))
+      }
+    } else {
+      getRequest().then(res => resolve(res))
     }
   })
 }

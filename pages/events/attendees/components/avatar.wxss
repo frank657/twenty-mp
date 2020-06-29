@@ -1,0 +1,6 @@
+@import '/app.wxss';
+
+.blur-user {
+  filter: blur(2px);
+  opacity: 0.3;
+}
