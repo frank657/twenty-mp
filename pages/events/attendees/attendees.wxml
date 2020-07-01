@@ -30,15 +30,15 @@
   <view class="mb100">
     <view class="flex items-end justify-between mb30">
       <view class="f36 bold ter shrink0">In • {{attendees.yes.length?attendees.yes.length:0}}</view>
-      <view wx:if="{{listView}}" class="grey pr20">check</view>
+      <view wx:if="{{listView&&attendees.yes.length&&isOwner}}" class="grey pr20">check</view>
     </view>
     <view wx:if="{{listView}}">
       <list-item wx:for="{{selectedAnswer||selectedAnswer==0?attendees.yes_answers[selectedAnswer].attendees:attendees.yes}}" 
-        wx:key="index" item="{{item}}" eventId="{{event.id}}" />
+        wx:key="index" item="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"/>
     </view>
     <view wx:if="{{!listView}}" class="row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
       <avatar wx:for="{{selectedAnswer||selectedAnswer==0?attendees.yes_answers[selectedAnswer].attendees:attendees.yes}}" 
-        wx:key="index" user="{{item}}" selected="{{selectedId==item.id}}" eventId="{{event.id}}"
+        wx:key="index" user="{{item}}" selected="{{selectedId==item.id}}" eventId="{{event.id}}" isOwner="{{isOwner}}"
         selectedId="{{selectedId}}" bind:tapUser="tapUser"/>
       <view wx:for="{{attendees.yes.length+4%4}}" wx:key="index" style="width: 120rpx"></view>
     </view>
@@ -48,10 +48,10 @@
   <view class="mb100">
     <view class="f36 bold ter mb30">Out • {{attendees.no.length?attendees.no.length:0}}</view>
     <view wx:if="{{listView}}">
-      <list-item wx:for="{{attendees.no}}" wx:key="index" item="{{item}}" eventId="{{event.id}}" />
+      <list-item wx:for="{{attendees.no}}" wx:key="index" item="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"/>
     </view>
     <view wx:if="{{!listView}}" class="row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
-      <avatar wx:for="{{attendees.no}}" wx:key="index" user="{{item}}" eventId="{{event.id}}"
+      <avatar wx:for="{{attendees.no}}" wx:key="index" user="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"
         selected="{{selectedId==item.id}}" selectedId="{{selectedId}}" bind:tapUser="tapUser"/>
       <view wx:for="{{attendees.no.length+4%4}}" wx:key="index" style="width: 120rpx"></view>
     </view>
@@ -61,10 +61,10 @@
   <view class="mb100">
     <view class="f36 bold ter mb30">Maybe • {{attendees.maybe.length?attendees.maybe.length:0}}</view>
     <view wx:if="{{listView}}">
-      <list-item wx:for="{{attendees.maybe}}" wx:key="index" item="{{item}}" eventId="{{event.id}}" />
+      <list-item wx:for="{{attendees.maybe}}" wx:key="index" item="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"/>
     </view>
     <view wx:if="{{!listView}}" class="row-between flex-wrap" style="padding-left: 80rpx; padding-right: 30rpx;">
-      <avatar wx:for="{{attendees.maybe}}" wx:key="index" user="{{item}}" eventId="{{event.id}}"
+      <avatar wx:for="{{attendees.maybe}}" wx:key="index" user="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"
         selected="{{selectedId==item.id}}" selectedId="{{selectedId}}" bind:tapUser="tapUser"/>
       <view wx:for="{{attendees.maybe.length+4%4}}" wx:key="index" style="width: 120rpx"></view>
     </view>

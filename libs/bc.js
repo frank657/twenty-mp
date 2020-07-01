@@ -52,13 +52,24 @@ const versionControl = (app, mp, server) => {
 }
 
 const versionConverter = (version) => {
-  const [major, minor, patch] = version.split('.').map(x=>parseInt(x))
-  return { major, minor, patch }
+  const [v, f, p] = version.split('.').map(x=>parseInt(x))
+  return { v, f, p }
 }
 
 const versionCheck = (mp, server) => {
-  const keys = Object.keys(mp)
-  return keys.every(k=>mp[k] <= server[k])
+  if (mp.v==server.v) {
+    if (mp.f==server.f) {
+      if (mp.p==server.p) {
+        return true
+      } else {
+        return mp.p < server.p
+      }
+    } else {
+      return mp.f < server.f
+    }
+  } else {
+    return mp.v < server.v
+  }
 }
 
 const userInfoReady = (page) => {
