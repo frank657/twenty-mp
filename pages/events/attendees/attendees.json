@@ -1,6 +1,6 @@
 {
   "usingComponents": {
     "avatar": "./components/avatar",
-    "list-view": "./components/list-view"
+    "list-item": "./components/list-view-item"
   }
 }

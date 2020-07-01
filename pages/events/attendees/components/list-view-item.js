@@ -4,7 +4,7 @@ Component({
 
   properties: {
     item: { type: Object },
-    event_id: { type: Number },
+    eventId: { type: Number },
     showCheckIn: { type: Boolean, value: false }
   },
 
@@ -14,16 +14,25 @@ Component({
 
   methods: {
     checkIn(e) {
-      console.log(e)
       let item = this.data.item
-      item['checked_in'] = e.detail.value
-      this.setData({ item })
-      let data = { user_id: this.data.item.id, attendee: { checked_in: e.detail.value } }
-      BC.post(`${BC.getHost()}events/${this.data.event_id}/attendee/checkin`, data).then(res => {
+      wx.showLoading()
+      let data = { user_id: item.id, attendee: { checked_in: !item.checked_in } }
+      console.log(data)
+      BC.post(`${BC.getHost()}events/${this.data.eventId}/attendee/checkin`, data).then(res => {
         console.log(res)
-
+        item.checked_in = res.checked_in
+        this.setData({ item })
+        wx.hideLoading()
       })
+    },
 
+    removeAttendee(e) {
+      if (e.detail.value==0) {
+        console.log(this.data.item)
+        // BC.del(`${BC.getHost()}attendees/${this.data.item.id}`).then(res=>{
+        //   console.log('res', res)
+        // })
+      }
     }
   }
 })

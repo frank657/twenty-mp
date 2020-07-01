@@ -1,13 +1,19 @@
-<view class="ma20 py flex items-center justify-between">
+<view class="my20 mr20 py flex items-center justify-between">
   <!-- hello -->
   <view class="flex items-center justify-left">
+    <picker range="{{['Remove']}}" bindchange="removeAttendee">
+      <image src="/images/icons/more.svg" mode="aspectFit" class="icon-sm"></image>
+    </picker>
     <image 
       mode="aspectFill" 
       class="mr30 transition-3"
       style="height: 80rpx; width: 80rpx; border-radius: 35%;" 
       src="{{item.avatar}}"></image>
     <text>{{item.nickname}}</text>
-    <text class="sec ml20">{{item.checked_in ? 'Checked-in!' : ''}}</text>
   </view>
-  <switch wx:if="{{showCheckIn}}" bindchange="checkIn" checked="{{item.checked_in}}" />
+  <view class="row-center">
+    <view style="width: 26rpx; height: 26rpx;" class="ml50 radius50 pa row-center {{item.checked_in?'bg-green':'bg-grey-light'}}">
+      <image bindtap="checkIn" src="/images/icons/check-white.svg" mode="aspectFit" class="icon-mini"></image>
+    </view>
+  </view>
 </view>

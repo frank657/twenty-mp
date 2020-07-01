@@ -1,40 +1,48 @@
 .icon {
   height:50rpx;
+  flex-shrink: 0;
   width:50rpx;
 }
 
 .icon-micro {
   height: 10rpx;
+  flex-shrink: 0;
   width: 15rpx;
   margin-left: 3px;
 }
 
 .icon-mini {
   height: 30rpx;
+  flex-shrink: 0;
   width: 30rpx;
 }
 
 .icon-sm {
   width:40rpx;
   height:40rpx;
+  flex-shrink: 0;
 }
 
 .icon-ms {
   width:50rpx;
   height:50rpx;
+  flex-shrink: 0;
 }
 
 .icon-md {
   width: 80rpx;
   height: 80rpx;
+  flex-shrink: 0;
 }
 
 .icon-ml {
   width: 120rpx;
   height: 120rpx;
+  flex-shrink: 0;
 }
 
 .icon-lg {
   height:150rpx;
+  flex-shrink: 0;
   width:150rpx;
 }
