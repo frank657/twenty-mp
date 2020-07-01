@@ -45,7 +45,7 @@
   </view>
 
   <!-- OUT -->
-  <view class="mb100">
+  <view class="mb100" hidden="{{selectedAnswer||selectedAnswer==0}}">
     <view class="f36 bold ter mb30">Out • {{attendees.no.length?attendees.no.length:0}}</view>
     <view wx:if="{{listView}}">
       <list-item wx:for="{{attendees.no}}" wx:key="index" item="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"/>
@@ -58,7 +58,7 @@
   </view>
 
   <!-- MAYBE -->
-  <view class="mb100">
+  <view class="mb100" hidden="{{selectedAnswer||selectedAnswer==0}}">
     <view class="f36 bold ter mb30">Maybe • {{attendees.maybe.length?attendees.maybe.length:0}}</view>
     <view wx:if="{{listView}}">
       <list-item wx:for="{{attendees.maybe}}" wx:key="index" item="{{item}}" eventId="{{event.id}}" isOwner="{{isOwner}}"/>
