@@ -14,7 +14,7 @@ Page({
     ],
     adminPublish: ['Publish event', 'Unpublish event'],
     adminSignup: ['Open signup', 'Close signup'],
-    showMore: false
+    showMore: false,
   },
 
   publishEvent(e) {
@@ -196,5 +196,12 @@ Page({
       imageUrl: e.image,
       path: `/pages/events/show/show?id=${e.id}`
     }
-  }
+  },
+
+  showImage() {
+    const { event } = this.data
+    wx.previewImage({
+      urls: [event.image],
+    })
+  },
 })

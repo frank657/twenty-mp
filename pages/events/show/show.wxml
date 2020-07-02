@@ -1,9 +1,7 @@
 <!--pages/events/show/show.wxml-->
 <navbar navType='float' />
 
-<!-- <scroll-view>bindrefresherpulling
-</scroll-view> -->
-<image src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
+<image bindtap="showImage" src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
   <view wx:if="{{userInfo.organization.id == creator.id}}" class="row-start mb30">
@@ -196,12 +194,14 @@
   <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>
   <view class="w100 mt20">
     <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}" range-key="content">
-      <view class="bg-dim pa20 radius10 grey flex justify-between items-center">
-        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : 'Choose an answer.. '}} <image style="width: 10px; height: 10px;" src="/images/icons/down_arrow.png"></image> 
+      <view class="bg-dim pa20 radius10 grey row-between">
+        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : 'Choose an answer.. '}} 
+        <image class="icon-sm" mode="aspectFit" src="/images/icons/arrow-down.svg"></image> 
       </view>
     </picker>
   </view>
   <!-- <button bindtap="submitAnswer" class="b b-sec w50 mt30 bold f32 btn-footer bg-white sec row-center">Select</button> -->
-  <button bindtap="submitAnswer" class="mt30 bold ter f28 btn-footer bg-sec white row-center">Select</button>
+  <button bindtap="submitAnswer" disabled="{{!event.answers[selectedAnswer]}}" 
+    class="mt30 bold ter f28 {{selectedAnswer||selectedAnswer==0?'btn-footer white bg-sec':'btn-disabled grey-light'}} row-center">Select</button>
 
 </view>
