@@ -1,7 +1,8 @@
 <!--pages/events/show/show.wxml-->
 <navbar navType='float' />
 
-<image bindtap="showImage" src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: 500rpx;"/>
+<!-- <scroll-view scroll-y="true" bindscroll="scrollChange" style="height: {{screenHeight}}px; position:fixed;" scroll-with-animation> -->
+<image bindtap="showImage" src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: {{imageHeight}}px;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
   <view wx:if="{{userInfo.organization.id == creator.id}}" class="row-start mb30">
@@ -119,6 +120,7 @@
 
   <view style="height: {{selected_answer&&answer=='yes'?300:170}}rpx;"/>
 </view>
+<!-- </scroll-view> -->
 
 <view wx:if="{{!showQuestion}}" class="show-footer bg-white">
   <view wx:if="{{showMore}}" bindtap="clickMore" 

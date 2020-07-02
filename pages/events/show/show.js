@@ -15,6 +15,8 @@ Page({
     adminPublish: ['Publish event', 'Unpublish event'],
     adminSignup: ['Open signup', 'Close signup'],
     showMore: false,
+    scrollTop: 20,
+    imageHeight: 250,
   },
 
   publishEvent(e) {
@@ -154,7 +156,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ showMore: false })
+    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight })
     wx.showLoading({ title: 'Loading' })
     BC.userInfoReady(this)
     BC.getData(`events/${this.options.id}`).then(res=>{
@@ -204,4 +206,13 @@ Page({
       urls: [event.image],
     })
   },
+
+  scrollChange(e) {
+    console.log(e)
+    // console.log(e.detail.scrollTop)
+    // let imageHeight = 250
+    // const scrollTop = e.detail.scrollTop
+    // if (scrollTop<=0) imageHeight -= scrollTop
+    // this.setData({imageHeight})
+  }
 })
