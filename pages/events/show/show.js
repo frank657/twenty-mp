@@ -14,7 +14,9 @@ Page({
     ],
     adminPublish: ['Publish event', 'Unpublish event'],
     adminSignup: ['Open signup', 'Close signup'],
-    showMore: false
+    showMore: false,
+    scrollTop: 20,
+    imageHeight: 250,
   },
 
   publishEvent(e) {
@@ -154,7 +156,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ showMore: false })
+    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight })
     wx.showLoading({ title: 'Loading' })
     BC.userInfoReady(this)
     BC.getData(`events/${this.options.id}`).then(res=>{
@@ -185,10 +187,32 @@ Page({
 
   onShareAppMessage: function () {
     const e = this.data.event
+    const t = e.start_time
+    let h = parseInt(t.time) 
+    const i = t.time.indexOf(':')
+    const m = t.time.slice(i+1, i+3)
+    const mm = m=='00'?'':`:${m}`
+    const date = `${parseInt(t.month_num)}/${parseInt(t.date)} ${h}${mm}${t.time.includes('PM')?'pm':'am'} `
     return {
-      title: e.title,
+      title: date + e.title,
       imageUrl: e.image,
       path: `/pages/events/show/show?id=${e.id}`
     }
+  },
+
+  showImage() {
+    const { event } = this.data
+    wx.previewImage({
+      urls: [event.image],
+    })
+  },
+
+  scrollChange(e) {
+    console.log(e)
+    // console.log(e.detail.scrollTop)
+    // let imageHeight = 250
+    // const scrollTop = e.detail.scrollTop
+    // if (scrollTop<=0) imageHeight -= scrollTop
+    // this.setData({imageHeight})
   }
 })

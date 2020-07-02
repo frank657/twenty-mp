@@ -5,7 +5,23 @@
     class="mr30 transition-3 {{(selectedId&&!selected)||showBlur?'blur-user':''}}"
     style="height: 120rpx; width: 120rpx; border-radius: 35%;" 
     src="{{user.avatar}}"></image>
-  <view wx:if="{{selected}}" 
-    class="f24 text-center absolute w100"
-    style="top: 130rpx;">{{user.nickname}}</view>
+  <view wx:if="{{user.checked_in&&isOwner}}" class="row-center absolute pa bg-green radius50"
+    style="right: -10rpx; bottom: -10rpx">
+    <image src="/images/icons/check-white.svg" mode="aspectFit" class="icon-mini"></image>
+  </view>
+  <block wx:if="{{selected}}">
+    <view class="f24 text-center absolute w100"
+      style="top: 130rpx;">{{user.nickname}}</view>
+    <view wx:if="{{isOwner}}" class="f24 text-center absolute w100 row-center"
+      style="top: -100rpx;">
+      <view class="pa20 radius50 bg-white action-btn row-center" style="margin-right: 16rpx"
+        bindtap="deleteAttendee">
+        <image src="/images/icons/trash.svg" mode="aspectFit" class="icon-sm"></image>
+      </view>
+      <view class="pa20 radius50 {{user.checked_in?'bg-green':'bg-white'}} b b-green action-btn-green row-center" 
+        style="margin-left: 16rpx;" bindtap="checkinAttendee">
+        <image src="/images/icons/check{{user.checked_in?'-white':'-green'}}.svg" mode="aspectFit" class="icon-sm"></image>
+      </view>
+    </view>
+  </block>
 </view>

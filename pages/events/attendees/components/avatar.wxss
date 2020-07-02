@@ -4,3 +4,15 @@
   filter: blur(2px);
   opacity: 0.3;
 }
+
+.action-btn {
+  box-shadow: 0 0 40rpx 4rpx rgba(0,0,0,0.2);
+  height: 40rpx;
+  width: 40rpx;
+}
+
+.action-btn-green {
+  box-shadow: 0 0 40rpx 4rpx rgba(118, 213, 171,0.5);
+  height: 40rpx;
+  width: 40rpx;
+}

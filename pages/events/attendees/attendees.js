@@ -4,11 +4,23 @@ Page({
   data: {
     selectedId: null,
     selectedAnswer: null,
+    listView: false,
   },
 
   onLoad: function (options) {
     wx.hideShareMenu()
-    this.setData({attendees: BC.lastPage().data.event.attendees})    
+    this.setData({ attendees: BC.lastPage().data.event.attendees, event: BC.lastPage().data.event, userInfo: BC.lastPage().data.userInfo, creator: BC.lastPage().data.creator})
+    const isOwner = this.data.creator.user.id == this.data.userInfo.id
+    this.setData({listView: isOwner, isOwner})
+  },
+
+  changeView(e) {
+    const { view } = e.currentTarget.dataset
+    if (view!=this.data.listView) {
+      BC.getData(`events/${this.data.event.id}`, this, false).then(res=>{
+        this.setData({ attendees: res.event.attendees, listView: view, selectedId: null })
+      })
+    }
   },
 
   tapUser(e) {

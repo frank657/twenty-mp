@@ -23,5 +23,12 @@ Page({
       this.setData({events: res, showLanding: false})
       wx.hideLoading()
     })
+  },
+  onShareAppMessage: function () {
+    return {
+      title: '加一 PlusOne • Your event manager',
+      imageUrl: '/images/placeholder.jpg',
+      path: `/pages/index/index`
+    }
   }
 })

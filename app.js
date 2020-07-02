@@ -7,6 +7,7 @@ App({
   onLaunch: function () {
     BC.launchApp(this)
   },
+  
   globalData: {
     color: {
       pri: '#FF6F3C',
@@ -16,7 +17,7 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.2.0',
+    version: '1.2.1',
     versionChecked: false,
     lang: 'en', // cn or en
     userInfo: null,

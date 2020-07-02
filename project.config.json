@@ -63,7 +63,7 @@
 					"id": 0,
 					"name": "Event Show",
 					"pathName": "pages/events/show/show",
-					"query": "id=1",
+					"query": "id=430",
 					"scene": null
 				},
 				{

@@ -21,7 +21,7 @@ const userLogin = (app) => {
           console.log('login res ==>', res)
           versionControl(app, app.globalData.version, res.settings.version)
             .then(res=>{
-              app.versionChecked = true
+              // app.globalData.versionChecked = true
               console.log(res)
               getUserInfo();
               resolve(res)
@@ -39,7 +39,7 @@ const versionControl = (app, mp, server) => {
     if (env == 'dev') { 
       resolve('env is dev')
     } else if (env == 'stag') {
-      getData('events/1', this, false)
+      // getData('events', this, false)
       resolve('env is stag')
     } else if (env == 'prod' && versionCheck(versionConverter(mp), versionConverter(server))) {
       resolve('env is prod and mp version is the same or smaller')
@@ -52,13 +52,24 @@ const versionControl = (app, mp, server) => {
 }
 
 const versionConverter = (version) => {
-  const [major, minor, patch] = version.split('.').map(x=>parseInt(x))
-  return { major, minor, patch }
+  const [v, f, p] = version.split('.').map(x=>parseInt(x))
+  return { v, f, p }
 }
 
 const versionCheck = (mp, server) => {
-  const keys = Object.keys(mp)
-  return keys.every(k=>mp[k] <= server[k])
+  if (mp.v==server.v) {
+    if (mp.f==server.f) {
+      if (mp.p==server.p) {
+        return true
+      } else {
+        return mp.p < server.p
+      }
+    } else {
+      return mp.f < server.f
+    }
+  } else {
+    return mp.v < server.v
+  }
 }
 
 const userInfoReady = (page) => {
