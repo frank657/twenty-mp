@@ -1,93 +1,104 @@
 {
-	"description": "Project configuration file",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"preloadBackgroundData": false,
-		"useCompilerModule": true,
-		"userConfirmedUseCompilerModuleSwitch": false
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.10.0",
-	"appid": "wxdbc81a04631d467e",
-	"projectname": "PlusOne",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"id": 0,
-					"name": "Event Show",
-					"pathName": "pages/events/show/show",
-					"query": "id=430",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "create",
-					"pathName": "pages/events/create/create",
-					"query": "id=2",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "attendees",
-					"pathName": "pages/events/attendees/attendees",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "organizer",
-					"pathName": "pages/organizers/show/show",
-					"query": "id=2",
-					"scene": null
-				}
-			]
-		}
-	}
+  "description": "Project configuration file",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "useMultiFrameRuntime": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.10.0",
+  "appid": "wxdbc81a04631d467e",
+  "projectname": "PlusOne",
+  "debugOptions": {
+    "hidedInDevtools": []
+  },
+  "isGameTourist": false,
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
+      "list": []
+    },
+    "plugin": {
+      "current": -1,
+      "list": []
+    },
+    "game": {
+      "currentL": -1,
+      "list": []
+    },
+    "gamePlugin": {
+      "current": -1,
+      "list": []
+    },
+    "miniprogram": {
+      "current": -1,
+      "list": [
+        {
+          "id": 0,
+          "name": "Event Show",
+          "pathName": "pages/events/show/show",
+          "query": "id=430",
+          "scene": null
+        },
+        {
+          "id": 1,
+          "name": "create",
+          "pathName": "pages/events/create/create",
+          "query": "id=2",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "attendees",
+          "pathName": "pages/events/attendees/attendees",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 3,
+          "name": "organizer",
+          "pathName": "pages/organizers/show/show",
+          "query": "id=2",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "organizer edit",
+          "pathName": "pages/organizers/edit/edit",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
 }

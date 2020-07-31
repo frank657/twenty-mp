@@ -4,7 +4,7 @@
 <!-- <scroll-view scroll-y="true" bindscroll="scrollChange" style="height: {{screenHeight}}px; position:fixed;" scroll-with-animation> -->
 <image bindtap="showImage" src="{{event.image}}" mode="aspectFill" class="w100 fixed" style="height: {{imageHeight}}px;"/>
 
-<view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
+<view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;" catchtouchmove="movePage">
   <view wx:if="{{userInfo.organization.id == creator.id}}" class="row-start mb30">
     <picker class="px20 py f22 mr radius50 {{event.is_published?'bg-green':'bg-red-light'}}" 
       range="{{adminPublish}}"
