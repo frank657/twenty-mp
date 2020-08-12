@@ -1,0 +1,6 @@
+<view class="bg-image shrink0 mb50 relative {{index%2?'pl':'pr'}}">
+    <view class="absolute radius-full pa row-center bg-red" style="bottom:0%; left: 50%; transform: translate(-50%, 50%);" bind:tap="deletePhoto">
+    <image class="icon-sm" src="/images/icons/cross-white.svg" />
+    </view>
+    <image src="/images/placeholder.jpg" class="shadow photo" mode="aspectFill" />
+</view>

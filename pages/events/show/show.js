@@ -19,10 +19,6 @@ Page({
     imageHeight: 250,
   },
 
-  movePage(e) {
-    // console.log(e.changedTouches[0])
-  },
-
   publishEvent(e) {
     const is_published = e.detail.value == '0'
     if (is_published != this.data.event.is_published) {

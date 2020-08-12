@@ -23,10 +23,16 @@
   <view class="x-wrapper relative">
     <view class="f36 bold w-100 text-left ter pl20">RECENTLY VIEWED</view>
   </view>
-  <!-- <view wx:if="{{past.length==0}}" class="mx20 mt50 mb100 grey f28 text-center">{{t.no_recent}}</view> -->
-  <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}">
+
+  <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}" bindchange="bindSwipeRecent">    
     <swiper-item wx:for="{{events.viewed}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;">
       <card event="{{item}}" cardType="recent"/>
+    </swiper-item>
+    <swiper-item class="card-wrapper card-small">
+      <view class="h100 row-center" wx:if="{{loadMoreRecent}}">
+        <image src="/images/icons/loading.svg" mode="aspectFit" class="icon-md"></image>
+        <!-- <view class="grey-light">No more</view> -->
+      </view>
     </swiper-item>
   </swiper>
 </view>
@@ -43,23 +49,7 @@
   </view>
 
   <card-section events="{{showUpcomingAtt?events.rsvped:events.rsvped_past}}" />
-
 </view>
-
-<!-- <view class="mb50">
-  <view class="x-wrapper relative row-between">
-    <view class="f36 bold w-100 text-left ter pl20">MY EVENTS</view>
-    <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeMine">
-      <view class="absolute bg-sec h100 transition-3" 
-        style="{{showUpcomingMine?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>
-      <view class="w50 px20 py transition-3 {{showUpcomingMine?'white':'grey-light'}} z1 f24">upcoming</view>
-      <view class="w50 px20 py transition-3 {{showUpcomingMine?'grey-light':'white'}} z1 f24">past</view>
-    </view>
-  </view>
-
-  <card-section events="{{showUpcomingMine?events.created:events.created_past}}" />
-
-</view> -->
 
 <view class="column-center">
   <view class="row-center">
@@ -69,6 +59,3 @@
   </view>
   <image src="/images/codepanda.png" mode="aspectFit" style="width: 350rpx; height: 350rpx;"></image>
 </view>
-
-<!-- <navigator url="/pages/events/create/create" class="fixed bg-sec f48 white row-center z9" 
-  style="bottom: 100rpx; right: 60rpx; border-radius: 50%; height: 100rpx; width: 100rpx; box-shadow: 0px 5px 30px rgba(255, 201, 60, 0.7);">+</navigator> -->

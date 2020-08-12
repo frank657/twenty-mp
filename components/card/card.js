@@ -81,6 +81,6 @@ Component({
           this.deleteEvent()
           break;
       }
-    }
+    },
   }
 })

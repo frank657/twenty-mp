@@ -17,6 +17,8 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -26,8 +28,7 @@
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
     "packNpmManually": false,
-    "packNpmRelationList": [],
-    "useMultiFrameRuntime": true
+    "packNpmRelationList": []
   },
   "compileType": "miniprogram",
   "libVersion": "2.10.0",
@@ -88,7 +89,7 @@
           "id": 3,
           "name": "organizer",
           "pathName": "pages/organizers/show/show",
-          "query": "id=2",
+          "query": "id=3317",
           "scene": null
         },
         {

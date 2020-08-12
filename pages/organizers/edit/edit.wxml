@@ -1,4 +1,4 @@
-<navbar>
+<navbar background="white">
   <view class="ter bold f32">EDIT PROFILE</view>
 </navbar>
 

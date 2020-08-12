@@ -1,4 +1,7 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "formInput": "input",
+    "photo": "photo"
+  }
 }

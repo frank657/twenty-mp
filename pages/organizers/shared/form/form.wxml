@@ -1,5 +1,26 @@
 <view class="pa40">
-  <form bindsubmit="submitEvent">
+  <form bindsubmit="updateProfile">
+    <formInput title="Name">
+      <input name="name" class="text-center bg-dim px20 py radius10" value="Something"></input>
+    </formInput>
 
+    <formInput title="Profile image">
+      <view class="row-center">
+        <image src="/images/placeholder.jpg" class="avatar-ml shadow shrink0" mode="aspectFill" bind:tap="uploadProfileImg" />
+      </view>
+    </formInput>
+
+    <formInput title="Photos">
+      <view class="row-between wrap">
+        <photo wx:for="{{images}}" index="{{index}}" class="w50" />
+        <view wx:if="{{images.length<6}}" class="bg-image {{images.length%2?'pl':'pr'}}">
+          <view class="bg-grey-light w100 h100 radius50 row-center">
+            <image src="/images/icons/add.svg" mode="aspectFit" class="icon-ms" />
+          </view>
+        </view>
+      </view>
+    </formInput>
+
+    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Done</button>
   </form>
 </view>
