@@ -16,7 +16,7 @@
 
   <view class="mb50">
     <view class="x-wrapper relative row-between">
-      <view class="f36 bold w-100 text-left ter pl20">MY EVENTS</view>
+      <view class="f36 bold w-100 text-left ter pl20">My Events</view>
       <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
         <view class="absolute bg-sec h100 transition-3" 
           style="{{showUpcoming?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>

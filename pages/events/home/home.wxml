@@ -6,7 +6,7 @@
 
 <block wx:if="{{events.followings.length}}">
   <view class="mb20 x-wrapper">
-    <view class="f36 bold w-100 text-left ter pl20">FOLLOWED ORGANIZERS</view>
+    <view class="f36 bold w-100 text-left ter pl20">Followed Organizers</view>
   </view>
   <scroll-view class="w100 mb60" scroll-x>
     <view class="w100 row-start nowrap avatar-container box-b">
@@ -21,7 +21,7 @@
 
 <view class="mb50" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">
-    <view class="f36 bold w-100 text-left ter pl20">RECENTLY VIEWED</view>
+    <view class="f36 bold w-100 text-left ter pl20">Recently Viewed</view>
   </view>
 
   <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}" bindchange="bindSwipeRecent">    
@@ -39,7 +39,7 @@
 
 <view class="mb50">
   <view class="x-wrapper relative row-between">
-    <view class="f36 bold w-100 text-left ter pl20">ATTENDING</view>
+    <view class="f36 bold w-100 text-left ter pl20">Attending</view>
     <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeAttending">
       <view class="absolute bg-sec h100 transition-3" 
         style="{{showUpcomingAtt?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>

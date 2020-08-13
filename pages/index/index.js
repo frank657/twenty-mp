@@ -25,7 +25,6 @@ Page({
     })
   },
   onShareAppMessage(options) {
-    console.log('options', options)
     const defaultMsg = {
       title: '加一 PlusOne • Your event manager',
       imageUrl: '/images/placeholder.jpg',
