@@ -1,5 +1,7 @@
 const BR = require('bc-requests')
 const BU = require('bc-utils')
+import Event from '../utils/event'
+import VersionControl from '../utils/version-control'
 
 const launchApp = (app) => {
   userLogin(app)
@@ -14,62 +16,18 @@ const getHost = () => {
 }
 
 const userLogin = (app) => {
-  return new Promise((resolve, reject) => {
-    wx.login({
-      success: res => {
-        login(`${getHost()}login`, res.code).then(res=> {
-          console.log('login res ==>', res)
-          versionControl(app, app.globalData.version, res.settings.version)
-            .then(res=>{
-              // app.globalData.versionChecked = true
-              console.log(res)
-              getUserInfo();
-              resolve(res)
-            })
-        })
-      }
-    })
-  })
-}
-
-const versionControl = (app, mp, server) => {
-  console.log('mp version', mp, 'server version', server) 
-  return new Promise((resolve, reject) => {
-    const { env } = app.globalData
-    if (env == 'dev') { 
-      resolve('env is dev')
-    } else if (env == 'stag') {
-      // getData('events', this, false)
-      resolve('env is stag')
-    } else if (env == 'prod' && versionCheck(versionConverter(mp), versionConverter(server))) {
-      resolve('env is prod and mp version is the same or smaller')
-    } else {
-      app.globalData.env = 'stag'
-      launchApp(app)
-      resolve('env is prod, but mp version is higher, sending to staging')
+  wx.login({
+    success: res => {
+      login(`${getHost()}login`, res.code).then(res=> {
+        console.log('login res ==>', res)
+        app.vc = new VersionControl(app.globalData.version, res.settings.version)
+        app.vc.setEnv()
+        if (app.vc.shouldRefetch) launchApp(app)
+        Event.emit('getEvents')
+        getUserInfo();
+      })
     }
   })
-}
-
-const versionConverter = (version) => {
-  const [v, f, p] = version.split('.').map(x=>parseInt(x))
-  return { v, f, p }
-}
-
-const versionCheck = (mp, server) => {
-  if (mp.v==server.v) {
-    if (mp.f==server.f) {
-      if (mp.p==server.p) {
-        return true
-      } else {
-        return mp.p < server.p
-      }
-    } else {
-      return mp.f < server.f
-    }
-  } else {
-    return mp.v < server.v
-  }
 }
 
 const userInfoReady = (page) => {

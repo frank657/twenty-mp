@@ -24,7 +24,7 @@
     <view class="f36 bold w-100 text-left ter pl20">Recently Viewed</view>
   </view>
 
-  <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}" bindchange="bindSwipeRecent">    
+  <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}" easing-function="easeOutCubic" bindchange="bindSwipeRecent">    
     <swiper-item wx:for="{{events.viewed}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;">
       <card event="{{item}}" cardType="recent"/>
     </swiper-item>

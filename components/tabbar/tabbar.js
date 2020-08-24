@@ -24,7 +24,6 @@ Component({
   methods: {
     tabChange(e) {
       const tabNew = e.currentTarget.dataset.cur
-      console.log(tabNew)
       BC.thisPage().setData({pageCur: tabNew})
     }
   }

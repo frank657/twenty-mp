@@ -3,7 +3,7 @@
   {{noEventText}}
 </view>
 
-<swiper wx:if="{{events.length}}" class="card-swiper" style="height: {{cardType=='profile'?800:700}}rpx;">
+<swiper wx:if="{{events.length}}" class="card-swiper" style="height: {{cardType=='profile'?800:700}}rpx;" current="{{swiperCur}}" easing-function="easeOutCubic">
   <swiper-item wx:for="{{events}}" wx:key="index" class="card-wrapper card-big">
     <card event="{{item}}" cardType="{{cardType}}" bind:compTriggeredEvent="compTriggeredEvent"/>
   </swiper-item>
