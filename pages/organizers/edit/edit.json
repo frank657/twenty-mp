@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "form": "../shared/form/form"
+  }
+}

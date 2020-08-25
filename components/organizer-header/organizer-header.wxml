@@ -1,0 +1,37 @@
+<view class="w100 relative" style="height: 500rpx;">
+  <swiper class="ofh" style="height: 500rpx; border-radius: 0 0 100rpx 0; transform: translateX(0);" circular>
+    <swiper-item wx:for="{{images}}">
+      <image src="/images/placeholder.jpg" mode="aspectFill" class="w100 h100"/>
+    </swiper-item>
+  </swiper>
+
+  <!-- <view class="w100 h100" style="filter: blur(3px);">
+    <image src="{{organization.avatar}}" mode="aspectFill" class="w100 h100"/>
+  </view> -->
+
+  <navigator class="absolute row-center" style="width:60rpx;height:60rpx;bottom:60rpx;right:60rpx;" url="/pages/organizers/edit/edit" hover-class="none">
+    <view class="absolute a0 radius-full" style="background: rgba(255,255,255,0.3);"></view>
+    <image src="/images/icons/edit.svg" mode="aspectFit" class="icon-sm z9"></image>
+  </navigator>
+</view>
+
+<view class="px40 pt">
+  <view class="flex justify-start">
+    <image src="{{organization.avatar}}" class="avatar-organizer shrink0 mr30 shadow-dark" mode="aspectFill" />
+    <view class="">
+      <view class="bold mb ter f40">{{organization.name}}</view>
+      <view class="dib">
+        <view wx:if="{{organization.belongs_to_self}}" class="{{organization.is_private?'bg-red-light':'bg-green'}} px20 py white radius50 f24 row-start">
+          <picker range="{{profile_type}}" value="{{organization.is_private?1:0}}" 
+            bindchange="selectProfileType">
+            <view>{{organization.is_private?'Private Profile':'Public Profile'}}</view>
+          </picker>
+          <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
+        </view>
+        <view wx:else bindtap="followOrganization" 
+          class="b b-sec px20 py radius50 f24 row-start {{organization.followed?'bg-sec white':'sec'}}">
+          {{organization.followed?'Following':'Follow'}}</view>
+      </view>
+    </view>
+  </view>
+</view>

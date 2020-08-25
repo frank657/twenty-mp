@@ -25,6 +25,7 @@ button:hover {
   background: unset;
   min-height: unset !important;
   line-height: 0.5;
+  margin: unset !important;
 }
 
 .btn {

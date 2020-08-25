@@ -1,5 +1,6 @@
 {
   "component": true,
   "usingComponents": {
+    "organizer-header": "/components/organizer-header/organizer-header"
   }
 }

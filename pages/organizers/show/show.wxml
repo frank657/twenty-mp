@@ -1,29 +1,20 @@
-<navbar />
+<navbar navType="float" />
 
-<view class="px60 py20 mb60">
-  <view class="flex justify-between">
-    <view class="w30">
-      <image src="{{organization.avatar}}" class="avatar-ml shadow shrink0" mode="aspectFill"></image>
-    </view>
-    <view class="w70 {{organization.belongs_to_self?'row-start':''}}">
-      <view class="bold mb20 ter f48">{{organization.name}}</view>
-      <view wx:if="{{!organization.belongs_to_self}}" class="dib">
-        <view bindtap="followOrganization" 
-          class="b b-sec px20 py radius50 f24 row-start {{organization.followed?'bg-sec white':'sec'}}">
-          {{organization.followed?'Following':'Follow'}}</view>
-      </view>
-    </view>
-  </view>
+<view>
+  <organizer-header images="{{[1,2,3,4,5]}}" organization="{{organization}}" />
 </view>
 
 <view wx:if="{{organization.is_private}}" class="px60">
   <view class="b grey-light row-center radius30 pa50 text-center" style="border-style: dashed;">
-    <view class="f32" style="line-height: 1.5;">This is a private profile. Events organized by private organizers are not displayed on organizer profile.</view>
+    <text class="f32" style="line-height: 1.5;">PRIVATE PROFILE
+
+      Events organized by private organizers are not visible for public.</text>
   </view>
 </view>
 
 <view wx:else class="mb50">
-  <view class="x-wrapper relative row-center">
+  <view class="x-wrapper relative row-between">
+    <view class="f36 bold w-100 text-left ter pl20">{{organization.belongs_to_self?'MY ':''}}EVENTS</view>
     <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
       <view class="absolute bg-sec h100 transition-3" 
         style="{{showUpcoming?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>
@@ -33,10 +24,4 @@
   </view>
 
   <card-section events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" hideUnpublished="{{true}}" />
-
 </view>
-
-<!-- <view class="px60">
-  <view class="f36 bold w-100 text-left ter mb20">ABOUT</view>
-  <text class="f28 grey">Hey guys, something something something</text>
-</view> -->
