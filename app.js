@@ -1,6 +1,8 @@
 const BC = require('libs/bc.js');
+wx.p = require('utils/wxp')
+
 let dev;
-// dev = true
+dev = true
 
 //app.js
 App({

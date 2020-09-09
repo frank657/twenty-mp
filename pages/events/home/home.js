@@ -8,6 +8,7 @@ Component({
       statusBarHeight: sysInfo.statusBarHeight,
     })
   },
+  
   properties: {
     events: { type: Object, value: [], observer() { this.loadData() } }
   },

@@ -1,23 +1,18 @@
 // pages/organizers/shared/form/photo.js
 Component({
-  /**
-   * Component properties
-   */
   properties: {
-    index: { type: Number }
+    image: Object,
+    upload: { type: Boolean, value: false }
   },
 
-  /**
-   * Component initial data
-   */
   data: {
 
   },
 
-  /**
-   * Component methods
-   */
   methods: {
-
+    deletePhoto() {
+      const {image} = this.data
+      this.triggerEvent('deletePhoto', {image})
+    }
   }
 })

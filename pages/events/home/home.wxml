@@ -11,7 +11,7 @@
   <scroll-view class="w100 mb60" scroll-x>
     <view class="w100 row-start nowrap avatar-container box-b">
       <view class="avt" wx:for="{{events.followings}}" wx:key="index">
-        <navigator url="/pages/organizers/show/show?id={{item.id}}" class="py20 px">
+        <navigator url="/pages/organizers/show/show?id={{item.id}}" class="py20 px" hover-class="none">
           <image src="{{item.avatar}}" mode="aspectFill" class="avatar-ml card-shadow"></image>
         </navigator>
       </view>
@@ -28,12 +28,12 @@
     <swiper-item wx:for="{{events.viewed}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;">
       <card event="{{item}}" cardType="recent"/>
     </swiper-item>
-    <swiper-item class="card-wrapper card-small">
+    <!-- <swiper-item class="card-wrapper card-small">
       <view class="h100 row-center" wx:if="{{loadMoreRecent}}">
         <image src="/images/icons/loading.svg" mode="aspectFit" class="icon-md"></image>
-        <!-- <view class="grey-light">No more</view> -->
+        <view class="grey-light">No more</view>
       </view>
-    </swiper-item>
+    </swiper-item> -->
   </swiper>
 </view>
 

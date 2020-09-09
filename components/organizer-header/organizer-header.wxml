@@ -1,21 +1,23 @@
 <view class="w100 relative" style="height: 500rpx;">
-  <swiper class="ofh" style="height: 500rpx; border-radius: 0 0 100rpx 0; transform: translateX(0);" circular>
-    <swiper-item wx:for="{{images}}">
-      <image src="/images/placeholder.jpg" mode="aspectFill" class="w100 h100"/>
+  <swiper wx:if="{{organization.images.length}}" class="ofh" style="height: 500rpx; border-radius: 0 0 100rpx 0; transform: translateX(0);" circular>
+    <swiper-item wx:for="{{organization.images}}" bindtap="previewImages" data-index="{{index}}">
+      <image src="{{item.url}}" mode="aspectFill" class="w100 h100"/>
     </swiper-item>
   </swiper>
 
-  <!-- <view class="w100 h100" style="filter: blur(3px);">
+  <view wx:else class="w100 h100" style="filter: blur(3px);">
     <image src="{{organization.avatar}}" mode="aspectFill" class="w100 h100"/>
-  </view> -->
+  </view>
 
-  <navigator class="absolute row-center" style="width:60rpx;height:60rpx;bottom:60rpx;right:60rpx;" url="/pages/organizers/edit/edit" hover-class="none">
+  <navigator wx:if="{{organization.belongs_to_self}}"
+    class="absolute row-center" style="width:60rpx;height:60rpx;bottom:60rpx;right:60rpx;" 
+    url="/pages/organizers/edit/edit?id={{organization.id}}" hover-class="none">
     <view class="absolute a0 radius-full" style="background: rgba(255,255,255,0.3);"></view>
     <image src="/images/icons/edit.svg" mode="aspectFit" class="icon-sm z9"></image>
   </navigator>
 </view>
 
-<view class="px40 pt">
+<view class="px40 pt20">
   <view class="flex justify-start">
     <image src="{{organization.avatar}}" class="avatar-organizer shrink0 mr30 shadow-dark" mode="aspectFill" />
     <view class="">

@@ -2,7 +2,6 @@ const BC = require('../../libs/bc');
 
 Component({
   properties: {
-    images: { type: Array, value: [] },
     organization: { type: Object, value: {} }
   },
 
@@ -23,6 +22,13 @@ Component({
           wx.hideLoading()
         })
       }
+    },
+
+    previewImages(e) {
+      const { index } = e.currentTarget.dataset
+      const urls = this.data.organization.images.map(img => img.url)
+      const current = urls[index]
+      wx.previewImage({ current, urls });
     }
   }
 })

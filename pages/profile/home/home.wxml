@@ -12,7 +12,7 @@
 </view>
 
 <view wx:if="{{userInfoAuth}}">
-  <organizer-header images="{{[1,2,3,4,5]}}" organization="{{organization}}" />
+  <organizer-header organization="{{organization}}" />
 
   <view class="mb50">
     <view class="x-wrapper relative row-between">

@@ -1,7 +1,7 @@
 <navbar navType="float" />
 
 <view>
-  <organizer-header images="{{[1,2,3,4,5]}}" organization="{{organization}}" />
+  <organizer-header organization="{{organization}}" />
 </view>
 
 <view wx:if="{{organization.is_private}}" class="px60">

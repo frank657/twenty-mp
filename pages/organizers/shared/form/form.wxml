@@ -1,20 +1,32 @@
 <view class="pa40">
   <form bindsubmit="updateProfile">
     <formInput title="Name">
-      <input name="name" class="text-center bg-dim px20 py radius10" value="Something"></input>
+      <input name="name" class="text-center bg-dim px20 py radius10" value="{{organization.name}}"></input>
     </formInput>
 
     <formInput title="Profile image">
       <view class="row-center">
-        <image src="/images/placeholder.jpg" class="avatar-ml shadow shrink0" mode="aspectFill" bind:tap="uploadProfileImg" />
+        <view class="avatar-ml shrink0 relative">
+          <block wx:if="{{upload.org_avatar.url||organization.avatar}}">
+            <image src="{{upload.org_avatar.url||organization.avatar}}" class="shadow w100 h100" 
+              mode="aspectFill" bind:tap="uploadProfileImg" />
+            <view class="absolute l0 r0 b0 bg-grey opacity-7" style="height: {{100 - upload.org_avatar.progress}}%;"></view>
+          </block>
+          <view wx:else class="bg-grey-light avatar-ml row-center">
+            <image src="/images/icons/add.svg" mode="aspectFit" class="icon-ms" bind:tap="uploadProfileImg" />
+          </view>
+        </view>
       </view>
     </formInput>
 
     <formInput title="Photos">
-      <view class="row-between wrap">
-        <photo wx:for="{{images}}" index="{{index}}" class="w50" />
-        <view wx:if="{{images.length<6}}" class="bg-image {{images.length%2?'pl':'pr'}}">
-          <view class="bg-grey-light w100 h100 radius50 row-center">
+      <view class="flex items-between justify-start wrap">
+        <photo wx:for="{{organization.images}}" image="{{item}}" class="w50" bind:deletePhoto="deletePhoto" />
+        <photo wx:if="{{upload.images.url}}" image="{{upload.images}}" class="w50" upload />
+
+        <view wx:if="{{organization.images.length<6&&!upload.images.url}}" 
+          class="bg-image px">
+          <view class="bg-grey-light w100 h100 radius50 row-center" bindtap="uploadImages">
             <image src="/images/icons/add.svg" mode="aspectFit" class="icon-ms" />
           </view>
         </view>
