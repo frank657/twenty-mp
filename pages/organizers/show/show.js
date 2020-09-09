@@ -6,9 +6,9 @@ Page({
     showUpcoming: true
   },
 
-  onLoad: function (options) {
+  onShow() {
     wx.showLoading()
-    BC.getData(`organizations/${options.id}`).then(res=>wx.hideLoading())
+    BC.getData(`organizations/${this.options.id}`).then(res=>wx.hideLoading())
   },
 
   changeUpcoming() {

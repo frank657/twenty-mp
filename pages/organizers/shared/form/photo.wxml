@@ -1,6 +1,12 @@
-<view class="bg-image shrink0 mb50 relative {{index%2?'pl':'pr'}}">
-    <view class="absolute radius-full pa row-center bg-red" style="bottom:0%; left: 50%; transform: translate(-50%, 50%);" bind:tap="deletePhoto">
+<view class="bg-image shrink0 mb50 relative px}}">
+  <view wx:if="{{!upload}}"
+    class="absolute radius-full pa row-center bg-red z9" 
+    style="bottom:0%; left: 50%; transform: translate(-50%, 50%);" bind:tap="deletePhoto">
     <image class="icon-sm" src="/images/icons/cross-white.svg" />
-    </view>
-    <image src="/images/placeholder.jpg" class="shadow photo" mode="aspectFill" />
+  </view>
+  
+  <view class="photo relative" style="overflow: hidden;">
+    <image src="{{image.url}}" class="shadow w100 h100" mode="aspectFill" />
+    <view wx:if="{{upload}}" class="absolute l0 r0 b0 bg-grey opacity-7" style="height: {{100 - image.progress}}%;"></view>
+  </view>
 </view>

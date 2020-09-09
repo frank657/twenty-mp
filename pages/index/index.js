@@ -17,6 +17,7 @@ Page({
 
   onLoad(options) {
     if (options.tab) {this.setData({pageCur: options.tab})}
+    
   },
 
   onShow: function () {
