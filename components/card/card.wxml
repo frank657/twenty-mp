@@ -7,11 +7,11 @@
       <view class="row-start">
         <view class="row-start mr40">
           <image src="/images/icons/check.svg" mode="aspectFit" class="icon-mini mr"></image>
-          <view class="f24 grey">21</view>
+          <view class="f24 grey">{{event.total_confirmed}}</view>
         </view>
         <view class="row-start">
           <image src="/images/icons/view.svg" mode="aspectFit" class="icon-sm mr"></image>
-          <view class="f24 grey">21</view>
+          <view class="f24 grey">{{event.total_viewed}}</view>
         </view>
       </view>
       
