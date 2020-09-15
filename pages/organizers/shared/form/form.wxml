@@ -11,7 +11,9 @@
             <image src="{{upload.org_avatar.url||organization.avatar}}" class="shadow w100 h100" 
               mode="aspectFill" bind:tap="uploadProfileImg" />
             <view class="absolute l0 r0 b0 bg-grey opacity-7" style="height: {{100 - upload.org_avatar.progress}}%;"></view>
+            <!-- <image src="/images/icons/loading-circle.svg" class="icon-ms loading-icon"></image> -->
           </block>
+
           <view wx:else class="bg-grey-light avatar-ml row-center">
             <image src="/images/icons/add.svg" mode="aspectFit" class="icon-ms" bind:tap="uploadProfileImg" />
           </view>
