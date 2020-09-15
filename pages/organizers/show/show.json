@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "organizer-header": "/components/organizer-header/organizer-header"
+  }
 }

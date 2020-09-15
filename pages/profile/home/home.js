@@ -8,8 +8,7 @@ Component({
 
   data: {
     userInfo: app.globalData.userInfo,
-    showUpcoming: true,
-    profile_type: ['Public profile', 'Private profile']
+    showUpcoming: true
   },
 
   ready() {
@@ -52,20 +51,6 @@ Component({
     changeUpcoming() {
       this.getData()
       this.setData({showUpcoming: !this.data.showUpcoming})
-    },
-    
-    selectProfileType(e) {
-      const is_private = e.detail.value == 1
-      if (is_private != this.data.organization.is_private) {
-        wx.showLoading()
-        const url = BC.getHost() + `organizations/${this.data.organization.id}`
-        BC.put(url, {organization: {is_private}}).then(res => {
-          const { organization } = this.data
-          organization.is_private = res.organization.is_private
-          this.setData({ organization })
-          wx.hideLoading()
-        })
-      }
     }
   }
 })

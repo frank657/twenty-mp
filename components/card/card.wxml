@@ -3,13 +3,23 @@
   <image src="{{event.image}}" style="height: {{cardType=='recent'?'180':'360'}}rpx;" class="w100" mode="aspectFill"></image>
   <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30 mt'}}">
     <!-- Signed up & viewed -->
-    <!-- <view wx:if="{{cardType=='profile'}}" class="row-start">
+    <view wx:if="{{cardType=='profile'}}" class="row-between">
       <view class="row-start">
-        <image src="/images/icons/check.svg" mode="aspectFit" class="icon-mini"></image>
-        <view></view>
+        <view class="row-start mr40">
+          <image src="/images/icons/check.svg" mode="aspectFit" class="icon-mini mr"></image>
+          <view class="f24 grey">{{event.total_confirmed}}</view>
+        </view>
+        <view class="row-start">
+          <image src="/images/icons/view.svg" mode="aspectFit" class="icon-sm mr"></image>
+          <view class="f24 grey">{{event.total_viewed}}</view>
+        </view>
       </view>
-    </view> -->
-    
+      
+      <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+        <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
+      </button>
+    </view>
+
     <view class="pri bold mb {{cardType=='recent'?'f26 mt':'f32 mt20'}}">
       {{cardType=='recent'?event.title_very_short:event.title_short}}
       </view>
@@ -29,9 +39,10 @@
             class="bg-dim ter row-center">
             {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}</view>
         </view>
-        <!-- <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}" 
-          style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" 
-          class="bg-dim ter row-center">in</view> -->
+
+        <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+          <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
+        </button> 
       </view>
     </view>
 
