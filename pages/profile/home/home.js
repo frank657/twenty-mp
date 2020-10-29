@@ -45,7 +45,7 @@ Component({
     getData() {
       wx.showLoading()
       const org_id = app.globalData.userInfo.organization.id
-      BC.getData(`organizations/${org_id}`, this).then(res=>wx.hideLoading())
+      BC.getData(`organizations/${org_id}`, { page: this }).then(res=>wx.hideLoading())
     },
 
     changeUpcoming() {

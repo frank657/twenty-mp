@@ -17,9 +17,10 @@ Page({
   changeView(e) {
     const { view } = e.currentTarget.dataset
     if (view!=this.data.listView) {
-      BC.getData(`events/${this.data.event.id}`, this, false).then(res=>{
-        this.setData({ attendees: res.event.attendees, listView: view, selectedId: null })
-      })
+      BC.getData(`events/${this.data.event.id}`, { shouldSetData: false })
+        .then(res=>{
+          this.setData({ attendees: res.event.attendees, listView: view, selectedId: null })
+        })
     }
   },
 

@@ -3,8 +3,15 @@
   {{noEventText}}
 </view>
 
-<swiper wx:if="{{events.length}}" class="card-swiper" style="height: {{cardType=='profile'?800:700}}rpx;" current="{{swiperCur}}" easing-function="easeOutCubic">
+<swiper wx:if="{{events.length}}" class="card-swiper" style="height: {{cardType=='profile'?800:700}}rpx;" 
+  current="{{swiperCur}}" easing-function="easeOutCubic" bindchange="swipeChange">
   <swiper-item wx:for="{{events}}" wx:key="index" class="card-wrapper card-big">
     <card event="{{item}}" cardType="{{cardType}}" bind:compTriggeredEvent="compTriggeredEvent"/>
+  </swiper-item>
+  <swiper-item class="more-item">
+    <navigator url="/pages/events/list/list?page={{moreBtn}}"
+      style="height: 360rpx;" class="row-center" hover-class="none">
+      <view class="more-btn row-center bold white">more</view>
+    </navigator>
   </swiper-item>
 </swiper>

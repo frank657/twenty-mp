@@ -164,15 +164,15 @@
         style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
         data-answer="{{item.name}}">{{item.label}}</button>
     </view>
-  </block>
 
-  <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
-    <view class="grey f24">{{event.question}}</view>
-    <view class="flex items-center mt">
-      <view class="ter f24 medium">{{selected_answer.content}}</view>
-      <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
+    <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
+      <view class="grey f24">{{event.question}}</view>
+      <view class="flex items-center mt">
+        <view class="ter f24 medium">{{selected_answer.content}}</view>
+        <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
+      </view>
     </view>
-  </view>
+  </block>
 
   <!-- <view wx:if="{{showQuestion}}" class="flex column">
     <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>

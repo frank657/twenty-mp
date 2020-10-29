@@ -35,9 +35,11 @@ Component({
       this.setData({showUpcomingMine: !this.data.showUpcomingMine})
     },
     bindSwipeRecent(e) {
-      const recentCur = e.detail.current
+      let recentCur = e.detail.current
+      const eventCount = this.data.events.viewed.length
+      if (recentCur == eventCount - 1) recentCur -= 1
       this.setData({ recentCur })
-      if (recentCur==this.data.events.viewed.length-1) this.loadMoreRecent()
+      // if (recentCur==this.data.events.viewed.length-1) this.loadMoreRecent()
     },
     loadMoreRecent() {
       this.setData({ loadMoreRecent: true })

@@ -15,17 +15,30 @@
   <organizer-header organization="{{organization}}" />
 
   <view class="mb50">
-    <view class="x-wrapper relative row-between">
+    <view class="x-wrapper relative row-between mb20">
       <view class="f36 bold w-100 text-left ter pl20">My Events</view>
-      <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
+      
+      <view class="row-end w50 py mt text-center relative box-b" style="height: 36rpx;" bindtap="changeUpcoming">
+        <view class="mx20 py transition-3 bold {{showUpcoming?'grey f32':'grey-light f28'}} z1 column-center">
+          <view>upcoming</view>
+          <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'sec':'trans'}} transition-3 mt"></view>
+        </view>
+        <view class="mx20 py transition-3 bold {{showUpcoming?'grey-light f28':'grey f32'}} z1 column-center">
+          <view>past</view>
+          <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} transition-3 mt"></view>
+        </view>
+      </view>
+
+      <!-- <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
         <view class="absolute bg-sec h100 transition-3" 
           style="{{showUpcoming?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>
         <view class="w50 px20 py transition-3 {{showUpcoming?'white':'grey-light'}} z1 f24">upcoming</view>
         <view class="w50 px20 py transition-3 {{showUpcoming?'grey-light':'white'}} z1 f24">past</view>
-      </view>
+      </view> -->
+
     </view>
 
     <card-section cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
-      events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" />
+      events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" moreBtn="My Events" />
   </view>
 </view>

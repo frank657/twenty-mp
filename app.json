@@ -9,7 +9,8 @@
     "pages/events/attendees/attendees",
     "pages/events/edit/edit",
     "pages/organizers/show/show",
-    "pages/organizers/edit/edit"
+    "pages/organizers/edit/edit",
+    "pages/events/list/list"
   ],
   "permission": {
     "scope.userLocation": {

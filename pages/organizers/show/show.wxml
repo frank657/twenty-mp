@@ -23,5 +23,5 @@
     </view>
   </view>
 
-  <card-section events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" hideUnpublished="{{true}}" />
+  <card-section events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" hideUnpublished="{{true}}" moreBtn="{{organization.name}}" />
 </view>

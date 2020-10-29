@@ -85,7 +85,6 @@ Page({
     // this.setData({ showQuestion: false })
     wx.showLoading({ title: 'Loading' })
     
-    
     const data = { attendee: { status: this.data.answer, answer_id: this.data.event.answers[this.data.selectedAnswer]['id'] } }
     console.log('data', data)
     if (this.data.selectedAnswer != null) {
@@ -102,6 +101,7 @@ Page({
   },
 
   join(e) {
+    wx.showLoading({mask: true})
     BC.getUserInfo().then(res=>{
       console.log('userinfo', res)
       if (res.avatar) {
@@ -114,13 +114,13 @@ Page({
           console.log('show question and answers')
           this.setData({ showQuestion: true })
         } else {
-          wx.showLoading({ title: 'Loading' })
           const data = { attendee: { status: answer } }
           this.submitRsvp(data);
         }
         
-        
+        wx.hideLoading()
       } else {
+        wx.hideLoading()
         wx.showModal({
           showCancel: false,
           confirmText: 'OK',
