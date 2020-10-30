@@ -22,8 +22,9 @@ Page({
   // INITIALIZE DATA
   loadOrgData(options) {
     const isOrganization = true
-    const organization = { id: 1 }
-    this.setData({ isOrganization, organization })
+    // const organization = { id: 1 }
+    const { orgId } = options
+    this.setData({ isOrganization, orgId })
 
     // const data = { type: 'past', page: 1 }
     // wx.bc.getData('organizations/1/events', { data })
@@ -69,7 +70,7 @@ Page({
 
   getUrl() {
     if (this.data.isOrganization) {
-      return `organizations/${this.data.organization.id}/events`
+      return `organizations/${this.data.orgId}/events`
     } else {
       return 'events/load_more'
     }

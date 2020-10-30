@@ -6,7 +6,8 @@ Component({
     hideUnpublished: { type: Boolean, value: false },
     eventType: String,
     listTime: String,
-    isOrganization: Boolean
+    isOrganization: Boolean,
+    orgId: Number
   },
 
   data: {
@@ -30,9 +31,9 @@ Component({
     },
 
     navToList() {
-      const { eventType, listTime, isOrganization } = this.data
+      const { eventType, listTime, isOrganization, orgId } = this.data
       const url = `/pages/events/list/list?listTime=${listTime}&`
-      const params = isOrganization ? `isOrganization=true` : `eventType=${eventType}`
+      const params = isOrganization ? `isOrganization=true&orgId=${orgId}` : `eventType=${eventType}`
       wx.navigateTo({
         url: url + params,
       });
