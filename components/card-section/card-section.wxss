@@ -1,4 +1,4 @@
-@import "/app.wxss"
+@import "/app.wxss";
 
 @import "/app";
 
@@ -37,6 +37,24 @@
 	width: 580rpx !important;
 }
 
-.card-small {
+/* .card-small {
 	width: 340rpx !important;
+} */
+
+.more-item {
+	width: 580rpx !important;
+	padding: 30rpx 10rpx;
+	box-sizing: border-box;
+	margin-bottom: 30rpx;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.more-btn {
+	padding: 10rpx;
+	border-radius: 40rpx;
+	height: 100rpx;
+	width: 100rpx;
+	background: linear-gradient(135.41deg, #CDCDCD 7.83%, rgba(255, 154, 60, 0.5) 113.88%);
 }

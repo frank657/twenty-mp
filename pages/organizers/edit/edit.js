@@ -6,6 +6,6 @@ Page({
   },
 
   onLoad: function (options) {
-    BC.getData(`organizations/${options.id}`, this).then(res=>wx.hideLoading())
+    BC.getData(`organizations/${options.id}`).then(res=>wx.hideLoading())
   },
 })

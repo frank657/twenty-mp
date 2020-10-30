@@ -30,7 +30,7 @@ Page({
   },
 
   getData() {
-    BC.getData('events', this, false).then(res=>{
+    BC.getData('events', { shouldSetData: false }).then(res=>{
       this.setData({events: res, showLanding: false})
       wx.hideLoading()
     })

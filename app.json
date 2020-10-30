@@ -9,7 +9,8 @@
     "pages/events/attendees/attendees",
     "pages/events/edit/edit",
     "pages/organizers/show/show",
-    "pages/organizers/edit/edit"
+    "pages/organizers/edit/edit",
+    "pages/events/list/list"
   ],
   "permission": {
     "scope.userLocation": {
@@ -19,7 +20,8 @@
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
     "navbar": "/components/navbar/navbar",
-    "card-section": "/components/card-section/card-section"
+    "card-section": "/components/card-section/card-section",
+    "toggle-nav": "/components/toggle-nav/toggle-nav"
   },
   "window": {
     "backgroundTextStyle": "light",

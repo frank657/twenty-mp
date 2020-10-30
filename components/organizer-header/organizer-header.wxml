@@ -1,6 +1,6 @@
 <view class="w100 relative" style="height: 500rpx;">
   <swiper wx:if="{{organization.images.length}}" class="ofh" style="height: 500rpx; border-radius: 0 0 100rpx 0; transform: translateX(0);" circular>
-    <swiper-item wx:for="{{organization.images}}" bindtap="previewImages" data-index="{{index}}">
+    <swiper-item wx:for="{{organization.images}}" wx:key="index" bindtap="previewImages" data-index="{{index}}">
       <image src="{{item.url}}" mode="aspectFill" class="w100 h100"/>
     </swiper-item>
   </swiper>

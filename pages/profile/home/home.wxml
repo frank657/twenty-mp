@@ -15,17 +15,13 @@
   <organizer-header organization="{{organization}}" />
 
   <view class="mb50">
-    <view class="x-wrapper relative row-between">
-      <view class="f36 bold w-100 text-left ter pl20">My Events</view>
-      <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeUpcoming">
-        <view class="absolute bg-sec h100 transition-3" 
-          style="{{showUpcoming?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>
-        <view class="w50 px20 py transition-3 {{showUpcoming?'white':'grey-light'}} z1 f24">upcoming</view>
-        <view class="w50 px20 py transition-3 {{showUpcoming?'grey-light':'white'}} z1 f24">past</view>
-      </view>
+    <view class="px40">
+      <toggle-nav title="My Events" showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
     </view>
 
-    <card-section cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
-      events="{{showUpcoming?organization.events.upcoming:organization.events.past}}" />
+    <card-section wx:if="{{showUpcoming}}" cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
+      events="{{organization.events.upcoming}}" eventType="created" listTime="upcoming" />
+    <card-section wx:if="{{!showUpcoming}}" cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
+      events="{{organization.events.past}}" eventType="created" listTime="past" />
   </view>
 </view>

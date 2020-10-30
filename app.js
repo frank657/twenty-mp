@@ -1,5 +1,6 @@
 const BC = require('libs/bc.js');
 wx.p = require('utils/wxp')
+wx.bc = BC
 
 let dev;
 // dev = true
@@ -19,7 +20,8 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.2.2',
+    // version: '1.2.2',
+    version: '1.3.0',
     versionChecked: false,
     lang: 'en', // cn or en
     userInfo: null,
