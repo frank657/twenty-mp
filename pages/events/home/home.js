@@ -1,5 +1,6 @@
 const app = getApp();
 const BC = require("../../../libs/bc");
+import moreList from '../show-more-list';
 
 Component({
   attached() {
@@ -14,13 +15,12 @@ Component({
   },
 
   data: {
-    showUpcomingAtt: true,
-    showUpcomingMine: true,
-    loadMoreRecent: false
+    showUpcoming: true,
   },
 
   ready() {
     // BC.getData('events')
+    this.setData({ moreList })
   },
 
   methods: {
@@ -28,12 +28,11 @@ Component({
       this.setData({approval_version: app.globalData.approval_version, recentCur: 0})
     },
 
-    changeAttending() {
-      this.setData({showUpcomingAtt: !this.data.showUpcomingAtt})
+    toggleNav(e) {
+      const { showUpcoming } = e.detail
+      this.setData({ showUpcoming })
     },
-    changeMine() {
-      this.setData({showUpcomingMine: !this.data.showUpcomingMine})
-    },
+
     bindSwipeRecent(e) {
       let recentCur = e.detail.current
       const eventCount = this.data.events.viewed.length
@@ -41,12 +40,5 @@ Component({
       this.setData({ recentCur })
       // if (recentCur==this.data.events.viewed.length-1) this.loadMoreRecent()
     },
-    loadMoreRecent() {
-      this.setData({ loadMoreRecent: true })
-      console.log('loading more recent')
-      setTimeout(() => {
-        this.setData({ loadMoreRecent: false })
-      }, 3000);
-    }
   }
 })

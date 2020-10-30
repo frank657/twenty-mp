@@ -11,8 +11,9 @@ Page({
     BC.getData(`organizations/${this.options.id}`).then(res=>wx.hideLoading())
   },
 
-  changeUpcoming() {
-    this.setData({showUpcoming: !this.data.showUpcoming})
+  toggleNav(e) {
+    const { showUpcoming } = e.detail
+    this.setData({showUpcoming})
   },
 
   followOrganization() {

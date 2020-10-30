@@ -1,14 +1,20 @@
 Component({
   properties: {
-    events: { type: Array, value: [], observer() { this.setData({ swiperCur: 0 })} },
+    events: { type: Array, value: [] },
     noEventText: { type: String, value: 'No events' },
     cardType: { type: String, value: 'event' },
     hideUnpublished: { type: Boolean, value: false },
-    moreBtn: String
+    eventType: String,
+    listTime: String,
+    isOrganization: Boolean
   },
 
   data: {
     swiperCur: 0
+  },
+
+  attached() {
+    // console.log('hello', this.data.swiperCur)
   },
 
   methods: {
@@ -18,10 +24,18 @@ Component({
 
     swipeChange(e) {
       let swiperCur = e.detail.current
-      // console.log(swiperCur)
-      // const eventCount = this.data.events.length
-      // if (swiperCur == eventCount) swiperCur -= 1
-      // this.setData({ swiperCur })
+      const eventCount = this.data.events.length
+      if (swiperCur == eventCount) swiperCur -= 1
+      this.setData({ swiperCur })
+    },
+
+    navToList() {
+      const { eventType, listTime, isOrganization } = this.data
+      const url = `/pages/events/list/list?listTime=${listTime}&`
+      const params = isOrganization ? `isOrganization=true` : `eventType=${eventType}`
+      wx.navigateTo({
+        url: url + params,
+      });
     }
   }
 })

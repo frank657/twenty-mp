@@ -9,9 +9,8 @@
     <card event="{{item}}" cardType="{{cardType}}" bind:compTriggeredEvent="compTriggeredEvent"/>
   </swiper-item>
   <swiper-item class="more-item">
-    <navigator url="/pages/events/list/list?page={{moreBtn}}"
-      style="height: 360rpx;" class="row-center" hover-class="none">
+    <view bindtap="navToList" style="height: 360rpx;" class="row-center">
       <view class="more-btn row-center bold white">more</view>
-    </navigator>
+    </view>
   </swiper-item>
 </swiper>

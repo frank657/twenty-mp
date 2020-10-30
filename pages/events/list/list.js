@@ -1,3 +1,6 @@
+import share from 'share-msg';
+import moreList from '../show-more-list';
+
 // pages/events/list/list.js
 Page({
   data: {
@@ -10,10 +13,26 @@ Page({
   },
 
   onLoad: function (options) {
-    const { pageTitle } = options
-    this.setData({ pageTitle })
     wx.hideShareMenu();
+    options.isOrganization ? this.loadOrgData(options) : this.loadEventData(options)
+    console.log(options)
     this.getData()
+  },
+
+  // INITIALIZE DATA
+  loadOrgData(options) {
+    const isOrganization = true
+    const organization = { id: 1 }
+    this.setData({ isOrganization, organization })
+
+    // const data = { type: 'past', page: 1 }
+    // wx.bc.getData('organizations/1/events', { data })
+  },
+
+  loadEventData(options) {
+    const { eventType, listTime, isOrganization } = options
+    const pageData = listTime ? moreList[eventType][listTime] : moreList[eventType]
+    this.setData({ pageData, showUpcoming: listTime == 'upcoming' })
   },
 
   onReachBottom() {
@@ -24,12 +43,21 @@ Page({
   },
 
   getData() {
-    const data = { type: 'viewed', page: this.nextPage() }
-    wx.bc.getData('events/load_more', { data, shouldSetData: false })
+    const { isOrganization, showUpcoming, pageData } = this.data
+    let type;
+    if (isOrganization) {
+      type = showUpcoming ? 'upcoming' : 'past'
+    } else { 
+      type = pageData.typeParam
+    }
+
+    const data = { type, page: this.nextPage() }
+    console.log(data)
+    wx.bc.getData(this.getUrl(), { data, shouldSetData: false })
       .then(res => {
         const events = [...this.data.events, ...res.events]
         this.setData({ showInitialLoad: false, showLoading: false, 
-          events, hasNextPage: !res.last_page })
+          events, hasNextPage: !res.last_page, organization: res.organization })
       })
   },
 
@@ -39,32 +67,30 @@ Page({
     return page
   },
 
-  toggleList() {
-    this.setData({ showUpcoming: !this.data.showUpcoming })
+  getUrl() {
+    if (this.data.isOrganization) {
+      return `organizations/${this.data.organization.id}/events`
+    } else {
+      return 'events/load_more'
+    }
   },
 
-  onShareAppMessage(options) {
-    const defaultMsg = {
-      title: '加一 PlusOne • Your event manager',
-      imageUrl: '/images/placeholder.jpg',
-      path: `/pages/index/index`
-    }
+  toggleList() {
+    const page = 0;
+    const events = [];
+    const showUpcoming = !this.data.showUpcoming;
+    this.setData({ showInitialLoad: true, showUpcoming, page, events })
 
-    if (options.target&&options.target.dataset.event) {
-      const e  = options.target.dataset.event
-      const t = e.start_time
-      let h = parseInt(t.time) 
-      const i = t.time.indexOf(':')
-      const m = t.time.slice(i+1, i+3)
-      const mm = m=='00'?'':`:${m}`
-      const date = `${parseInt(t.month_num)}/${parseInt(t.date)} ${h}${mm}${t.time.includes('PM')?'pm':'am'} `
-      return {
-        title: date + e.title,
-        imageUrl: e.image,
-        path: `/pages/events/show/show?id=${e.id}`
-      }
-    } else {
-      return defaultMsg
+    if (!this.data.isOrganization) {
+      const listTime = showUpcoming ? 'upcoming' : 'past';
+      const { typeParam, eventType } = this.data.pageData
+      const pageData = moreList[eventType][listTime]  
+      this.setData({ pageData })
     }
-  }
+    
+    this.getData()
+  },
+
+
+  onShareAppMessage(options) { return share(options) }
 })

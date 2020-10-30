@@ -48,9 +48,10 @@ Component({
       BC.getData(`organizations/${org_id}`, { page: this }).then(res=>wx.hideLoading())
     },
 
-    changeUpcoming() {
-      this.getData()
-      this.setData({showUpcoming: !this.data.showUpcoming})
+    toggleNav(e) {
+      const { showUpcoming } = e.detail
+      this.setData({ showUpcoming })
+      // this.getData()
     }
   }
 })

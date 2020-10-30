@@ -20,7 +20,8 @@
   "usingComponents": {
     "tabbar": "/components/tabbar/tabbar",
     "navbar": "/components/navbar/navbar",
-    "card-section": "/components/card-section/card-section"
+    "card-section": "/components/card-section/card-section",
+    "toggle-nav": "/components/toggle-nav/toggle-nav"
   },
   "window": {
     "backgroundTextStyle": "light",
