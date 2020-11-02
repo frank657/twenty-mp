@@ -9,7 +9,7 @@ Component({
   },
 
   data: {
-    adminShowMore: ['duplicate', 'edit', 'cancel'],
+    adminShowMore: ['Copy Events', 'Edit Details', 'Cancel and Delete'],
     adminPublish: ['Publish event', 'Unpublish event'],
     adminSignup: ['Open signup', 'Close signup'],
   },

@@ -22,12 +22,8 @@ Page({
   // INITIALIZE DATA
   loadOrgData(options) {
     const isOrganization = true
-    // const organization = { id: 1 }
-    const { orgId } = options
-    this.setData({ isOrganization, orgId })
-
-    // const data = { type: 'past', page: 1 }
-    // wx.bc.getData('organizations/1/events', { data })
+    const { orgId, listTime } = options
+    this.setData({ isOrganization, orgId, showUpcoming: listTime == 'upcoming' })
   },
 
   loadEventData(options) {
@@ -76,10 +72,10 @@ Page({
     }
   },
 
-  toggleList() {
+  toggleList(e) {
     const page = 0;
     const events = [];
-    const showUpcoming = !this.data.showUpcoming;
+    const showUpcoming = e.detail.showUpcoming;
     this.setData({ showInitialLoad: true, showUpcoming, page, events })
 
     if (!this.data.isOrganization) {

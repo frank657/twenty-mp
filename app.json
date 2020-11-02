@@ -18,10 +18,12 @@
     }
   },
   "usingComponents": {
+    "landing": "/pages/landing/landing",
     "tabbar": "/components/tabbar/tabbar",
     "navbar": "/components/navbar/navbar",
     "card-section": "/components/card-section/card-section",
-    "toggle-nav": "/components/toggle-nav/toggle-nav"
+    "toggle-nav": "/components/toggle-nav/toggle-nav",
+    "footer-window": "/components/footer-window/footer-window"
   },
   "window": {
     "backgroundTextStyle": "light",

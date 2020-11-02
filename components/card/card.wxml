@@ -43,11 +43,12 @@
             <image wx:if="{{item}}"
               src="{{item.avatar}}"
               class="mr20"
-              style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" mode="aspectFill"></image>
+              style="height: 80rpx; width: 80rpx; border-radius: 30rpx;" mode="aspectFill"></image>
           </block>
           <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}" 
-            style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" 
+            style="height: 80rpx; width: 80rpx; border-radius: 30rpx;" 
             class="bg-dim ter row-center">
+            {{event.attendees.yes.length>3?'+':''}}
             {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}</view>
         </view>
 
