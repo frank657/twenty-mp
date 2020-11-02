@@ -125,29 +125,11 @@
 <!-- </scroll-view> -->
 
 <view wx:if="{{!showQuestion}}" class="show-footer bg-white">
-  <view wx:if="{{showMore}}" bindtap="clickMore" 
-    class="fixed pos-fill z8" style="background-color: rgba(0,0,0,0.3)"></view>
 
-  <view wx:if="{{userInfo.organization.id == creator.id}}" class="absolute z9" style="right: 40rpx; top: -180rpx;">
-    <block wx:if="{{showMore}}">
-      <view style="top: -390rpx;" bindtap="deleteEvent"
-        class="absolute bg-sec row-center white f22 float-btn transition-3">
-        cancel
-      </view>
-      <navigator style="top: -260rpx;" url="/pages/events/edit/edit?event={{event.id}}"
-        class="absolute bg-sec row-center white f22 float-btn transition-3">
-        edit
-      </navigator>
-      <navigator style="top: -130rpx;" open-type="redirect" url="/pages/events/create/create?template={{event.id}}"
-        class="absolute bg-sec row-center white f22 float-btn transition-3">
-        duplicate
-      </navigator>
-    </block>
-    <view class="bg-sec row-center white f24 bold {{showMore?'':'opacity-3'}} transition-3 float-btn" 
-      style="{{showMore?'box-shadow: 0px 5px 20px rgba(255, 201, 60, 0.7)':''}};"
-      bindtap="clickMore">
-      {{showMore?'hide':'more'}}
-    </view>
+  <view wx:if="{{userInfo.organization.id == creator.id}}" bindtap="showFooterWindow"
+    class="pa20 bold transition-3 bg-ter white absolute z9" 
+    style="border-radius: 30rpx; right: 40rpx; top: -100rpx;" >
+    Manage
   </view>
 
   <block wx:if="{{event.signup_opens}}">
@@ -209,3 +191,30 @@
     class="mt30 bold ter f28 {{selectedAnswer||selectedAnswer==0?'btn-footer white bg-sec':'btn-disabled grey-light'}} row-center">Select</button>
 
 </view>
+
+<footer-window wx:if="{{showFooterWindow}}">
+  <view class="w100 py30">
+    <!-- <view bindtap="publishEvent"
+      class="row-center grey py40 bb b-dim">
+      Publish Event
+    </view>
+    <view bindtap="openSignup"
+      class="row-center grey py40 bb b-dim">
+      Open Signup
+    </view> -->
+    <view bindtap="deleteEvent"
+      class="row-center grey py40 bb b-dim">
+      Cancel and Delete
+    </view>
+    <navigator url="/pages/events/edit/edit?event={{event.id}}"
+      class="row-center grey py40 bb b-dim" hover-class="none">
+      Edit Details
+    </navigator>
+    <navigator url="/pages/events/create/create?template={{event.id}}"
+      class="row-center grey py40" hover-class="none">
+      Copy Event
+    </navigator>
+  </view> 
+</footer-window>
+
+<landing wx:if="{{showLanding}}" />

@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "landing": "/pages/landing/landing",
     "events": "/pages/events/home/home",
     "profile": "/pages/profile/home/home"
   }

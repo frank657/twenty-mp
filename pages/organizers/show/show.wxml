@@ -19,7 +19,7 @@
   </view>
 
   <card-section wx:if="{{showUpcoming}}" events="{{organization.events.upcoming}}" 
-    hideUnpublished="{{true}}" orgId="{{organization.id}}" isOrganization />
+    hideUnpublished="{{true}}" orgId="{{organization.id}}" listTime="upcoming" isOrganization />
   <card-section wx:if="{{!showUpcoming}}" events="{{organization.events.past}}" 
-    hideUnpublished="{{true}}" orgId="{{organization.id}}" isOrganization />
+    hideUnpublished="{{true}}" orgId="{{organization.id}}" listTime="past" isOrganization />
 </view>

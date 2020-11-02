@@ -2,7 +2,8 @@
 Component({
   properties: {
     title: String,
-    showUpcoming: { type: Boolean, value: true }
+    showUpcoming: { type: Boolean, value: true },
+    left: { type: Boolean, value: false }
   },
 
   data: {

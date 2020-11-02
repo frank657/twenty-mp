@@ -13,8 +13,8 @@
 
 <view wx:if="{{isOrganization}}" style="height: 100rpx;"></view>
 
-<view class="px40 mt20">
-  <view wx:if="{{pageData.typeParam!='viewed'}}" class="row-start py mt text-center relative box-b mb50" style="height: 36rpx;" bindtap="toggleList">
+<view class="px40 mt20 mb40">
+  <!-- <view wx:if="{{pageData.typeParam!='viewed'}}" class="row-start py mt text-center relative box-b mb50" style="height: 36rpx;" bindtap="toggleList">
     <view class="mr40 py transition-3 bold {{showUpcoming?'grey f36':'grey-light f28'}} z1 column-center">
       <view>upcoming</view>
       <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'sec':'trans'}} transition-3 mt"></view>
@@ -23,7 +23,9 @@
       <view>past</view>
       <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} transition-3 mt"></view>
     </view>
-  </view>
+  </view> -->
+  <toggle-nav wx:if="{{pageData.typeParam!='viewed'}}" 
+    showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleList" left />
 </view>
 
 <view wx:if="{{showInitialLoad}}" class="vh80 row-center">
