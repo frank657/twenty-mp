@@ -150,12 +150,13 @@
         class="bg-dim px20 py radius10 box-b" value="{{template?template.description:''}}"></textarea>
     </formInput>
 
-    <!-- <view class="column-center my50" bindtap="showOtherOptions">
+    <!-- ADDITIONAL OPTIONS -->
+    <view class="column-center my50" bindtap="showOtherOptions">
       <view class="bold sec f32 w100 text-center mb20">{{showOther?'Hide':'Show'}} other options</view>
       <image src="/images/icons/arrow-{{showOther?'up':'down'}}.svg" mode="aspectFit" class="icon-ms"></image>
-    </view> -->
+    </view>
     <!--  class="{{showOther?'':'dn'}}" -->
-    <view>
+    <view class="{{showOther?'':'dn'}}">
       <formInput title="Signup Open" info="{{signupInfo}}">
         <view class="px20">
           <view class="row-between">

@@ -101,14 +101,18 @@ const getUserPhone = () => {
   console.log('getting user Phone')
 }
 
-const getData = (path, page = thisPage(), shouldSetData = true) => {
+const getData = (path, params = {}) => {
   const app = getApp()
+  if (!params.page) params.page = thisPage()
+  if (!params.data) params.data = {}
+  if (params.shouldSetData == undefined) params.shouldSetData = true
+  // page = thisPage(), shouldSetData = true, data = {}
 
   const getRequest = () => {
     return new Promise((resolve, reject) => {
-      BR.get(getHost() + path).then((res) => {
+      BR.get(getHost() + path, params.data).then((res) => {
         console.log('data', res)
-        if (shouldSetData) page.setData(res)
+        if (params.shouldSetData) params.page.setData(res)
         resolve(res)
       })
     })

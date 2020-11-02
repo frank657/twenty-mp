@@ -11,44 +11,42 @@
   <scroll-view class="w100 mb60" scroll-x>
     <view class="w100 row-start nowrap avatar-container box-b">
       <view class="avt" wx:for="{{events.followings}}" wx:key="index">
-        <navigator url="/pages/organizers/show/show?id={{item.id}}" class="py20 px" hover-class="none">
-          <image src="{{item.avatar}}" mode="aspectFill" class="avatar-ml card-shadow"></image>
+        <navigator url="/pages/organizers/show/show?id={{item.id}}" class="py20 pl pr20" hover-class="none">
+          <image src="{{item.avatar}}" mode="aspectFill" class="avatar-ml card-shadow-dark"></image>
         </navigator>
       </view>
     </view>
   </scroll-view>
 </block>
 
-<view class="mb50" wx:if="{{events.viewed.length}}">
+<view class="mb60" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">
-    <view class="f36 bold w-100 text-left ter pl20">Recently Viewed</view>
+    <view class="f36 bold w-100 text-left ter pl20 mb">Recently Viewed</view>
   </view>
 
   <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}" easing-function="easeOutCubic" bindchange="bindSwipeRecent">    
     <swiper-item wx:for="{{events.viewed}}" wx:key="index" class="card-wrapper card-small" style="padding-right: 0;">
       <card event="{{item}}" cardType="recent"/>
     </swiper-item>
-    <!-- <swiper-item class="card-wrapper card-small">
-      <view class="h100 row-center" wx:if="{{loadMoreRecent}}">
-        <image src="/images/icons/loading.svg" mode="aspectFit" class="icon-md"></image>
-        <view class="grey-light">No more</view>
-      </view>
-    </swiper-item> -->
+
+    <swiper-item class="more-item">
+      <navigator url="/pages/events/list/list?eventType=viewed" 
+        style="height: 200rpx;" class="row-center" hover-class="none">
+        <view class="more-btn row-center bold white">more</view>
+      </navigator>
+    </swiper-item>
   </swiper>
 </view>
 
 <view class="mb50">
-  <view class="x-wrapper relative row-between">
-    <view class="f36 bold w-100 text-left ter pl20">Attending</view>
-    <view class="row-around w50 bg-dim py text-center relative box-b" style="border-radius: 100rpx;" bindtap="changeAttending">
-      <view class="absolute bg-sec h100 transition-3" 
-        style="{{showUpcomingAtt?'left: 0; right: 50%':'left: 50%; right: 0'}}; border-radius: 100rpx;"></view>
-      <view class="w50 px20 py transition-3 {{showUpcomingAtt?'white':'grey-light'}} z1 f24">upcoming</view>
-      <view class="w50 px20 py transition-3 {{showUpcomingAtt?'grey-light':'white'}} z1 f24">past</view>
-    </view>
+  <view class="px40">
+    <toggle-nav title="RSVP'd" showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
   </view>
 
-  <card-section events="{{showUpcomingAtt?events.rsvped:events.rsvped_past}}" />
+  <card-section wx:if="{{showUpcoming}}" events="{{events.rsvped}}" 
+    eventType="rsvped" listTime="upcoming" />
+  <card-section wx:if="{{!showUpcoming}}" events="{{events.rsvped_past}}" 
+    eventType="rsvped" listTime="past" />
 </view>
 
 <view class="column-center">

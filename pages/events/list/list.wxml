@@ -1,0 +1,44 @@
+<navbar>
+  <view wx:if="{{isOrganization}}" class="column-center" style="align-self: flex-start;">
+    <image mode="aspectFill" src="{{organization.avatar}}" class="mb20"
+      style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" />
+    <view class="bold ter f36">
+      {{organization.name}}
+    </view>
+  </view>
+  <view wx:else class="bold ter f36">
+    {{pageData.pageTitle}}
+  </view>
+</navbar>
+
+<view wx:if="{{isOrganization}}" style="height: 100rpx;"></view>
+
+<view class="px40 mt20 mb40">
+  <!-- <view wx:if="{{pageData.typeParam!='viewed'}}" class="row-start py mt text-center relative box-b mb50" style="height: 36rpx;" bindtap="toggleList">
+    <view class="mr40 py transition-3 bold {{showUpcoming?'grey f36':'grey-light f28'}} z1 column-center">
+      <view>upcoming</view>
+      <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'sec':'trans'}} transition-3 mt"></view>
+    </view>
+    <view class="py transition-3 bold {{showUpcoming?'grey-light f28':'grey f36'}} z1 column-center">
+      <view>past</view>
+      <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} transition-3 mt"></view>
+    </view>
+  </view> -->
+  <toggle-nav wx:if="{{pageData.typeParam!='viewed'}}" 
+    showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleList" left />
+</view>
+
+<view wx:if="{{showInitialLoad}}" class="vh80 row-center">
+  <image class="icon-ml" src="/images/icons/loaders/pacman.svg" mode="aspectFit" />
+</view>
+
+<view wx:else class="px40">
+  <card wx:for="{{events}}" wx:key="index" event="{{item}}" />
+
+  <view wx:if="{{!hasNextPage}}" class="row-center grey-light f28 my20">no more</view>
+  <view wx:if="{{showLoading}}" class="w100 row-center mb20">
+    <image class="icon-md" src="/images/icons/loaders/puff.svg" mode="aspectFit" />
+  </view>
+</view>
+
+<view class="bottom-safe-area"></view>

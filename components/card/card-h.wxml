@@ -1,0 +1,23 @@
+<view class="mb40">
+  <view class="relative flex">
+
+    <view class="relative shrink0" style="height: 200rpx; width: 280rpx; ">
+      <image style="border-radius: 50rpx;" class="w100 h100 card-shadow-dark" mode="aspectFill" src="{{event.image}}"></image>
+
+      <view class="absolute bg-white pa radius-full" style="left: 20rpx; bottom: 20rpx;">
+        <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+          <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
+        </button> 
+      </view>
+    </view>
+    
+    <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30'}}">
+  
+      <view class="pri bold f32 mb20 mt">{{cardType=='recent'?event.title_very_short:event.title_short}}</view>
+      <view class="grey f28">{{event.ui_date[cardType=='recent'?6:4]}}</view>
+      <view class="grey f28">{{event.ui_date[cardType=='recent'?7:5]}}</view>
+      
+      <navigator url="/pages/events/show/show?id={{event.id}}" class="absolute pos-fill z1" hover-class="none"></navigator>
+    </view>
+  </view>
+</view>

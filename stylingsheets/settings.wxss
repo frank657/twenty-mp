@@ -62,6 +62,10 @@ page {
   height: calc(100rpx + 20rpx + 20rpx + var(--bottomSafe)) /* tabbar height + pt & pb + safe area */
 }
 
+.bottom-safe-area {
+  height: var(--bottomSafe)
+}
+
 .container {
   padding: 60rpx 20rpx 0 20rpx;
   box-sizing: border-box;

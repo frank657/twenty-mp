@@ -1,9 +1,20 @@
 <!--components/card/card.wxml-->
-<view class="bg-white card-shadow relative" style="border-radius: {{cardType=='recent'?'20':'46'}}rpx; overflow: hidden;">
-  <image src="{{event.image}}" style="height: {{cardType=='recent'?'180':'360'}}rpx;" class="w100" mode="aspectFill"></image>
-  <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30 mt'}}">
+<!-- <view class="bg-white card-shadow relative" style="border-radius: {{cardType=='recent'?'20':'46'}}rpx; overflow: hidden;"> -->
+<view class="relative">
+
+  <view class="relative">
+    <image style="height: {{cardType=='recent'?'200':'360'}}rpx; border-radius: {{cardType=='recent'?'50':'70'}}rpx;" 
+      class="w100 card-shadow-dark" mode="aspectFill" src="{{event.image}}"></image>
+    <view wx:if="{{cardType!='recent'}}" class="absolute bg-white pa radius-full" style="right: 36rpx; bottom: 36rpx;">
+      <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+        <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
+      </button> 
+    </view>
+  </view>
+  
+  <view class="{{cardType=='recent'?'px20 pb20':'px30 pb30'}}">
     <!-- Signed up & viewed -->
-    <view wx:if="{{cardType=='profile'}}" class="row-between">
+    <view wx:if="{{cardType=='profile'}}" class="row-between mt">
       <view class="row-start">
         <view class="row-start mr40">
           <image src="/images/icons/check.svg" mode="aspectFit" class="icon-mini mr"></image>
@@ -15,12 +26,12 @@
         </view>
       </view>
       
-      <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+      <!-- <button class="unset-btn z9" data-event="{{event}}" open-type="share">
         <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
-      </button>
+      </button> -->
     </view>
 
-    <view class="pri bold mb {{cardType=='recent'?'f26 mt':'f32 mt20'}}">
+    <view class="pri bold mb {{cardType=='recent'?'f26 mt20 mb':'f32 mt30 mb20'}}">
       {{cardType=='recent'?event.title_very_short:event.title_short}}
       </view>
     <view class="grey {{cardType=='recent'?'f22':'f28'}}">{{event.ui_date[cardType=='recent'?6:4]}}</view>
@@ -32,17 +43,18 @@
             <image wx:if="{{item}}"
               src="{{item.avatar}}"
               class="mr20"
-              style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" mode="aspectFill"></image>
+              style="height: 80rpx; width: 80rpx; border-radius: 30rpx;" mode="aspectFill"></image>
           </block>
           <view wx:if="{{event.attendees.yes.length>3||!event.attendees.yes.length}}" 
-            style="height: 60rpx; width: 60rpx; border-radius: 20rpx;" 
+            style="height: 80rpx; width: 80rpx; border-radius: 30rpx;" 
             class="bg-dim ter row-center">
+            {{event.attendees.yes.length>3?'+':''}}
             {{event.attendees.yes.length>3?event.attendees.yes.length-3:'0'}}</view>
         </view>
 
-        <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+        <!-- <button class="unset-btn z9" data-event="{{event}}" open-type="share">
           <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
-        </button> 
+        </button>  -->
       </view>
     </view>
 

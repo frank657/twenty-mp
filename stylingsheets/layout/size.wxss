@@ -27,5 +27,6 @@
 .h30 { height: 30%; }
 .h20 { height: 20%; }
 .h10 { height: 10%; }
+.vh80 { height: 80vh; }
 .vh100 { height: 100vh; }
 .min-vh100 { min-height: 100vh; }

@@ -36,7 +36,7 @@
 }
 
 .card-small {
-	width: 340rpx !important;
+	width: 280rpx !important;
 }
 
 .avatar-container .avt{
@@ -49,6 +49,20 @@
 	padding-right: 30rpx !important;
 }
 
-.card-shadow {
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.08);
+.more-item {
+	width: 280rpx !important;
+	padding: 30rpx;
+	box-sizing: border-box;
+	margin-bottom: 30rpx;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.more-btn {
+	padding: 10rpx;
+	border-radius: 40rpx;
+	height: 100rpx;
+	width: 100rpx;
+	background: linear-gradient(135.41deg, #CDCDCD 7.83%, rgba(255, 154, 60, 0.5) 113.88%);
 }

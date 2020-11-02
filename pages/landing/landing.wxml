@@ -7,7 +7,7 @@
     </view>
 
     <view class="pt100 flex column items-center">
-      <image src="/images/icons/loading.svg" class="icon-ml"></image>
+      <image src="/images/icons/loaders/pacman.svg" class="icon-ml"></image>
     </view>
   </view>
 </view>

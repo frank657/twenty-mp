@@ -20,9 +20,9 @@
 
 .cu-bar.tabbar {
 	padding: 0;
-  padding-top: 20rpx !important;
+  padding-top: 10rpx !important;
 	/* height: calc(100rpx + env(safe-area-inset-bottom) / 2); */
-	padding-bottom: calc(env(safe-area-inset-bottom) / 2 + 20rpx);
+	padding-bottom: calc(env(safe-area-inset-bottom) / 2 + 10rpx);
 }
 
 .cu-bar.tabbar.shadow {

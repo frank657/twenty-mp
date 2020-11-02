@@ -1,0 +1,10 @@
+/* components/toggle-header/toggle-header.wxss */
+@import '/app';
+
+.scale { 
+  transform: scale(1.3);
+}
+
+.transform-transition {
+  transition: 0.3s transform;
+}

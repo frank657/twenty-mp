@@ -31,3 +31,4 @@
 .b-dotted { border-style: dotted; }
 
 .ofh { overflow: hidden; }
+.ofv { overflow: visible; }

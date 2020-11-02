@@ -3,6 +3,8 @@ const BC = require('../../../libs/bc');
 // pages/events/show/show.js
 Page({
   data: {
+    showLanding: true,
+    showFooterWindow: false,
     showAnswer: false, // show already selected answer
     showQuestion: false, // show popup question form
     selectedAnswer: null, // answer to additional question
@@ -19,6 +21,8 @@ Page({
     imageHeight: 250,
   },
 
+  showFooterWindow() { this.setData({ showFooterWindow: true}) },
+
   publishEvent(e) {
     const is_published = e.detail.value == '0'
     if (is_published != this.data.event.is_published) {
@@ -28,6 +32,7 @@ Page({
       })
     } 
   },
+
   openSignup(e) {
     console.log('opening signup', e.detail.value)
     const signup_opens = e.detail.value == '0'
@@ -85,7 +90,6 @@ Page({
     // this.setData({ showQuestion: false })
     wx.showLoading({ title: 'Loading' })
     
-    
     const data = { attendee: { status: this.data.answer, answer_id: this.data.event.answers[this.data.selectedAnswer]['id'] } }
     console.log('data', data)
     if (this.data.selectedAnswer != null) {
@@ -102,6 +106,7 @@ Page({
   },
 
   join(e) {
+    wx.showLoading({mask: true})
     BC.getUserInfo().then(res=>{
       console.log('userinfo', res)
       if (res.avatar) {
@@ -114,13 +119,13 @@ Page({
           console.log('show question and answers')
           this.setData({ showQuestion: true })
         } else {
-          wx.showLoading({ title: 'Loading' })
           const data = { attendee: { status: answer } }
           this.submitRsvp(data);
         }
         
-        
+        wx.hideLoading()
       } else {
+        wx.hideLoading()
         wx.showModal({
           showCancel: false,
           confirmText: 'OK',
@@ -156,11 +161,11 @@ Page({
   },
 
   onShow() {
-    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight })
-    wx.showLoading({ title: 'Loading' })
+    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false })
+    // wx.showLoading({ title: 'Loading' })
     BC.userInfoReady(this)
     BC.getData(`events/${this.options.id}`).then(res=>{
-      this.setData({ answer: res.attending_status })
+      this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {
         this.setData({ showAnswer: true })

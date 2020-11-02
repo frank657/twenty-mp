@@ -18,11 +18,12 @@ Page({
   loadTemplate() {
     if (this.options.template) {
       wx.showLoading()
-      BC.getData(`events/${this.options.template}`, this, false).then(res=>{
-        if (res.event.answers) res.event.answers = res.event.answers.map(a=>a.content)
-        this.setData(res)
-        wx.hideLoading()
-      })
+      BC.getData(`events/${this.options.template}`, { shouldSetData: false })
+        .then(res=>{
+          if (res.event.answers) res.event.answers = res.event.answers.map(a=>a.content)
+          this.setData(res)
+          wx.hideLoading()
+        })
     }
   }
 })
