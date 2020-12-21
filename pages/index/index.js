@@ -1,6 +1,7 @@
 const BC = require('../../libs/bc.js');
 const app = getApp()
 import Event from '../../utils/event'
+import { tl } from '../../utils/tl.js';
 
 Page({
   data: {

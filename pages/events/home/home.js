@@ -1,6 +1,7 @@
 const app = getApp();
 const BC = require("../../../libs/bc");
 import moreList from '../show-more-list';
+import { tl } from '../../../utils/tl.js';
 
 Component({
   attached() {
@@ -20,6 +21,10 @@ Component({
 
   ready() {
     // BC.getData('events')
+    tl(this, false).then(res =>{
+      console.log('home tl res', res)
+      this.setData({ t: res.index.events.home })
+    })
     this.setData({ moreList })
   },
 
