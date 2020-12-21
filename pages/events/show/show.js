@@ -163,14 +163,35 @@ Page({
   onShow() {
     this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false })
     // wx.showLoading({ title: 'Loading' })
+    let id;
+
+    if (this.options.scene) {
+      console.log('original scene:', this.options.scene)
+      let scene = decodeURIComponent(this.options.scene).split("&") // ["id=1"]
+      id =  scene[0].split("=")[1] // ["id", "1"]
+    } else {
+      id = this.options.id
+    }
+
+    console.log({id})
+
     BC.userInfoReady(this)
-    BC.getData(`events/${this.options.id}`).then(res=>{
+    BC.getData(`events/${id}`).then(res=>{
       this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {
         this.setData({ showAnswer: true })
       }
       wx.hideLoading()
+    })
+  },
+
+  getQr() {
+    // IF event.mp_qr_code IS NULL, THIS IS THE PATH TO GENERATE THE QR CODE
+    let id = this.data.event.id
+    BC.getData(`events/${id}/get_qr`, {shouldSetData: false}).then(res=> {
+      // I RETURN THE WHOLE EVENT OBJECT
+      console.log('getqr res', res)
     })
   },
 
