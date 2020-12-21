@@ -93,12 +93,12 @@ Component({
     },
 
     pinLocation() {
-      console.log('clicked')
       const that = this
       wx.authorize({
         scope: 'scope.userLocation',
         success(res) {
           console.log(res)
+          if (res.errCode) { console.log('error, go to settings and authorize location')}
           wx.chooseLocation({
             success(res) {
               that.setData({
@@ -123,20 +123,11 @@ Component({
         success (res) {
           const tempFilePaths = res.tempFilePaths
           that.setData({imgTempFile: tempFilePaths[0]})
-          // const {event, template} = that.data
-          // if (event) event.image = null
-          // if (template) template.image = null
-          // that.setData({ event, template })
           that.setData({hasNewImage: true, hasNoImage: false})
         }
       })
     },
     removeImage() {
-      // const {event, template} = this.data
-      // const imgTempFile = null
-      // if (event) event.image = null
-      // if (template) template.image = null
-      // this.setData({ event, template, imgTempFile })
       console.log('has image?', this.hasImage(), this.data)
       this.setData({hasNewImage: false, imgTempFile: null, hasNoImage: true})
     },
@@ -162,20 +153,28 @@ Component({
 
       const pd = this.data
 
-      const has_image = this.hasImage()
-      const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
-      const has_details = data.title&&data.description&&data.venue_name
-      const has_qa = ((data.question && answers.length) || (!data.question && !answers.length))
-      // const has_qa = true
+      const validationErrors = {}
+      if (!this.hasImage()) validationErrors.image = true
+      if (!data.title) validationErrors.title = true
+      if (!data.description) validationErrors.description = true
+      if (!data.venue_name) validationErrors.venue = true
+      if (!((pd.maxCapacity && data.max_capacity) || !pd.maxCapacity)) validationErrors.capacity = true
+      if (!((data.question && answers.length) || (!data.question && !answers.length))) validationErrors.question = true
+
+      // const has_image = this.hasImage()
+      // const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
+      // const has_details = data.title&&data.description&&data.venue_name
+      // const has_qa = ((data.question && answers.length) || (!data.question && !answers.length))
       
-      console.log('has q&a?', has_qa)
+      // console.log('has q&a?', has_qa)
 
       console.log(data)
       // const existingAnswers = answers.filter(a=>a.id)
       // const newAnswers = answers.filter(a=>!a.id)
       const body = answers.length ? {event: data, answers: answers} : {event: data}
 
-      if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
+      // if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
+      if (!Object.keys(validationErrors).length) {
         wx.showLoading({title: 'Loading'})    
         if (pd.formType=='create') {
           BC.post(BC.getHost()+'events', body).then(res=>{
@@ -198,6 +197,8 @@ Component({
           })
         }
       } else {
+        this.setData({ validationErrors })
+        console.log('error', validationErrors)
         wx.showModal({
           showCancel: false,
           confirmText: 'OK',

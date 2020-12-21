@@ -16,17 +16,6 @@ Page({
     this.setData({showUpcoming})
   },
 
-  followOrganization() {
-    const id = this.data.organization.id
-    const url = `${BC.getHost()}organizations/${id}/follow`
-    BC.get(url).then(res=>{
-      console.log('res', res)
-      const { organization } = this.data
-      organization.followed = res.followed
-      this.setData({ organization })
-    })
-  },
-
   onPullDownRefresh: function () {
 
   },

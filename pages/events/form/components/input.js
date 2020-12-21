@@ -3,19 +3,14 @@ Component({
 
   properties: {
     title: { type: String, value: '' },
-    info: { type: String, value: null }
+    info: { type: String, value: null },
+    failValidation: { type: Boolean, value: false },
   },
 
-  /**
-   * Component initial data
-   */
   data: {
     
   },
 
-  /**
-   * Component methods
-   */
   methods: {
     showInfo() {
       const { info } = this.data

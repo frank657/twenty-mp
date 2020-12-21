@@ -24,9 +24,11 @@
       "disablePlugins": [],
       "outputPath": ""
     },
+    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true
@@ -74,7 +76,6 @@
           "scene": null
         },
         {
-          "id": 3,
           "name": "organizer",
           "pathName": "pages/organizers/show/show",
           "query": "id=3317",

@@ -1,7 +1,7 @@
 <view class="pa40">
   <form bindsubmit="submitEvent">
     <view style="height: 400rpx; border-radius: 60rpx; overflow: hidden;" 
-      class="w100 shadow row-center relative">
+      class="w100 shadow{{validationErrors.image?'-red':''}} row-center relative">
       <view class="h100 w100 absolute" bindtap="uploadImage" />
       <!-- <block wx:if="{{formType=='create'}}"> -->
         <view class="column-center" wx:if="{{hasNoImage||!imgTempFile&&!event.image&&!template.image}}">
@@ -31,7 +31,7 @@
       </block> -->
     </view>
 
-    <formInput title="Title">
+    <formInput title="Title" failValidation="{{validationErrors.title}}">
       <input wx:if="{{formType=='edit'}}" name="title" class="text-center bg-dim px20 py radius10" value="{{event.title}}"></input>
       <input wx:else name="title" class="text-center bg-dim px20 py radius10" value="{{template?template.title:''}}"></input>
     </formInput>
@@ -91,7 +91,7 @@
       </view>
     </formInput>
 
-    <formInput title="Where">
+    <formInput title="Where" failValidation="{{validationErrors.venue}}">
       <view class="f32 sec text-center mb30" bindtap="pinLocation">Pin location</view>
       
       <block wx:if="{{address||event.address||template.venue_name}}">
@@ -106,7 +106,7 @@
       <input class="dn" name="longitude" value="{{long||event.longitude||template.longitude}}"></input>
     </formInput>
 
-    <formInput title="Maximum Attendees">
+    <formInput title="Maximum Attendees" failValidation="{{validationErrors.capacity}}">
       <view class="px20">
         <view class="row-between">
 
@@ -143,7 +143,7 @@
       </view>
     </formInput>
 
-    <formInput title="Description">
+    <formInput title="Description" failValidation="{{validationErrors.description}}">
       <textarea wx:if="{{formType=='edit'}}" name="description" maxlength="-1" 
         class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
       <textarea wx:else name="description" maxlength="-1" 
@@ -207,7 +207,7 @@
         </view>
       </formInput>
       <!-- formType=='create'||event.can_add_question -->
-      <formInput title="Custom Question" info="{{questionInfo}}">
+      <formInput title="Custom Question" info="{{questionInfo}}" failValidation="{{validationErrors.question}}">
         <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
         <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
         
