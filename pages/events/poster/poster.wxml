@@ -1,0 +1,11 @@
+<!--pages/events/share-canvas/share-canvas.wxml-->
+<navbar navType='float' />
+
+<view class="vh100 w100 relative ofh row-center">
+  <view class="canvas-bg" style="background-image: url('/images/placeholder.jpg');"></view>
+
+  <!-- add header space -->
+
+  <canvas type="2d" class="bg-grey-light" style="height: {{canvasHeight}}px; width: {{canvasWidth}}px;"
+    id="event-poster"></canvas>
+</view>

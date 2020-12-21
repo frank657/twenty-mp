@@ -10,7 +10,8 @@
     "pages/events/edit/edit",
     "pages/organizers/show/show",
     "pages/organizers/edit/edit",
-    "pages/events/list/list"
+    "pages/events/list/list",
+    "pages/events/poster/poster"
   ],
   "permission": {
     "scope.userLocation": {

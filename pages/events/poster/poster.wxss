@@ -1,0 +1,12 @@
+/* pages/events/share-canvas/share-canvas.wxss */
+.canvas-bg {
+  position: absolute;
+  top: -50rpx;
+  bottom: -50rpx;
+  left: -50rpx;
+  right: -50rpx;
+  filter: blur(100rpx);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
