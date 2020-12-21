@@ -23,7 +23,7 @@ Component({
     // BC.getData('events')
     tl(this, false).then(res =>{
       console.log('home tl res', res)
-      this.setData({ t: res.index.events.home })
+      this.setData({ t: res.events.home })
     })
     this.setData({ moreList })
   },

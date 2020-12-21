@@ -1,4 +1,5 @@
 const BC = require('../../../libs/bc');
+import { tl } from '../../../utils/tl.js';
 
 // pages/events/show/show.js
 Page({
@@ -165,6 +166,7 @@ Page({
     // wx.showLoading({ title: 'Loading' })
     BC.userInfoReady(this)
     BC.getData(`events/${this.options.id}`).then(res=>{
+      tl(this, false).then(tlRes=> this.setData({ t: tlRes.events.show }))
       this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {

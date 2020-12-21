@@ -11,7 +11,8 @@ Component({
   properties: {
     template: { type: Object, value: null, observer() { this.loadFields() } },
     event: { type: Object, value: null, observer() { this.loadFields() } },
-    formType: { type: String, value: 'create' }
+    formType: { type: String, value: 'create' },
+    t: Object
   },
 
   data: {

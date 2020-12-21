@@ -7,7 +7,7 @@
         <view class="column-center" wx:if="{{hasNoImage||!imgTempFile&&!event.image&&!template.image}}">
           <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" 
             class="my30"></image>
-          <text class="bold f32 ter">Upload a Photo</text>
+          <text class="bold f32 ter">{{t.upload_photo}}</text>
         </view>
         <!-- wx:if="{{!hasNoImage&&hasNewImage&&(imgTempFile||event.image||template.image)}}" -->
         <block wx:else>
@@ -31,15 +31,15 @@
       </block> -->
     </view>
 
-    <formInput title="Title">
+    <formInput title="{{t.title}}">
       <input wx:if="{{formType=='edit'}}" name="title" class="text-center bg-dim px20 py radius10" value="{{event.title}}"></input>
       <input wx:else name="title" class="text-center bg-dim px20 py radius10" value="{{template?template.title:''}}"></input>
     </formInput>
     
-    <formInput title="When">
+    <formInput title="{{t.when}}">
       <view class="row-between">
         <view class="text-left w50">
-          <view class="f24 grey">from</view>
+          <view class="f24 grey">{{t.from}}</view>
             
           <picker name="start_date" 
             mode="date" value="{{startDate||event.form_date.start.date||today}}" start="{{today}}" end="{{lastDate}}" 
@@ -62,7 +62,7 @@
 
         </view>
         <view class="text-right w50">
-          <view class="f24 grey">until</view>
+          <view class="f24 grey">{{t.until}}</view>
           <picker name="end_date" 
             mode="date" 
             value="{{endDate||startDate||event.form_date.end.date||today}}" 
@@ -91,22 +91,22 @@
       </view>
     </formInput>
 
-    <formInput title="Where">
-      <view class="f32 sec text-center mb30" bindtap="pinLocation">Pin location</view>
+    <formInput title="{{t.where}}">
+      <view class="f32 sec text-center mb30" bindtap="pinLocation">{{t.pin_location}}</view>
       
       <block wx:if="{{address||event.address||template.venue_name}}">
-        <view class="text-center f24 grey my">Address</view>
+        <view class="text-center f24 grey my">{{t.address}}</view>
         <input name="address" value="{{address||event.address||template.address}}" class="text-center bg-dim px20 py radius10"></input>
       </block>
 
-      <view class="text-center f24 grey my">Venue name</view>
+      <view class="text-center f24 grey my">{{t.venue_name}}</view>
       <input name="venue_name" value="{{venue||event.venue_name||template.venue_name}}" class="text-center bg-dim px20 py radius10"></input>
 
       <input class="dn" name="latitude" value="{{lat||event.latitude||template.latitude}}"></input>
       <input class="dn" name="longitude" value="{{long||event.longitude||template.longitude}}"></input>
     </formInput>
 
-    <formInput title="Maximum Attendees">
+    <formInput title="{{t.max_attendees}}">
       <view class="px20">
         <view class="row-between">
 
@@ -115,7 +115,7 @@
               class="mr20 transition-3 {{!maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
             </view>
             <view class="transition-3 {{!maxCapacity?'sec':'grey-light'}}">
-              No limit
+              {{t.no_limit}}
             </view>
           </view>
 
@@ -124,14 +124,14 @@
               class="mr20 transition-3 {{maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
             </view>
             <view class="transition-3 {{maxCapacity?'sec':'grey-light'}}">
-              Limited spots
+              {{t.limited}}
             </view>
           </view>
         </view>
       </view>
       
       <view wx:if="{{maxCapacity}}" class="column-center">
-        <view class="text-center f24 grey mb mt50">Maximum</view>
+        <view class="text-center f24 grey mb mt50">{{t.max}}</view>
         <input wx:if="{{formType=='edit'}}" name="max_capacity" type="number" 
           value="{{event.max_capacity}}"
           class="text-center bg-dim px20 py radius10 w30" 
@@ -143,7 +143,7 @@
       </view>
     </formInput>
 
-    <formInput title="Description">
+    <formInput title="{{t.desc}}">
       <textarea wx:if="{{formType=='edit'}}" name="description" maxlength="-1" 
         class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
       <textarea wx:else name="description" maxlength="-1" 
@@ -152,12 +152,12 @@
 
     <!-- ADDITIONAL OPTIONS -->
     <view class="column-center my50" bindtap="showOtherOptions">
-      <view class="bold sec f32 w100 text-center mb20">{{showOther?'Hide':'Show'}} other options</view>
+      <view class="bold sec f32 w100 text-center mb20">{{showOther?t.hide_other_options:t.show_other_options}}</view>
       <image src="/images/icons/arrow-{{showOther?'up':'down'}}.svg" mode="aspectFit" class="icon-ms"></image>
     </view>
     <!--  class="{{showOther?'':'dn'}}" -->
     <view class="{{showOther?'':'dn'}}">
-      <formInput title="Signup Open" info="{{signupInfo}}">
+      <formInput title="{{t.signup_open}}" info="{{t.signup_info}}">
         <view class="px20">
           <view class="row-between">
             <input class="dn" name="signup_opens" value="{{signupOpen}}"></input>
@@ -166,7 +166,7 @@
                 class="mr20 transition-3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
               <view class="transition-3 {{signupOpen?'sec':'grey-light'}}">
-                Open
+                {{t.open}}
               </view>
             </view>
 
@@ -175,14 +175,14 @@
                 class="mr20 transition-3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
               <view class="transition-3 {{!signupOpen?'sec':'grey-light'}}">
-                Closed
+                {{t.closed}}
               </view>
             </view>
           </view>
         </view>
       </formInput>
 
-      <formInput title="Show as Published" info="{{publishInfo}}">
+      <formInput title="{{t.show_published}}" info="{{t.publish_info}}">
         <view class="px20">
           <view class="row-between">
             <input class="dn" name="is_published" value="{{eventPublished}}"></input>
@@ -191,7 +191,7 @@
                 class="mr20 transition-3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
               <view class="transition-3 {{eventPublished?'sec':'grey-light'}}">
-                Published
+                {{t.published}}
               </view>
             </view>
 
@@ -200,14 +200,14 @@
                 class="mr20 transition-3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
               <view class="transition-3 {{!eventPublished?'sec':'grey-light'}}">
-                Unpublished
+                {{t.unpublished}}
               </view>
             </view>
           </view>
         </view>
       </formInput>
       <!-- formType=='create'||event.can_add_question -->
-      <formInput title="Custom Question" info="{{questionInfo}}">
+      <formInput title="{{t.custom_q}}" info="{{t.custom_q_info}}">
         <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
         <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
         
@@ -226,7 +226,7 @@
         <view class="mt20 flex w100" bindtap="addRemoveAnswers" data-action="add">
           <plus title="+" />
           <view class="ml20 w100 py px20 grey-light">
-            Click to add an answer
+            {{t.click_to_add}}
           </view>
         </view>
       </formInput>
@@ -234,6 +234,6 @@
 
     <!-- <view style="height: 200rpx;"></view> -->
 
-    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{formType=='create'?'Create':'Update'}}</button>
+    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{formType=='create'?t.create:t.update}}</button>
   </form>
 </view>

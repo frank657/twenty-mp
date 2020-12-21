@@ -13,7 +13,7 @@ const launchApp = (app) => {
 
 const getHost = () => {
   const d = getApp().globalData
-  return d.host[d.env] + d.api
+  return d.host[d.env] + '/' + d.lang + d.api
 }
 
 const userLogin = (app) => {

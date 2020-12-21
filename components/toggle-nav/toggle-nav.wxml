@@ -3,11 +3,11 @@
   
   <view class="row-start py mt text-center relative box-b {{left?'ml20':'pr'}}" style="height: 36rpx;" bindtap="toggleNav">
     <view class="mr30 py transition-3 bold {{showUpcoming?'grey':'grey-light'}} z1 column-center">
-      <view class="{{showUpcoming?'scale':''}} transform-transition">upcoming</view>
+      <view class="{{showUpcoming?'scale':''}} transform-transition">{{t.upcoming}}</view>
       <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'sec':'trans'}} transition-3 mt"></view>
     </view>
     <view class="ml20 py transition-3 bold {{showUpcoming?'grey-light':'grey'}} z1 column-center">
-      <view class="{{!showUpcoming?'scale':''}} transform-transition">past</view>
+      <view class="{{!showUpcoming?'scale':''}} transform-transition">{{t.past}}</view>
       <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} transition-3 mt"></view>
     </view>
   </view>

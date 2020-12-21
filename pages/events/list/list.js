@@ -1,5 +1,6 @@
 import share from 'share-msg';
 import moreList from '../show-more-list';
+import { tl } from '../../../utils/tl.js';
 
 // pages/events/list/list.js
 Page({
@@ -13,6 +14,7 @@ Page({
   },
 
   onLoad: function (options) {
+    tl(this, false).then(res=> this.setData({ t: res.events.list }))
     wx.hideShareMenu();
     options.isOrganization ? this.loadOrgData(options) : this.loadEventData(options)
     console.log(options)
@@ -29,7 +31,8 @@ Page({
   loadEventData(options) {
     const { eventType, listTime, isOrganization } = options
     const pageData = listTime ? moreList[eventType][listTime] : moreList[eventType]
-    this.setData({ pageData, showUpcoming: listTime == 'upcoming' })
+    this.setData({ eventType, pageData, showUpcoming: listTime == 'upcoming' })
+    console.log(123, this.data)
   },
 
   onReachBottom() {

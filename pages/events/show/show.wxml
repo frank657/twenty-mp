@@ -11,7 +11,7 @@
       value="{{event.is_published?0:1}}"
       bindchange="publishEvent">
       <view class="row-start">
-        <view class="white">{{event.is_published?'Published':'Unpublished'}}</view>
+        <view class="white">{{event.is_published?t.published:t.unpublished}}</view>
         <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini"></image>
       </view>
     </picker>
@@ -21,7 +21,7 @@
       value="{{event.signup_opens?0:1}}"
       bindchange="openSignup">
       <view class="row-start">
-        <view class="white">{{event.signup_opens?'Signup open':'Signup closed'}}</view>
+        <view class="white">{{event.signup_opens?t.signup_open:t.signup_closed}}</view>
         <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
       </view>
     </picker>
@@ -48,13 +48,13 @@
     <view class="flex justify-between items-start w100">
       <view class="f32 grey">{{event.venue_name}}</view>
       <view wx:if="{{event.longitude&&event.latitude}}" 
-        class="f24 ter px20 py bg-dim dib radius10" style="flex-shrink: 0;">see map</view>
+        class="f24 ter px20 py bg-dim dib radius10" style="flex-shrink: 0;">{{t.see_map}}</view>
     </view>
   </view>
 
   <view class="mb100">
     <view class="row-between">
-      <view class="bold f32 ter mt50 mb40">Attendees</view>
+      <view class="bold f32 ter mt50 mb40">{{t.attendees}}</view>
       <!-- {{event.max_capacity?' (max '+event.max_capacity+')':''}} -->
       <button open-type="share" class="unset-btn" style="margin-right: 0;">
         <image src="/images/icons/share.svg" 
@@ -86,7 +86,7 @@
 
       </view>
       <view wx:if="{{event.attendees.yes.length>0||event.attendees.no.length>0||event.attendees.maybe.length>0}}" 
-        class="f24 ter px20 py bg-dim ml30 radius10" style="flex-shrink: 0;">View all</view>
+        class="f24 ter px20 py bg-dim ml30 radius10" style="flex-shrink: 0;">{{t.view_all}}</view>
     </navigator>
     
     <view wx:if="{{event.max_capacity}}" class="w100">
@@ -98,26 +98,28 @@
           class="bb b b-dim b4 transition-3"></view>
       </view>
       <view class="row-between">
-        <view class="f24 grey">{{event.attendees.yes.length||0}} joined</view>
+        <!-- <view class="f24 grey">{{event.attendees.yes.length||0}} joined</view> -->
+        <view class="f24 grey">{{event.joined_count_string}}</view>
         <view wx:if="{{event.max_capacity>(event.attendees.yes.length||0)}}" 
           class="f24 sec">
-          {{event.max_capacity-(event.attendees.yes.length||0)}} left
+          <!-- {{event.max_capacity-(event.attendees.yes.length||0)}} left -->
+          {{event.spots_left_string}}
         </view>
         <view wx:if="{{event.max_capacity==event.attendees.yes.length}}" 
-          class="f24 red">full</view>
+          class="f24 red">{{t.full}}</view>
       </view>
     </view>
   </view>
 
   <view class="mb100">
-    <view class="bold f32 ter mb40">Description</view>
+    <view class="bold f32 ter mb40">{{t.description}}</view>
     <text class="grey f28">{{event.description}}</text>
   </view>
 
   <view class="w100 row-center">
     <navigator url="/pages/events/create/create" open-type="redirect"
       class="b radius20 px30 py20 grey-light" 
-      style="border-style: dashed">Create your own event</navigator>
+      style="border-style: dashed">{{t.create_event}}</navigator>
   </view>
 
   <view style="height: {{selected_answer&&answer=='yes'?300:170}}rpx;"/>
@@ -129,12 +131,12 @@
   <view wx:if="{{userInfo.organization.id == creator.id}}" bindtap="showFooterWindow"
     class="pa20 bold transition-3 bg-ter white absolute z9" 
     style="border-radius: 30rpx; right: 40rpx; top: -100rpx;" >
-    Manage
+    {{t.manage}}
   </view>
 
   <block wx:if="{{event.signup_opens}}">
     <view class="row-between">
-      <view class="bold ter f28 mr50">Joining?</view>
+      <view class="bold ter f28 mr50">{{t.joining}}</view>
       <!-- <view wx:for="{{answers}}"
         class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
         style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
@@ -144,14 +146,14 @@
         wx:for="{{answers}}" wx:key="index"
         class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
         style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
-        data-answer="{{item.name}}">{{item.label}}</button>
+        data-answer="{{item.name}}">{{t.answers[item.name]}}</button>
     </view>
 
     <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
       <view class="grey f24">{{event.question}}</view>
       <view class="flex items-center mt">
         <view class="ter f24 medium">{{selected_answer.content}}</view>
-        <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
+        <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">{{t.change}}</text>
       </view>
     </view>
   </block>
@@ -170,7 +172,7 @@
 
   <block wx:if="{{!event.signup_opens}}">
     <view class="w100 row-center">
-      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is closed or not open yet</view>
+      <view class="px30 py20 radius30 bold bg-grey-light white">{{t.signup_closed_long}}</view>
     </view>
   </block>
 </view>
@@ -181,14 +183,14 @@
   <view class="w100 mt20">
     <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}" range-key="content">
       <view class="bg-dim pa20 radius10 grey row-between">
-        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : 'Choose an answer.. '}} 
+        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : t.choose_an_answer}} 
         <image class="icon-sm" mode="aspectFit" src="/images/icons/arrow-down.svg"></image> 
       </view>
     </picker>
   </view>
   <!-- <button bindtap="submitAnswer" class="b b-sec w50 mt30 bold f32 btn-footer bg-white sec row-center">Select</button> -->
   <button bindtap="submitAnswer" disabled="{{!event.answers[selectedAnswer]}}" 
-    class="mt30 bold ter f28 {{selectedAnswer||selectedAnswer==0?'btn-footer white bg-sec':'btn-disabled grey-light'}} row-center">Select</button>
+    class="mt30 bold ter f28 {{selectedAnswer||selectedAnswer==0?'btn-footer white bg-sec':'btn-disabled grey-light'}} row-center">{{t.select}}</button>
 
 </view>
 
@@ -204,15 +206,15 @@
     </view> -->
     <view bindtap="deleteEvent"
       class="row-center grey py40 bb b-dim">
-      Cancel and Delete
+      {{t.cancel}}
     </view>
     <navigator url="/pages/events/edit/edit?event={{event.id}}"
       class="row-center grey py40 bb b-dim" hover-class="none">
-      Edit Details
+      {{t.edit}}
     </navigator>
     <navigator url="/pages/events/create/create?template={{event.id}}"
       class="row-center grey py40" hover-class="none">
-      Copy Event
+      {{t.copy}}
     </navigator>
   </view> 
 </footer-window>

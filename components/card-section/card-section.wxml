@@ -1,16 +1,16 @@
 <view wx:if="{{!events.length}}" 
   class="mx20 mt50 mb100 grey f28 text-left pl20">
-  {{noEventText}}
+  {{t.no_events}}
 </view>
 
 <swiper wx:if="{{events.length}}" class="card-swiper" style="height: {{cardType=='profile'?800:700}}rpx;" 
   current="{{swiperCur}}" easing-function="easeOutCubic" bindchange="swipeChange">
   <swiper-item wx:for="{{events}}" wx:key="index" class="card-wrapper card-big">
-    <card event="{{item}}" cardType="{{cardType}}" bind:compTriggeredEvent="compTriggeredEvent"/>
+    <card t="{{t}}" event="{{item}}" cardType="{{cardType}}" bind:compTriggeredEvent="compTriggeredEvent"/>
   </swiper-item>
   <swiper-item class="more-item">
     <view bindtap="navToList" style="height: 360rpx;" class="row-center">
-      <view class="more-btn row-center bold white">more</view>
+      <view class="more-btn row-center bold white">{{t.more}}</view>
     </view>
   </swiper-item>
 </swiper>

@@ -1,5 +1,6 @@
 const app = getApp();
 const BC = require('../../../libs/bc');
+import { tl } from '../../../utils/tl.js';
 
 Component({
   properties: {
@@ -45,7 +46,13 @@ Component({
     getData() {
       wx.showLoading()
       const org_id = app.globalData.userInfo.organization.id
-      BC.getData(`organizations/${org_id}`, { page: this }).then(res=>wx.hideLoading())
+      BC.getData(`organizations/${org_id}`, { page: this }).then(res=>{
+        tl(this, false).then(tlRes => {
+          this.setData({ t: tlRes.profile.home })
+          console.log(this.data)
+        })
+        wx.hideLoading()
+      })
     },
 
     toggleNav(e) {

@@ -1,10 +1,10 @@
 <view class="pa40">
   <form bindsubmit="updateProfile">
-    <formInput title="Name">
+    <formInput title="{{t.name}}">
       <input name="name" class="text-center bg-dim px20 py radius10" value="{{organization.name}}"></input>
     </formInput>
 
-    <formInput title="Profile image">
+    <formInput title="{{t.profile_image}}">
       <view class="row-center">
         <view class="avatar-ml shrink0 relative">
           <block wx:if="{{upload.org_avatar.url||organization.avatar}}">
@@ -21,7 +21,7 @@
       </view>
     </formInput>
 
-    <formInput title="Photos">
+    <formInput title="{{t.photos}}">
       <view class="flex items-between justify-start wrap">
         <photo wx:for="{{organization.images}}" image="{{item}}" class="w50" bind:deletePhoto="deletePhoto" />
         <photo wx:if="{{upload.images.url}}" image="{{upload.images}}" class="w50" upload />
@@ -35,6 +35,6 @@
       </view>
     </formInput>
 
-    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Done</button>
+    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{t.done}}</button>
   </form>
 </view>
