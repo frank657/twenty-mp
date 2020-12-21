@@ -31,7 +31,7 @@ Page({
       BC.put(url, {event: {is_published}}).then(res=>{
         this.setData({event: res.event})
       })
-    } 
+    }
   },
 
   openSignup(e) {
@@ -57,7 +57,7 @@ Page({
       confirmText: 'Confirm',
       title: 'Cancel Event',
       content: 'You are about to cancel this event. Do you want to confirm?',
-      success(res) { 
+      success(res) {
         console.log(res)
         if (res.confirm) {
           const path = `${BC.getHost()}/events/${that.data.event.id}`
@@ -90,7 +90,7 @@ Page({
   submitAnswer(e) {
     // this.setData({ showQuestion: false })
     wx.showLoading({ title: 'Loading' })
-    
+
     const data = { attendee: { status: this.data.answer, answer_id: this.data.event.answers[this.data.selectedAnswer]['id'] } }
     console.log('data', data)
     if (this.data.selectedAnswer != null) {
@@ -113,7 +113,7 @@ Page({
       if (res.avatar) {
         // wx.showLoading({ title: 'Loading' })
         const { answer } = e.currentTarget.dataset
-        this.setData({ answer })  
+        this.setData({ answer })
         console.log(answer)
         console.log('question', this.data.event.question)
         if (answer == 'yes' && this.data.event.question && this.data.event.question != '') {
@@ -123,7 +123,7 @@ Page({
           const data = { attendee: { status: answer } }
           this.submitRsvp(data);
         }
-        
+
         wx.hideLoading()
       } else {
         wx.hideLoading()
@@ -164,8 +164,20 @@ Page({
   onShow() {
     this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false })
     // wx.showLoading({ title: 'Loading' })
+    let id;
+
+    if (this.options.scene) {
+      console.log('original scene:', this.options.scene)
+      let scene = decodeURIComponent(this.options.scene).split("&") // ["id=1"]
+      id =  scene[0].split("=")[1] // ["id", "1"]
+    } else {
+      id = this.options.id
+    }
+
+    console.log({id})
+
     BC.userInfoReady(this)
-    BC.getData(`events/${this.options.id}`).then(res=>{
+    BC.getData(`events/${id}`).then(res=>{
       tl(this, false).then(tlRes=> this.setData({ t: tlRes.events.show }))
       this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
@@ -173,6 +185,15 @@ Page({
         this.setData({ showAnswer: true })
       }
       wx.hideLoading()
+    })
+  },
+
+  getQr() {
+    // IF event.mp_qr_code IS NULL, THIS IS THE PATH TO GENERATE THE QR CODE
+    let id = this.data.event.id
+    BC.getData(`events/${id}/get_qr`, {shouldSetData: false}).then(res=> {
+      // I RETURN THE WHOLE EVENT OBJECT
+      console.log('getqr res', res)
     })
   },
 
@@ -195,7 +216,7 @@ Page({
   onShareAppMessage: function () {
     const e = this.data.event
     const t = e.start_time
-    let h = parseInt(t.time) 
+    let h = parseInt(t.time)
     const i = t.time.indexOf(':')
     const m = t.time.slice(i+1, i+3)
     const mm = m=='00'?'':`:${m}`
