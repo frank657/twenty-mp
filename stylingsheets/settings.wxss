@@ -12,7 +12,7 @@ page {
   --black: #000;
   --white: #fff;
   --greySlight: #efefef;
-  --greyLight: #d6d6d6;
+  --greyLight: #d1d1d1;
   --grey: #6d6d6d;
   --greyDark: #333333;
   --yellow: #ffca00;
@@ -62,7 +62,7 @@ page {
   height: calc(100rpx + 20rpx + 20rpx + var(--bottomSafe)) /* tabbar height + pt & pb + safe area */
 }
 
-.bottom-safe-area {
+.bottom-safe {
   height: var(--bottomSafe)
 }
 

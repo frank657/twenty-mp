@@ -92,10 +92,10 @@
     <view wx:if="{{event.max_capacity}}" class="w100">
       <view class="flex mb">
         <view style="width: {{(event.attendees.yes.length||0)/event.max_capacity*100}}%;" 
-          class="bb b b4 transition-3 opacity-5 {{event.max_capacity==event.attendees.yes.length?'b-red':'b-sec'}}"></view>
+          class="bb b b4 duration3 opacity-5 {{event.max_capacity==event.attendees.yes.length?'b-red':'b-sec'}}"></view>
         <view wx:if="{{event.max_capacity!=event.attendees.yes.length}}" 
           style="width: {{(event.max_capacity-(event.attendees.yes.length||0))/event.max_capacity*100}}%;" 
-          class="bb b b-dim b4 transition-3"></view>
+          class="bb b b-dim b4 duration3"></view>
       </view>
       <view class="row-between">
         <view class="f24 grey">{{event.attendees.yes.length||0}} joined</view>
@@ -127,7 +127,7 @@
 <view wx:if="{{!showQuestion}}" class="show-footer bg-white">
 
   <view wx:if="{{userInfo.organization.id == creator.id}}" bindtap="showFooterWindow"
-    class="pa20 bold transition-3 bg-ter white absolute z9" 
+    class="pa20 bold duration3 bg-ter white absolute z9" 
     style="border-radius: 30rpx; right: 40rpx; top: -100rpx;" >
     Manage
   </view>
@@ -136,13 +136,13 @@
     <view class="row-between">
       <view class="bold ter f28 mr50">Joining?</view>
       <!-- <view wx:for="{{answers}}"
-        class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
+        class="pa20 bold duration3 {{attending_status==item.name?'bg-sec white':'grey-light'}}" 
         style="border-radius: 30rpx;" bindtap="join" data-answer="{{item.name}}">{{item.label}}</view> -->
       <button
         open-type="getUserInfo"
         bindgetuserinfo="join"
         wx:for="{{answers}}" wx:key="index"
-        class="pa20 bold transition-3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
+        class="pa20 bold duration3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}" 
         style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;" 
         data-answer="{{item.name}}">{{item.label}}</button>
     </view>

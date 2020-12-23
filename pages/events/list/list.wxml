@@ -15,13 +15,13 @@
 
 <view class="px40 mt20 mb40">
   <!-- <view wx:if="{{pageData.typeParam!='viewed'}}" class="row-start py mt text-center relative box-b mb50" style="height: 36rpx;" bindtap="toggleList">
-    <view class="mr40 py transition-3 bold {{showUpcoming?'grey f36':'grey-light f28'}} z1 column-center">
+    <view class="mr40 py duration3 bold {{showUpcoming?'grey f36':'grey-light f28'}} z1 column-center">
       <view>upcoming</view>
-      <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'sec':'trans'}} transition-3 mt"></view>
+      <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'sec':'trans'}} duration3 mt"></view>
     </view>
-    <view class="py transition-3 bold {{showUpcoming?'grey-light f28':'grey f36'}} z1 column-center">
+    <view class="py duration3 bold {{showUpcoming?'grey-light f28':'grey f36'}} z1 column-center">
       <view>past</view>
-      <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} transition-3 mt"></view>
+      <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} duration3 mt"></view>
     </view>
   </view> -->
   <toggle-nav wx:if="{{pageData.typeParam!='viewed'}}" 
@@ -41,4 +41,4 @@
   </view>
 </view>
 
-<view class="bottom-safe-area"></view>
+<view class="bottom-safe"></view>

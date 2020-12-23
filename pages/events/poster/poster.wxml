@@ -1,11 +1,24 @@
 <!--pages/events/share-canvas/share-canvas.wxml-->
 <navbar navType='float' />
 
-<view class="vh100 w100 relative ofh row-center">
-  <view class="canvas-bg" style="background-image: url('/images/placeholder.jpg');"></view>
+<view class="vh100 w100 relative ofh column-end">
+  <!-- <view class="canvas-bg" style="background-image: url('/images/placeholder.jpg');"></view> -->
+  <view class="absolute a0">
+    <image class="canvas-bg-image" src="/images/placeholder.jpg" 
+      mode="aspectFill"></image>
+  </view>
 
   <!-- add header space -->
-
-  <canvas type="2d" class="bg-grey-light" style="height: {{canvasHeight}}px; width: {{canvasWidth}}px;"
+  <canvas type="2d" class="bg-grey-light duration3" style="height: {{canvasHeight}}px; width: {{canvasWidth}}px;"
     id="event-poster"></canvas>
+  
+  <!-- <view style="height: 200rpx;"></view>
+  <view class="bottom-safe"></view> -->
+  <view class="canvas-footer column-center z9 mt50">
+    <button class="pa20 bold duration3 bg-sec white w70" 
+      style="border-radius: 15px; min-height: unset !important;" 
+      bindtap="saveToAlbum">Save to album</button>
+    <view class="grey-light mt30">Share the poster after saved</view>
+    <view class="bottom-safe"></view>
+  </view>
 </view>
