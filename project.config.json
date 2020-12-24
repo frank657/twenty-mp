@@ -58,7 +58,7 @@
         {
           "name": "Event Show",
           "pathName": "pages/events/show/show",
-          "query": "id=39",
+          "query": "id=83",
           "scene": null
         },
         {
@@ -92,6 +92,18 @@
           "name": "event list",
           "pathName": "pages/events/list/list",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "poster",
+          "pathName": "pages/events/poster/poster",
+          "query": "id=83",
+          "scene": null
+        },
+        {
+          "name": "Poster local",
+          "pathName": "pages/events/poster/poster",
+          "query": "id=2&hasQr=true",
           "scene": null
         }
       ]

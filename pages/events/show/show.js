@@ -5,6 +5,7 @@ Page({
   data: {
     showLanding: true,
     showFooterWindow: false,
+    showShareMenu: true,
     showAnswer: false, // show already selected answer
     showQuestion: false, // show popup question form
     selectedAnswer: null, // answer to additional question
@@ -161,10 +162,20 @@ Page({
   },
 
   onShow() {
-    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false })
+    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false, showShareMenu: false })
     // wx.showLoading({ title: 'Loading' })
+    let id;
+
+    if (this.options.scene) {
+      console.log('original scene:', this.options.scene)
+      let scene = decodeURIComponent(this.options.scene).split("&") // ["id=1"]
+      id =  scene[0].split("=")[1] // ["id", "1"]
+    } else {
+      id = this.options.id
+    }
+
     BC.userInfoReady(this)
-    BC.getData(`events/${this.options.id}`).then(res=>{
+    BC.getData(`events/${id}`).then(res=>{
       this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {
@@ -172,22 +183,6 @@ Page({
       }
       wx.hideLoading()
     })
-  },
-
-  openMap() {
-    const e = this.data.event
-
-    wx.openLocation({
-      name: e.venue_name,
-      address: e.address,
-      latitude: e.latitude,
-      longitude: e.longitude,
-    })
-  },
-
-  navToOrganizer() {
-    const url = `/pages/organizers/show/show?id=${this.data.creator.id}`
-    wx.navigateTo({ url })
   },
 
   onShareAppMessage: function () {
@@ -219,5 +214,5 @@ Page({
     // const scrollTop = e.detail.scrollTop
     // if (scrollTop<=0) imageHeight -= scrollTop
     // this.setData({imageHeight})
-  }
+  },
 })

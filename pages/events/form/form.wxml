@@ -112,18 +112,18 @@
 
           <view class="row-start" bindtap="selectMaxCapacity" data-max-capacity="{{false}}">
             <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-              class="mr20 transition-3 {{!maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
+              class="mr20 duration3 {{!maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
             </view>
-            <view class="transition-3 {{!maxCapacity?'sec':'grey-light'}}">
+            <view class="duration3 {{!maxCapacity?'sec':'grey-light'}}">
               No limit
             </view>
           </view>
 
           <view class="row-start" bindtap="selectMaxCapacity" data-max-capacity="{{true}}">
             <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-              class="mr20 transition-3 {{maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
+              class="mr20 duration3 {{maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
             </view>
-            <view class="transition-3 {{maxCapacity?'sec':'grey-light'}}">
+            <view class="duration3 {{maxCapacity?'sec':'grey-light'}}">
               Limited spots
             </view>
           </view>
@@ -163,18 +163,18 @@
             <input class="dn" name="signup_opens" value="{{signupOpen}}"></input>
             <view class="row-start" bindtap="selectSignupOpen" data-select="{{true}}">
               <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-                class="mr20 transition-3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
+                class="mr20 duration3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
-              <view class="transition-3 {{signupOpen?'sec':'grey-light'}}">
+              <view class="duration3 {{signupOpen?'sec':'grey-light'}}">
                 Open
               </view>
             </view>
 
             <view class="row-start" bindtap="selectSignupOpen" data-select="{{false}}">
               <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-                class="mr20 transition-3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
+                class="mr20 duration3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
-              <view class="transition-3 {{!signupOpen?'sec':'grey-light'}}">
+              <view class="duration3 {{!signupOpen?'sec':'grey-light'}}">
                 Closed
               </view>
             </view>
@@ -188,18 +188,18 @@
             <input class="dn" name="is_published" value="{{eventPublished}}"></input>
             <view class="row-start" bindtap="selectPublished" data-select="{{true}}">
               <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-                class="mr20 transition-3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
+                class="mr20 duration3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
-              <view class="transition-3 {{eventPublished?'sec':'grey-light'}}">
+              <view class="duration3 {{eventPublished?'sec':'grey-light'}}">
                 Published
               </view>
             </view>
 
             <view class="row-start" bindtap="selectPublished" data-select="{{false}}">
               <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
-                class="mr20 transition-3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
+                class="mr20 duration3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
               </view>
-              <view class="transition-3 {{!eventPublished?'sec':'grey-light'}}">
+              <view class="duration3 {{!eventPublished?'sec':'grey-light'}}">
                 Unpublished
               </view>
             </view>

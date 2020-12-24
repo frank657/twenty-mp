@@ -1,7 +1,8 @@
 // components/footer-window/footer-window.js
 Component({
   properties: {
-
+    title: String,
+    trigger: String
   },
 
   data: {
@@ -10,7 +11,7 @@ Component({
 
   attached() {
     this.owner = this.selectOwnerComponent()
-    this.owner.closeFooterWindow = () => this.owner.setData({ showFooterWindow: false })
+    // this.owner.closeFooterWindow = () => this.owner.setData({ showFooterWindow: false })
     setTimeout(() => {
       this.setData({ show: true })
     }, 100);
@@ -20,7 +21,8 @@ Component({
     closeFooterWindow() {
       this.setData({ show: !this.data.show})
       setTimeout(() => {
-        this.owner.closeFooterWindow()
+        // this.owner.closeFooterWindow()
+        this.owner.setData({ [this.data.trigger]: false })
       }, 300);
     }
   }
