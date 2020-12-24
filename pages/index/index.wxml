@@ -9,3 +9,17 @@
 <tabbar tabs="{{tabbar}}" pageCur="{{pageCur}}" wx:if="{{tabbarActive}}"/>
 
 <landing wx:if="{{showLanding}}" />
+
+<!-- SHARE MENU -->
+<footer-window wx:if="{{showShareMenu}}" trigger="showShareMenu" title="Share Event">
+  <button open-type="share" data-event="{{shareEvent}}"
+    class="row-center grey py40 bb b-dim fw400 f28 unset-btn">
+    <icn name="chat" size="ms"/>
+    <view class="ml20">Send to chat</view>
+  </button>
+  <navigator url="/pages/events/poster/poster?id={{shareEvent.id}}&hasQr={{shareEvent.mp_qr_code!=undefined}}"
+    class="row-center grey py40 bb b-dim fw400 f28" hover-class="none">
+    <icn name="moments" size="ms"/>
+    <view class="ml20">Generate poster</view>
+  </navigator>
+</footer-window>

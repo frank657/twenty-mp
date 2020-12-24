@@ -7,6 +7,7 @@ Page({
   },
 
   onShow() {
+    this.setData({ showShareMenu: false, shareEvent: null })
     wx.showLoading()
     BC.getData(`organizations/${this.options.id}`).then(res=>wx.hideLoading())
   },
