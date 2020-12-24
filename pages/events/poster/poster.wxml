@@ -3,8 +3,8 @@
 
 <view class="vh100 w100 relative ofh column-end">
   <!-- <view class="canvas-bg" style="background-image: url('/images/placeholder.jpg');"></view> -->
-  <view class="absolute a0">
-    <image class="canvas-bg-image" src="/images/placeholder.jpg" 
+  <view class="absolute a0 bg-grey-light">
+    <image class="canvas-bg-image" src="{{event.image}}" 
       mode="aspectFill"></image>
   </view>
 

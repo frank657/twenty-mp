@@ -98,6 +98,12 @@
           "pathName": "pages/events/poster/poster",
           "query": "id=83",
           "scene": null
+        },
+        {
+          "name": "Poster local",
+          "pathName": "pages/events/poster/poster",
+          "query": "id=2&hasQr=true",
+          "scene": null
         }
       ]
     }

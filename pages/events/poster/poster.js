@@ -5,11 +5,23 @@ Page({
 
   data: {
     canvasWidth: wx.getSystemInfoSync().safeArea.width - 80,
-    canvasHeight: wx.getSystemInfoSync().safeArea.width / 375 * 500
+    canvasHeight: wx.getSystemInfoSync().safeArea.width / 375 * 490
+  },
+
+  onLoad(options) {
+    wx.showLoading()
+    if (options.hasQr=='true') {
+      wx.bc.getData(`events/${options.id}`).then(res=>{
+        this.createCanvas()
+      })
+    } else {
+      wx.bc.getData(`events/${options.id}/get_qr`).then(res=> {
+        this.createCanvas()
+      })
+    }
   },
 
   onReady() {
-    this.createCanvas()
   },
 
   async init(res) {
@@ -28,6 +40,7 @@ Page({
     await this.drawDate()
     await this.drawLocation()
     this.drawFooter() 
+    wx.hideLoading()
   },
 
   async drawFooter() {
@@ -39,7 +52,7 @@ Page({
   drawQR() {
     const padding = this.relSize(20)
     const img = this.canvas.createImage()
-    img.src = '/images/qr.png'
+    img.src = this.data.event.mp_qr_code
 
     const canvasWidth = this.data.canvasWidth, right = canvasWidth - this._padding,
           size = this.relSize(80), x = right - size, y = this._y + padding
@@ -101,7 +114,7 @@ Page({
       }
       
       const textX = this._padding + imgSize + this.relSize(10), 
-            text = 'Suzhou creek with a very long address name',
+            text = this.data.event.venue_name,
             maxWidth = (this.data.canvasWidth - textX - this._padding)/1.2,
             lines = this.getLines(this.ctx, text, maxWidth),
             fontSize = this.relSize(14)
@@ -112,7 +125,7 @@ Page({
       //   this.ctx.fillText(lines[i], textX, textY + height)
       //   height += fontSize + this.relSize(6)
       // }
-      this.ctx.fillText(lines[0] + (lines.length?'..':''), textX, textY + height)
+      this.ctx.fillText(lines[0] + (lines.length>1?'..':''), textX, textY + height)
       height += fontSize + this.relSize(6)
       this._y += height += paddingTop
       resolve({ height })
@@ -122,8 +135,9 @@ Page({
   async drawDate() {
     return new Promise((resolve, reject) => {
       const paddingTop = this.relSize(45)
+      const { ui_date } = this.data.event
       const textX = this._padding, textY = this._y + paddingTop,
-            date = ['Wednesday, December 23', '7:00 PM'],
+            date = [ui_date[4], ui_date[5]],
             fontSize = this.relSize(14)
       let height = 0
   
@@ -144,7 +158,7 @@ Page({
       const paddingTop = this.relSize(35)
       const textX = this._padding, textY = this._y + paddingTop,
             maxWidth = (this.data.canvasWidth - this._padding * 2)/1.2,
-            text = 'Westbund Morning Run with a long title',
+            text = this.data.event.title,
             lines = this.getLines(this.ctx, text, maxWidth),
             fontSize = this.relSize(20)
       let height = 0
@@ -156,7 +170,7 @@ Page({
       //   this.ctx.fillText(lines[i], textX, textY + height)
       //   height += fontSize
       // }
-      this.ctx.fillText(lines[0] + (lines.length?'..':''), textX, textY + height)
+      this.ctx.fillText(lines[0] + (lines.length>1?'..':''), textX, textY + height)
       height += fontSize
       
       this._y += height
@@ -178,7 +192,7 @@ Page({
     const textX = padding + x
     let textY = this._y + this.relSize(25)
 
-    const text = 'Absolute MMA'
+    const text = this.data.creator.name
     const maxWidth = (this.data.canvasWidth - padding - x - this._padding)/1.8
     const lines = this.getLines(this.ctx, text, maxWidth)
     
@@ -191,7 +205,7 @@ Page({
   async drawAvatar() {
     return new Promise((resolve, reject) => {
       const img = this.canvas.createImage()
-      const src = '/images/placeholder.jpg'
+      const src = this.data.creator.avatar
       img.src = src
       
       const size = this.relSize(65), radius = this.relSize(25), 
@@ -251,7 +265,7 @@ Page({
       const defaultHeight = this.relSize(180)
 
       const img = this.canvas.createImage()
-      const src = '/images/placeholder.jpg'
+      const src = this.data.event.image
       const imgData = await wx.getImageInfo({ src })
       img.src = src
       
@@ -310,20 +324,54 @@ Page({
     return screenWidth / defaultSize * size
   },
 
-  saveToAlbum() {
-    // this.setData({ canvasHeight: 650 })
-    // this.setPixelRatio(650, 350)
-    console.log(this.getCanvasUrl())
+  async saveToAlbum() {
+    const scope = "scope.writePhotosAlbum"
+    const page = this
+    wx.getSetting({
+      success(res) {
+        if (res.authSetting[scope] == false) {
+          wx.openSetting({
+            success: (res) => {
+              if (res.authSetting[scope]) page.save()
+            },
+          });
+        } else {
+          page.save()
+        }
+      }
+    })
   },
 
   getCanvasUrl: function () {
-    const { canvas } = this
-    wx.canvasToTempFilePath({
-      canvas, w: 0, y: 0, destWidth: canvas.width, bgHeight: canvas.height,
+    return new Promise((resolve, reject) => {
+      const { canvas } = this
+      const page = this
+      wx.canvasToTempFilePath({
+        canvas, w: 0, y: 0, destWidth: canvas.width, bgHeight: canvas.height,
+        success(res) {
+          // wx.hideLoading()
+          resolve(res.tempFilePath)
+        }
+      });
+    })
+  },
+
+  async save() {
+    const url = await this.getCanvasUrl()
+
+    wx.saveImageToPhotosAlbum({
+      filePath: url,
       success(res) {
-        // wx.hideLoading()
-        this.setData({ canvasUrl: res.tempFilePath });
-      }
+        console.log(res);
+        wx.showToast({
+          title: "Saved",
+        });
+      },
+      fail(res) {
+        console.log('failed show modal?', res)
+        wx.hideLoading();
+      },
     });
   },
+
 })

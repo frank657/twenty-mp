@@ -6,7 +6,8 @@
     <image style="height: {{cardType=='recent'?'200':'360'}}rpx; border-radius: {{cardType=='recent'?'50':'70'}}rpx;" 
       class="w100 card-shadow-dark" mode="aspectFill" src="{{event.image}}"></image>
     <view wx:if="{{cardType!='recent'}}" class="absolute bg-white pa radius-full" style="right: 36rpx; bottom: 36rpx;">
-      <button class="unset-btn z9" data-event="{{event}}" open-type="share">
+      <!-- <button class="unset-btn z9" data-event="{{event}}" open-type="share"> -->
+      <button class="unset-btn z9" bindtap="shareEvent">
         <image src="/images/icons/share.svg" mode="aspectFit" class="icon-sm"></image>
       </button> 
     </view>
