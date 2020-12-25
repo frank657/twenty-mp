@@ -18,6 +18,11 @@
     <button class="pa20 bold duration3 bg-sec white w70" 
       style="border-radius: 15px; min-height: unset !important;" 
       bindtap="saveToAlbum">Save to album</button>
+    <!-- <view class="column-center">
+      <view>{{test[2]}}  ,{{test[3]}}</view>
+      <view>{{test2[2]}}  ,{{test2[3]}}</view>
+      <view>{{test3.width}}  ,{{test3.height}}</view>
+    </view> -->
     <view class="grey-light mt30">Share the poster after saved</view>
     <view class="bottom-safe"></view>
   </view>

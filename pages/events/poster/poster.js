@@ -271,7 +271,10 @@ Page({
       
       const sSize = this.getSSize(imgData, {width: canvasWidth, height: defaultHeight})
       const dParams = [0, 0, canvasWidth, defaultHeight]
-
+      // this.setData({ test: sSize})
+      // this.setData({ test2: dParams})
+      // this.setData({ test3: imgData})
+      // console.log('sizes', sSize, dParams, imgData)
       img.onload = () => {
         this.ctx.drawImage(img, ...sSize, ...dParams)
         this._y = defaultHeight
@@ -294,6 +297,7 @@ Page({
       // cut height
       x = 0, width = imgSize.width, height = adjustedTarget.height, y = (imgSize.height - height) / 2
     }
+    const pr = wx.getSystemInfoSync().pixelRatio
     return [x, y, width, height]
   },
 
