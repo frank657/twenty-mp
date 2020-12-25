@@ -5,7 +5,7 @@ Page({
 
   data: {
     canvasWidth: wx.getSystemInfoSync().safeArea.width - 80,
-    canvasHeight: wx.getSystemInfoSync().safeArea.width / 375 * 490
+    canvasHeight: wx.getSystemInfoSync().safeArea.width / 375 * 505
   },
 
   onLoad(options) {
@@ -261,24 +261,25 @@ Page({
 
   async drawImg() {
     return new Promise(async (resolve, reject) => {
-      const canvasWidth = this.data.canvasWidth
-      const defaultHeight = this.relSize(180)
+      const imgSize = { height: 400, width: 600 }
 
+      const canvasWidth = this.data.canvasWidth
+      const imgHeight = canvasWidth / imgSize.width * imgSize.height
+
+      // const defaultHeight = this.relSize(180)
+      
       const img = this.canvas.createImage()
-      const src = this.data.event.image
+      const src = this.data.event.image_canvas
       const imgData = await wx.getImageInfo({ src })
+      
       img.src = src
       
-      const sSize = this.getSSize(imgData, {width: canvasWidth, height: defaultHeight})
-      const dParams = [0, 0, canvasWidth, defaultHeight]
-      // this.setData({ test: sSize})
-      // this.setData({ test2: dParams})
-      // this.setData({ test3: imgData})
-      // console.log('sizes', sSize, dParams, imgData)
+      // const sSize = this.getSSize(imgData, {width: canvasWidth, height: defaultHeight})
+      const dParams = [0, 0, canvasWidth, imgHeight]
       img.onload = () => {
-        this.ctx.drawImage(img, ...sSize, ...dParams)
-        this._y = defaultHeight
-        resolve(defaultHeight)
+        this.ctx.drawImage(img, ...dParams)
+        this._y = imgHeight
+        resolve(imgHeight)
       }
     })
   },

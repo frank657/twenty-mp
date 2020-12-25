@@ -203,7 +203,7 @@ Page({
   showImage() {
     const { event } = this.data
     wx.previewImage({
-      urls: [event.image],
+      urls: [event.image_lg],
     })
   },
 
