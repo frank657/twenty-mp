@@ -3,7 +3,7 @@ wx.p = require('utils/wxp')
 wx.bc = BC
 
 let dev;
-dev = true
+// dev = true
 
 //app.js
 App({
@@ -20,7 +20,7 @@ App({
       none: '',
       background: '#FFFDF8'
     },
-    version: '1.3.2',
+    version: '1.3.4',
     versionChecked: false,
     lang: 'en', // cn or en
     userInfo: null,

@@ -6,6 +6,7 @@ Page({
   data: {
     showLanding: true,
     showFooterWindow: false,
+    showShareMenu: true,
     showAnswer: false, // show already selected answer
     showQuestion: false, // show popup question form
     selectedAnswer: null, // answer to additional question
@@ -162,7 +163,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false })
+    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false, showShareMenu: false })
     // wx.showLoading({ title: 'Loading' })
     let id;
 
@@ -174,8 +175,6 @@ Page({
       id = this.options.id
     }
 
-    console.log({id})
-
     BC.userInfoReady(this)
     BC.getData(`events/${id}`).then(res=>{
       tl(this, false).then(tlRes=> this.setData({ t: tlRes.events.show }))
@@ -186,31 +185,6 @@ Page({
       }
       wx.hideLoading()
     })
-  },
-
-  getQr() {
-    // IF event.mp_qr_code IS NULL, THIS IS THE PATH TO GENERATE THE QR CODE
-    let id = this.data.event.id
-    BC.getData(`events/${id}/get_qr`, {shouldSetData: false}).then(res=> {
-      // I RETURN THE WHOLE EVENT OBJECT
-      console.log('getqr res', res)
-    })
-  },
-
-  openMap() {
-    const e = this.data.event
-
-    wx.openLocation({
-      name: e.venue_name,
-      address: e.address,
-      latitude: e.latitude,
-      longitude: e.longitude,
-    })
-  },
-
-  navToOrganizer() {
-    const url = `/pages/organizers/show/show?id=${this.data.creator.id}`
-    wx.navigateTo({ url })
   },
 
   onShareAppMessage: function () {
@@ -231,7 +205,7 @@ Page({
   showImage() {
     const { event } = this.data
     wx.previewImage({
-      urls: [event.image],
+      urls: [event.image_lg],
     })
   },
 
@@ -242,5 +216,5 @@ Page({
     // const scrollTop = e.detail.scrollTop
     // if (scrollTop<=0) imageHeight -= scrollTop
     // this.setData({imageHeight})
-  }
+  },
 })

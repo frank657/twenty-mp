@@ -9,6 +9,7 @@ Page({
     showLanding: true,
     tabbarActive: true,
     navbarActive: true,
+    showShareMenu: false,
     pageCur: 'tab1',
     tabbar: [
       {tab: 'tab1', name: 'events', icon: '/images/tabbar/tab1.svg', iconCur: '/images/tabbar/tab1Cur.svg'},
@@ -22,6 +23,7 @@ Page({
   },
 
   onShow: function () {
+    this.setData({ showShareMenu: false, shareEvent: null })
     if (!this.data.showLanding) wx.showLoading()
     if (app.vc&&app.vc.envChecked) {
       this.getData()

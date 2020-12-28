@@ -21,6 +21,10 @@ Page({
     this.getData()
   },
 
+  onShow() {
+    this.setData({ showShareMenu: false, shareEvent: null })
+  },
+
   // INITIALIZE DATA
   loadOrgData(options) {
     const isOrganization = true

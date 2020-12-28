@@ -20,6 +20,8 @@ Component({
    * Component methods
    */
   methods: {
-
+    shareEvent() {
+      wx.bc.thisPage().setData({ showShareMenu: true, shareEvent: this.data.event })
+    },
   }
 })
