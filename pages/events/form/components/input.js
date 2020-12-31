@@ -4,7 +4,7 @@ Component({
   properties: {
     title: { type: String, value: '' },
     info: { type: String, value: null },
-    failValidation: { type: Boolean, value: false },
+    showError: { type: Boolean, value: false },
   },
 
   data: {
@@ -19,6 +19,10 @@ Component({
         showCancel: false,
         confirmText: 'OK'
       })
+    },
+
+    hideError() {
+      this.setData({ showError: false })
     }
   }
 })

@@ -1,211 +1,68 @@
 const BC = require('../../../libs/bc');
 const BU = require('../../../libs/bc-utils');
 const app = getApp();
-const { CoverImage } = require('../../../utils/cover-image')
+import { getInput } from 'form-helper';
+import regeneratorRuntime from '../../../utils/runtime';
 
 Component({
   attached() {
     this.setData({ today: BU.getToday() })
   },
+  ready() {
+    this.initEvent()
+  },
   
   properties: {
-    template: { type: Object, value: null, observer() { this.loadFields() } },
-    event: { type: Object, value: null, observer() { this.loadFields() } },
+    template: { type: Object, value: null, observer() { this.initEvent() } },
+    eventToUpdate: { type: Object, value: null, observer() { this.initEvent() } },
     formType: { type: String, value: 'create' }
   },
 
   data: {
-    time: '20:00',
-    defaultEndTime: '21:00',
-    today: BU.getToday(),
-    lastDate: BU.getDateFromToday(5),
-    maxCapacity: false,
-    signupOpen: true,
     eventPublished: true,
-    signupInfo: "When the signup is closed, users cannot register themselves for your event. You can toggle between open or close at any time from your profile page or from the event page.",
-    publishInfo: "If you have a public profile, only your published events will be shown in your profile. You can change the status at any time from your profile page or from the event page. However users who have previously viewed or signed up for this event, can still see the event from their home page.",
-    questionInfo: "Custom question is useful if you need the attendees to make a choice. For example: 'What are you bringing for picnic?', attendees can choose drinks, bread, salad, etc. In the attendees list, you will then have an overview of the choices made",
-    answers: [],
     showOther: false
   },
 
   methods: {
-    showOtherOptions() {
-      this.setData({showOther: !this.data.showOther})
+    // INIT DATA
+    async initEvent() {
+      let event = {signup_opens: true, is_published: true, no_limit: true};
+      const { eventToUpdate, template } = this.data
+      if (eventToUpdate) event = eventToUpdate
+      if (template) event = template
+
+      // take only fields that the form needs
+      if (eventToUpdate||template) event = await this.initFields(event)
+      this.setData({ event })
+      console.log('event', event)
     },
 
-    loadFields() {
-      this.setCapacity()
-      this.setAnswers()
-      if (this.data.event) { this.loadSignupAndPublished('event') }
-      if (this.data.template) { this.loadSignupAndPublished('template') }
-    },
-    loadSignupAndPublished(type) {
-      const signupOpen = this.data[type].signup_opens
-      const eventPublished = this.data[type].is_published
-      this.setData({ signupOpen, eventPublished })
-    },
-
-    setAnswers() {
-      const { event, template } = this.data
-      if (event) {
-        // if (event.max_capacity) this.setData({ maxCapacity: true })
-        this.setData({ answers: event.answers })
-      }
-      if (template) {
-        // if (template.max_capacity) this.setData({ maxCapacity: true })
-        this.setData({ answers: template.answers })
-      }
-    },
-
-    setCapacity() {
-      const {event, template} = this.data
-      if (event) {
-        if (event.max_capacity) this.setData({maxCapacity: true})
-      }
-      if (template) {
-        if (template.max_capacity) this.setData({maxCapacity: true})
-      }
-    },
-    selectMaxCapacity(e) {
-      const { maxCapacity } = e.currentTarget.dataset
-      const focusMaxCap = maxCapacity
-      this.setData({ maxCapacity, focusMaxCap })
-    },
-
-    selectSignupOpen(e) { this.setData({ signupOpen: e.currentTarget.dataset.select }) },
-    selectPublished(e) { this.setData({ eventPublished: e.currentTarget.dataset.select }) },
-
-    bindDateChange: function(e) {
-      const { type } = e.currentTarget.dataset
-      if (type == 'start') { this.setData({ startDate: e.detail.value }) }
-      if (type == 'end') { this.setData({ endDate: e.detail.value }) }
-    },
-  
-    bindTimeChange: function(e) {
-      const { type } = e.currentTarget.dataset
-      if (type == 'start') { this.setData({ startTime: e.detail.value }) }
-      if (type == 'end') { this.setData({ endTime: e.detail.value }) }
-    },
-
-    setDefaultEndTime(startTime) {
-      // add 1 hour to start time as default end time
-    },
-
-    pinLocation() {
-      const that = this
-      wx.authorize({
-        scope: 'scope.userLocation',
-        success(res) {
-          console.log(res)
-          if (res.errCode) { console.log('error, go to settings and authorize location')}
-          wx.chooseLocation({
-            success(res) {
-              that.setData({
-                venue: res.name,
-                address: res.address,
-                long: res.longitude,
-                lat: res.latitude
-              })
-            },
-          })
-        },
-        fail(res) {
-          console.log(res)
-        }
-      })
-    },
-  
-    uploadImage() {
-      const that = this
-      wx.chooseImage({
-        count: 1,
-        success (res) {
-          const tempFilePaths = res.tempFilePaths
-          that.setData({imgTempFile: tempFilePaths[0]})
-          that.setData({hasNewImage: true, hasNoImage: false})
-        }
-      })
-    },
-    removeImage() {
-      console.log('has image?', this.hasImage(), this.data)
-      this.setData({hasNewImage: false, imgTempFile: null, hasNoImage: true})
-    },
-  
-    hasImage() {
-      const pd = this.data
-      const hasImage = !pd.hasNoImage
-      const hasNewImage = pd.hasNewImage && pd.imgTempFile
-      const hasEventImage = (pd.event?pd.event.image:false)
-      const hasTemplateImage = (pd.template?pd.template.image:false)
-      return hasImage && (hasNewImage||hasEventImage||hasTemplateImage)
-    },
-
-    submitEvent(e) {
-      const data = e.detail.value
-      const answers = this.data.answers
-      data.start_time = `${data.start_date} ${data.start_time}`
-      data.end_time = `${data.end_date} ${data.end_time}`
-      data.organization_id = app.globalData.userInfo.organization.id
-      if (!this.data.maxCapacity) data.max_capacity = null
-      delete data.start_date
-      delete data.end_date
-
-      const pd = this.data
-
-      const validationErrors = {}
-      if (!this.hasImage()) validationErrors.image = true
-      if (!data.title) validationErrors.title = true
-      if (!data.description) validationErrors.description = true
-      if (!data.venue_name) validationErrors.venue = true
-      if (!((pd.maxCapacity && data.max_capacity) || !pd.maxCapacity)) validationErrors.capacity = true
-      if (!((data.question && answers.length) || (!data.question && !answers.length))) validationErrors.question = true
-
-      // const has_image = this.hasImage()
-      // const has_max_or_unlimited = (pd.maxCapacity && data.max_capacity) || !pd.maxCapacity
-      // const has_details = data.title&&data.description&&data.venue_name
-      // const has_qa = ((data.question && answers.length) || (!data.question && !answers.length))
+    async initFields({id, title, description, image, form_date, 
+      venue_name, address, latitude, longitude, max_capacity, 
+      question, answers, is_published, signup_opens}) {
       
-      // console.log('has q&a?', has_qa)
+      const start_date = form_date.start.date
+      const start_time = form_date.start.time
+      const end_date = form_date.end.date
+      const end_time = form_date.end.time
+      const no_limit = !max_capacity
+      
+      const event = {id, title, description, image, start_date, start_time, end_date, end_time, 
+        venue_name, address, latitude, longitude, max_capacity, no_limit, 
+        question, answers, is_published, signup_opens}
 
-      console.log(data)
-      // const existingAnswers = answers.filter(a=>a.id)
-      // const newAnswers = answers.filter(a=>!a.id)
-      const body = answers.length ? {event: data, answers: answers} : {event: data}
-
-      // if (has_image&&has_max_or_unlimited&&has_details&&has_qa) {
-      if (!Object.keys(validationErrors).length) {
-        wx.showLoading({title: 'Loading'})    
-        if (pd.formType=='create') {
-          BC.post(BC.getHost()+'events', body).then(res=>{
-            console.log('form res', res)
-            if (res.status=='success') {
-              this.uploadFile(res.event.id)
-            }
-          })
-        } else if (pd.formType=='edit') {
-          const id = pd.event.id
-          BC.put(BC.getHost()+'events/'+id, body).then(res=>{
-            console.log('here', res)
-            if (res.status=='success') {
-              if (pd.hasNewImage&&pd.imgTempFile) {
-                this.uploadFile(res.event.id)
-              } else {
-                wx.navigateBack()
-              }
-            }
-          })
-        }
-      } else {
-        this.setData({ validationErrors })
-        console.log('error', validationErrors)
-        wx.showModal({
-          showCancel: false,
-          confirmText: 'OK',
-          title: 'Details missing',
-          content: 'Please upload a picture and fill out all the details to continue.'
-        })
+      if (!event.question) { 
+        delete event.question
+        delete event.answers
       }
+
+      if (this.data.template) {
+        event.imageToUpload = await this.getImagePath(event.image)
+        delete event.image
+        delete event.id
+      }
+
+      return event
     },
 
     getImagePath(img) {
@@ -219,12 +76,120 @@ Component({
         })
       })
     },
+    // INIT DATA END
 
-    uploadFile(id) {
+    changeInput(e) { getInput(e, this) },
+
+    showOtherOptions() {
+      this.setData({showOther: !this.data.showOther})
+    },
+
+    // VALIDATION
+    hasImage() {
+      const { imageToUpload, image } = this.data.event
+      return imageToUpload || image
+    },
+
+    hasQA() {
+      const { question, answers } = this.data.event
+      if (question) {
+        return answers ? answers.filter(a=>a).length : answers
+      } else {
+        return !answers
+      }
+
+      return (question && answers && answers.length) || (!question && !answers)
+    },
+
+    hasCapacity() {
+      let { max_capacity, no_limit } = this.data.event
+      max_capacity = parseInt(max_capacity)
+      return (max_capacity && !no_limit) || no_limit
+    },
+    
+    validateEvent() {
+      const validationErrors = {}
+      const { event } = this.data
+      if (!this.hasImage()) validationErrors.image = true
+      if (!event.title) validationErrors.title = true
+      if (!event.description) validationErrors.description = true
+      if (!event.venue_name) validationErrors.venue = true
+      if (!this.hasCapacity()) validationErrors.capacity = true
+      if (!this.hasQA()) validationErrors.question = true
+      return validationErrors
+    },
+    // VALIDATION END
+    
+    // REQUEST
+    getEventBody() {
+      const event = {...this.data.event}
+
+      // TIME
+      event.start_time = `${event.start_date} ${event.start_time}`
+      event.end_time = `${event.end_date} ${event.end_time}`
+      delete event.start_date
+      delete event.end_date
+      // CAPACITY
+      if (event.no_limit) event.max_capacity = null
+      delete event.no_limit
+      // OTHER
+      event.organization_id = app.globalData.userInfo.organization.id
+      const answers = event.answers
+      delete event.imageToUpload
+      
+      const data = { event }
+      if (event.question) data.answers = event.answers
+      delete event.answers
+
+      return data
+    },
+
+    async submitEvent(e) {
+      const pd = this.data
+      const validationErrors = this.validateEvent()
+      const isValid = !Object.keys(validationErrors).length
+
+      if (isValid) {
+        const { imageToUpload } = this.data.event
+        const body = this.getEventBody()
+        wx.showLoading({title: 'Loading'})    
+        if (pd.formType=='create') {
+          BC.post(BC.getHost()+'events', body).then(res=>{
+            console.log('form res', res)
+            if (res.status=='success') {
+              this.uploadFile(res.event.id, imageToUpload)
+            }
+          })
+        } else if (pd.formType=='edit') {
+          console.log('edit')
+          const id = pd.event.id
+          BC.put(BC.getHost()+'events/'+id, body).then(res=>{
+            console.log('here', res)
+            if (res.status=='success') {
+              if (imageToUpload) {
+                this.uploadFile(res.event.id, imageToUpload)
+              } else {
+                wx.navigateBack()
+              }
+            }
+          })
+        }
+      } else {
+        this.setData({ validationErrors })
+        console.log('error', validationErrors)
+        wx.p.showModal({
+          showCancel: false,
+          confirmText: 'OK',
+          title: 'Details missing',
+          content: 'Please fill out all details and try again.'
+        })
+      }
+    },
+
+    uploadFile(id, img) {
       const pd = this.data
       const formType = pd.formType
       const path = `${BC.getHost()}events/${id}/upload`
-      var img;
 
       const upload = (path, img) => {
         wx.uploadFile({
@@ -259,52 +224,7 @@ Component({
         })
       }
 
-      if (pd.imgTempFile&&pd.hasNewImage) { 
-        img = pd.imgTempFile
-        upload(path, img)
-      } else if (!pd.hasNoImage&&pd.template.image) {
-        this.getImagePath(img).then(res=>upload(path, res))
-      }
-    },
-    addRemoveAnswers(e) {
-      console.log('on form', e)
-      const action = e.detail.action || e.currentTarget.dataset.action
-      console.log('action', action)
-      let answers = this.data.answers
-      if (action == 'add') {
-        answers.push("")
-        this.setData({ answers })
-        console.log(this.data)
-      } else {
-        console.log('removing')
-        answers.splice(e.detail.index, 1)
-        this.setData({ answers })
-      }
-      console.log('answers:', this.data.answers)
-    },
-    addAnswer(e) {
-      let answers = this.data.answers
-      const index = e.target.dataset.index
-      // answers.push(e.detail.value)
-      // let answer = answers[index]
-      const value = e.detail.value
-      answers[index].id ? answers[index].content = value : answers[index] = value
-      
-      this.setData({ answers })
-      
-      console.log('answers:', this.data.answers)
-
-      // if (this.data.formType=='create') {
-      //   answers[index] = e.detail.value
-      //   this.setData({ answers })
-      // console.log('answers:', this.data.answers)
-      // } else {
-      //   const current_answer = this.data.event.answers[index]['content']
-      //   if (current_answer != e.detail.value) {
-      //     BC.put(BC.getHost() + 'answers/' + e.currentTarget.dataset.id, { content: e.detail.value })
-      //   }
-      // }
-      
+      upload(path, img)
     },
   }
 })

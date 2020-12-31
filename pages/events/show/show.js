@@ -22,6 +22,10 @@ Page({
     imageHeight: 250,
   },
 
+  closeQuestion() {
+    this.setData({ showQuestion: false })
+  },
+
   showFooterWindow() { this.setData({ showFooterWindow: true}) },
 
   publishEvent(e) {

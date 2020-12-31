@@ -1,4 +1,4 @@
-<view class="w100 px40 py50 mt50 box-b shadow{{failValidation?'-red':''}}" style="border-radius: 40rpx;">
+<view class="w100 px40 py50 mt50 box-b shadow{{showError?'-red':''}}" catchtap="hideError" style="border-radius: 40rpx;">
   <view class="text-center bold f32 ter mb30 relative">
     <view>{{title}}</view>
     <view wx:if="{{info}}" bindtap="showInfo" class="f20 bg-dim grey circle row-center absolute r0 t0" 

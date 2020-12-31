@@ -71,15 +71,15 @@
     </view>
   </block>
 
-
   <block wx:if="{{!event.signup_opens}}">
     <view class="w100 row-center">
-      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is closed or not open yet</view>
+      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is not open</view>
     </view>
   </block>
 </view>
 
 <view wx:if="{{showQuestion}}" class="row-between show-footer bg-white flex column">
+  <icn name="cross" size="sm" class="absolute" style="right: 30rpx; top: 30rpx;" bindtap="closeQuestion"></icn>
   <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>
   <view class="w100 mt20">
     <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}" range-key="content">
@@ -92,7 +92,6 @@
 
   <button bindtap="submitAnswer" disabled="{{!event.answers[selectedAnswer]}}" 
     class="mt30 bold ter f28 {{selectedAnswer||selectedAnswer==0?'btn-footer white bg-sec':'btn-disabled grey-light'}} row-center">Select</button>
-
 </view>
 
 
