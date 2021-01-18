@@ -15,6 +15,10 @@ Component({
   },
 
   methods: {
+    shareEvent() {
+      BC.thisPage().setData({ showShareMenu: true, shareEvent: this.data.event })
+    },
+
     navToShow() {
       wx.navigateTo({
         url: `/pages/events/show/show?id=${this.data.event.id}`,

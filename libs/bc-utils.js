@@ -1,3 +1,8 @@
+Date.prototype.addHours = function(h) {
+  this.setTime(this.getTime() + (h*60*60*1000));
+  return this;
+}
+
 const range = (from, to) => {
   return [...Array(to + 1 - from).keys()].map(i => i + from)
   // For letters:
@@ -10,6 +15,12 @@ const getToday = () => {
   const month = date.getMonth() + 1
   const day = date.getDate()
   return [year, month, day].map(formatNumber).join('-')
+}
+
+const getTime = (date = new Date()) => {
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  return [hour, minute].map(formatNumber).join(':')
 }
 
 const getDateFromToday = (y=0) => {
@@ -145,5 +156,6 @@ module.exports = {
   getFonts: getFonts,
   querySelect: querySelect,
   getSafeArea: getSafeArea,
-  timeUIFormatter: timeUIFormatter
+  timeUIFormatter: timeUIFormatter,
+  getTime
 }

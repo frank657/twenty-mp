@@ -6,7 +6,7 @@
     </picker>
     <image 
       mode="aspectFill" 
-      class="mr30 transition-3 {{isOwner?'':'ml30'}}"
+      class="mr30 duration3 {{isOwner?'':'ml30'}}"
       style="height: 80rpx; width: 80rpx; border-radius: 35%;" 
       src="{{item.avatar}}"></image>
     <text>{{item.nickname}}</text>

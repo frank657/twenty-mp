@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "attendees": "attendees",
+    "info": "info"
+  }
 }

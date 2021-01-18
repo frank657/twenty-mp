@@ -1,0 +1,23 @@
+<formInput title="Where" showError="{{showError}}">
+  <view class="f32 mb30 w100 row-center" 
+    bindtap="pinLocation">
+    <view wx:if="{{event.latitude&&event.longitude}}" class="text-center sec py20 px30">Change location</view>
+    <view wx:else class="row-center bg-sec white radius-full text-center py20 px30">
+      <view>{{locationRejected?'Authorize Location':'Pin location'}}</view>
+      <icn wx:if="{{locationRejected}}" name="setting-white" size="sm" class="flex ml20" />
+    </view>
+  </view>
+  
+  <block wx:if="{{event.address}}">
+    <view class="text-center f24 grey my">Address</view>
+    <input data-name="address" bindinput="changeInput" 
+      value="{{event.address}}" class="text-center bg-dim px20 py radius10"></input>
+  </block>
+
+  <view class="text-center f24 grey my">Venue name</view>
+  <input data-name="venue_name" bindinput="changeInput" 
+    value="{{event.venue_name}}" class="text-center bg-dim px20 py radius10"></input>
+
+  <input class="dn" name="latitude" value="{{event.latitude}}"></input>
+  <input class="dn" name="longitude" value="{{event.longitude}}"></input>
+</formInput>

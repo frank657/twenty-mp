@@ -7,12 +7,12 @@ page {
   --pri: #FF6F3C;
   --sec: #FF9A3C;
   --ter: #155263;
-  --dim: rgba(0,0,0,0.02);
+  --dim: #f8f8f8;
   --white: #fff;
   --black: #000;
   --white: #fff;
   --greySlight: #efefef;
-  --greyLight: #d6d6d6;
+  --greyLight: #d1d1d1;
   --grey: #6d6d6d;
   --greyDark: #333333;
   --yellow: #ffca00;
@@ -46,6 +46,10 @@ page {
   font-size: 28rpx;
 }
 
+icn {
+  display: flex;
+}
+
 .wrapper {
   padding: 20rpx 20rpx;
 }
@@ -62,7 +66,7 @@ page {
   height: calc(100rpx + 20rpx + 20rpx + var(--bottomSafe)) /* tabbar height + pt & pb + safe area */
 }
 
-.bottom-safe-area {
+.bottom-safe {
   height: var(--bottomSafe)
 }
 
