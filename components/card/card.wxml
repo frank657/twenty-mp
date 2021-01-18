@@ -23,7 +23,7 @@
         </view>
         <view class="row-start">
           <image src="/images/icons/view.svg" mode="aspectFit" class="icon-sm mr"></image>
-          <view class="f24 grey">{{event.total_viewed}}</view>
+          <view class="f24 grey">{{event.unique_views}}</view>
         </view>
       </view>
       

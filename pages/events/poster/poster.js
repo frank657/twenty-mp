@@ -298,6 +298,7 @@ Page({
       // cut height
       x = 0, width = imgSize.width, height = adjustedTarget.height, y = (imgSize.height - height) / 2
     }
+    const pr = wx.getSystemInfoSync().pixelRatio
     return [x, y, width, height]
   },
 
@@ -329,6 +330,7 @@ Page({
   },
 
   async saveToAlbum() {
+    wx.showLoading({ mask: true })
     const scope = "scope.writePhotosAlbum"
     const page = this
     wx.getSetting({
@@ -371,7 +373,7 @@ Page({
           title: "Saved",
         });
       },
-      fail(res) {
+      complete(res) {
         console.log('failed show modal?', res)
         wx.hideLoading();
       },
