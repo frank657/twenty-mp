@@ -2,7 +2,8 @@
 Component({
   properties: {
     title: String,
-    trigger: String
+    trigger: String,
+    center: Boolean
   },
 
   data: {
