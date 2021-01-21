@@ -1,5 +1,5 @@
 <navbar background="white">
-  <view class="ter bold f32">EDIT EVENT</view>
+  <view class="ter bold f32">{{t.page_title.edit}}</view>
 </navbar>
 
-<eventForm eventToUpdate="{{event}}" formType='edit'/>
+<eventForm t="{{t}}" event="{{event}}" formType='edit'/>

@@ -1,4 +1,5 @@
 const BC = require('../../../libs/bc');
+import { tl } from '../../../utils/tl.js';
 
 // pages/events/show/show.js
 Page({
@@ -36,7 +37,7 @@ Page({
       BC.put(url, {event: {is_published}}).then(res=>{
         this.setData({event: res.event})
       })
-    } 
+    }
   },
 
   openSignup(e) {
@@ -95,7 +96,7 @@ Page({
   submitAnswer(e) {
     // this.setData({ showQuestion: false })
     wx.showLoading({ title: 'Loading' })
-    
+
     const data = { attendee: { status: this.data.answer, answer_id: this.data.event.answers[this.data.selectedAnswer]['id'] } }
     console.log('data', data)
     if (this.data.selectedAnswer != null) {
@@ -118,7 +119,7 @@ Page({
       if (res.avatar) {
         // wx.showLoading({ title: 'Loading' })
         const { answer } = e.currentTarget.dataset
-        this.setData({ answer })  
+        this.setData({ answer })
         console.log(answer)
         console.log('question', this.data.event.question)
         if (answer == 'yes' && this.data.event.question && this.data.event.question != '') {
@@ -129,7 +130,7 @@ Page({
           const data = { attendee: { status: answer } }
           this.submitRsvp(data);
         }
-        
+
         wx.hideLoading()
       } else {
         wx.hideLoading()
@@ -193,6 +194,7 @@ Page({
 
     BC.userInfoReady(this)
     BC.getData(`events/${id}`).then(res=>{
+      tl(this, false).then(tlRes=> this.setData({ t: tlRes.events.show }))
       this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {
@@ -205,7 +207,7 @@ Page({
   onShareAppMessage: function () {
     const e = this.data.event
     const t = e.start_time
-    let h = parseInt(t.time) 
+    let h = parseInt(t.time)
     const i = t.time.indexOf(':')
     const m = t.time.slice(i+1, i+3)
     const mm = m=='00'?'':`:${m}`
@@ -231,5 +233,5 @@ Page({
     // const scrollTop = e.detail.scrollTop
     // if (scrollTop<=0) imageHeight -= scrollTop
     // this.setData({imageHeight})
-  },
+  }
 })

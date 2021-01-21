@@ -1,26 +1,26 @@
 <navbar navType="float" />
 
 <view>
-  <organizer-header organization="{{organization}}" />
+  <organizer-header t="{{t}}" organization="{{organization}}" />
 </view>
 
 <view wx:if="{{organization.is_private}}" class="px60">
   <view class="b grey-light row-center radius30 pa50 text-center" style="border-style: dashed;">
-    <text class="f32" style="line-height: 1.5;">PRIVATE PROFILE
+    <text class="f32" style="line-height: 1.5;">{{t.private_profile_title}}
 
-      Events organized by private organizers are not visible for public.</text>
+      {{t.private_profile_content}}</text>
   </view>
 </view>
 
 <view wx:else class="mb50">
   <view class="px40">
-    <toggle-nav title="{{organization.belongs_to_self?'My ':''}}Events" 
+    <toggle-nav t="{{t}}" title="{{organization.belongs_to_self?t.my_events:t.events}}" 
     showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
   </view>
 
-  <card-section wx:if="{{showUpcoming}}" events="{{organization.events.upcoming}}" 
+  <card-section t="{{t}}" wx:if="{{showUpcoming}}" events="{{organization.events.upcoming}}" 
     hideUnpublished="{{true}}" orgId="{{organization.id}}" listTime="upcoming" isOrganization />
-  <card-section wx:if="{{!showUpcoming}}" events="{{organization.events.past}}" 
+  <card-section t="{{t}}" wx:if="{{!showUpcoming}}" events="{{organization.events.past}}" 
     hideUnpublished="{{true}}" orgId="{{organization.id}}" listTime="past" isOrganization />
 </view>
 

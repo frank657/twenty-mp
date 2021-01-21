@@ -1,5 +1,6 @@
 const app = getApp();
 const BC = require('../../../libs/bc');
+import { tl } from '../../../utils/tl.js';
 
 Page({
   data: {
@@ -9,7 +10,10 @@ Page({
   onShow() {
     this.setData({ showShareMenu: false, shareEvent: null })
     wx.showLoading()
-    BC.getData(`organizations/${this.options.id}`).then(res=>wx.hideLoading())
+    BC.getData(`organizations/${this.options.id}`).then(res=>{
+      tl(this, false).then(tlRes=> this.setData({ t: tlRes.organizers.show}))
+      wx.hideLoading()
+    })
   },
 
   toggleNav(e) {

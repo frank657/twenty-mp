@@ -2,6 +2,7 @@
 Component({
   properties: {
     title: String,
+    t: Object,
     showUpcoming: { type: Boolean, value: true },
     left: { type: Boolean, value: false }
   },

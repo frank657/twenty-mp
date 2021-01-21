@@ -10,7 +10,7 @@
       value="{{event.is_published?0:1}}"
       bindchange="publishEvent">
       <view class="row-start">
-        <view class="white">{{event.is_published?'Published':'Unpublished'}}</view>
+        <view class="white">{{event.is_published?t.published:t.unpublished}}</view>
         <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini"></image>
       </view>
     </picker>
@@ -20,7 +20,7 @@
       value="{{event.signup_opens?0:1}}"
       bindchange="openSignup">
       <view class="row-start">
-        <view class="white">{{event.signup_opens?'Signup open':'Signup closed'}}</view>
+        <view class="white">{{event.signup_opens?t.signup_open:t.signup_closed}}</view>
         <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
       </view>
     </picker>
@@ -29,14 +29,14 @@
   <info event="{{event}}" creator="{{creator}}" />
   <attendees event="{{event}}" />
   <view class="mb100">
-    <view class="bold f32 ter mb40">Description</view>
+    <view class="bold f32 ter mb40">{{t.description}}</view>
     <text class="grey f28">{{event.description}}</text>
   </view>
 
   <view class="w100 row-center">
     <navigator url="/pages/events/create/create" open-type="redirect"
       class="b radius20 px30 py20 grey-light" 
-      style="border-style: dashed">Create your own event</navigator>
+      style="border-style: dashed">{{t.create_event}}</navigator>
   </view>
 
   <view style="height: {{selected_answer&&answer=='yes'?300:170}}rpx;"/>
@@ -96,7 +96,7 @@
   <view class="w100 mt20">
     <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}" range-key="content">
       <view class="bg-dim pa20 radius10 grey row-between">
-        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : 'Choose an answer.. '}} 
+        {{(selectedAnswer != null) ? event.answers[selectedAnswer]['content'] : t.choose_an_answer}} 
         <image class="icon-sm" mode="aspectFit" src="/images/icons/arrow-down.svg"></image> 
       </view>
     </picker>
@@ -152,15 +152,15 @@
     </view> -->
     <view bindtap="deleteEvent"
       class="row-center grey py40 bb b-dim">
-      Cancel and Delete
+      {{t.cancel}}
     </view>
     <navigator url="/pages/events/edit/edit?event={{event.id}}"
       class="row-center grey py40 bb b-dim" hover-class="none">
-      Edit Details
+      {{t.edit}}
     </navigator>
     <navigator url="/pages/events/create/create?template={{event.id}}"
       class="row-center grey py40" hover-class="none">
-      Copy Event
+      {{t.copy}}
     </navigator>
   </view> 
 </footer-window>

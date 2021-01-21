@@ -6,7 +6,7 @@
 
 <block wx:if="{{events.followings.length}}">
   <view class="mb20 x-wrapper">
-    <view class="f36 bold w-100 text-left ter pl20">Followed Organizers</view>
+    <view class="f36 bold w-100 text-left ter pl20">{{t.followed_organizers}}</view>
   </view>
   <scroll-view class="w100 mb60" scroll-x>
     <view class="w100 row-start nowrap avatar-container box-b">
@@ -21,7 +21,7 @@
 
 <view class="mb60" wx:if="{{events.viewed.length}}">
   <view class="x-wrapper relative">
-    <view class="f36 bold w-100 text-left ter pl20 mb">Recently Viewed</view>
+    <view class="f36 bold w-100 text-left ter pl20 mb">{{t.recently_viewed}}</view>
   </view>
 
   <swiper class="card-swiper" style="height: 400rpx;" current="{{recentCur}}" easing-function="easeOutCubic" bindchange="bindSwipeRecent">    
@@ -32,7 +32,7 @@
     <swiper-item class="more-item">
       <navigator url="/pages/events/list/list?eventType=viewed" 
         style="height: 200rpx;" class="row-center" hover-class="none">
-        <view class="more-btn row-center bold white">more</view>
+        <view class="more-btn row-center bold white">{{t.more}}</view>
       </navigator>
     </swiper-item>
   </swiper>
@@ -40,12 +40,12 @@
 
 <view class="mb50">
   <view class="px40">
-    <toggle-nav title="RSVP'd" showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
+    <toggle-nav t="{{t}}" title="{{t.rsvped}}" showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
   </view>
 
-  <card-section wx:if="{{showUpcoming}}" events="{{events.rsvped}}" 
+  <card-section t="{{t}}" wx:if="{{showUpcoming}}" events="{{events.rsvped}}" 
     eventType="rsvped" listTime="upcoming" />
-  <card-section wx:if="{{!showUpcoming}}" events="{{events.rsvped_past}}" 
+  <card-section t="{{t}}" wx:if="{{!showUpcoming}}" events="{{events.rsvped_past}}" 
     eventType="rsvped" listTime="past" />
 </view>
 

@@ -7,7 +7,8 @@ Component({
     eventType: String,
     listTime: String,
     isOrganization: Boolean,
-    orgId: Number
+    orgId: Number,
+    t: Object
   },
 
   data: {

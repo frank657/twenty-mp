@@ -1,5 +1,6 @@
 const BC = require('../../../libs/bc');
 const BU = require('../../../libs/bc-utils');
+import { tl } from '../../../utils/tl.js';
 const app = getApp();
 // pages/events/create/create.js
 Page({
@@ -7,6 +8,7 @@ Page({
     event: null
   },
   onLoad() {
+    tl(this, false).then(res=> this.setData({ t: res.events.create }))
     BC.userInfoReady(this)
     this.loadTemplate()
   },

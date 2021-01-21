@@ -26,13 +26,13 @@
         <view wx:if="{{organization.belongs_to_self}}" class="{{organization.is_private?'bg-red-light':'bg-green'}} px20 py white radius50 f24 row-start">
           <picker range="{{profile_type}}" value="{{organization.is_private?1:0}}" 
             bindchange="selectProfileType">
-            <view>{{organization.is_private?'Private Profile':'Public Profile'}}</view>
+            <view>{{organization.is_private?t.private_profile:t.public_profile}}</view>
           </picker>
           <image src="/images/icons/triangle.svg" mode="aspectFit" class="icon-mini "></image>
         </view>
         <view wx:else bindtap="followOrganization" 
           class="b b-sec px20 py radius50 f24 row-start {{organization.followed?'bg-sec white':'sec'}}">
-          {{organization.followed?'Following':'Follow'}}</view>
+          {{organization.followed?t.following:t.follow}}</view>
       </view>
     </view>
   </view>

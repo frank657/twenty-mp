@@ -1,4 +1,5 @@
 const BC = require('../../../libs/bc');
+import { tl } from '../../../utils/tl.js';
 
 Page({
   data: {
@@ -8,6 +9,7 @@ Page({
   },
 
   onLoad: function (options) {
+    tl(this, false).then(res=> this.setData({ t: res.events.attendees }))
     wx.hideShareMenu()
     this.setData({ attendees: BC.lastPage().data.event.attendees, event: BC.lastPage().data.event, userInfo: BC.lastPage().data.userInfo, creator: BC.lastPage().data.creator})
     const isOwner = this.data.creator.user.id == this.data.userInfo.id

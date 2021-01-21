@@ -2,6 +2,7 @@ const BR = require('bc-requests')
 const BU = require('bc-utils')
 import Event from '../utils/event'
 import VersionControl from '../utils/version-control'
+import { loadTl } from '../utils/tl'
 
 const launchApp = (app) => {
   userLogin(app)
@@ -12,7 +13,7 @@ const launchApp = (app) => {
 
 const getHost = () => {
   const d = getApp().globalData
-  return d.host[d.env] + d.api
+  return d.host[d.env] + '/' + d.lang + d.api
 }
 
 const userLogin = (app) => {
@@ -20,6 +21,7 @@ const userLogin = (app) => {
     success: res => {
       login(`${getHost()}login`, res.code).then(res=> {
         console.log('login res ==>', res)
+        loadTl(res.tl)
         app.vc = new VersionControl(app.globalData.version, res.settings.version)
         app.vc.setEnv()
         if (app.vc.shouldRefetch) launchApp(app)
