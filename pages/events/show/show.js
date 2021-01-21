@@ -233,5 +233,5 @@ Page({
     // const scrollTop = e.detail.scrollTop
     // if (scrollTop<=0) imageHeight -= scrollTop
     // this.setData({imageHeight})
-  },
+  }
 })

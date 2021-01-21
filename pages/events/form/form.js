@@ -13,9 +13,10 @@ Component({
   },
 
   properties: {
-    template: { type: Object, value: null, observer() { this.initEvent() } },
-    eventToUpdate: { type: Object, value: null, observer() { this.initEvent() } },
-    formType: { type: String, value: 'create' }
+    template: { type: Object, value: null, observer() { this.loadFields() } },
+    event: { type: Object, value: null, observer() { this.loadFields() } },
+    formType: { type: String, value: 'create' },
+    t: Object
   },
 
   data: {
