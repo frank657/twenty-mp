@@ -61,5 +61,9 @@ Page({
     } else {
       return defaultMsg
     }
-  }
+  },
+  
+  // onAddToFavorite(res) {
+  //   console.log('adding to fav', res)
+  // }
 })

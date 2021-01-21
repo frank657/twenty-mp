@@ -11,7 +11,8 @@
     "pages/organizers/show/show",
     "pages/organizers/edit/edit",
     "pages/events/list/list",
-    "pages/events/poster/poster"
+    "pages/events/poster/poster",
+    "pages/follow/follow"
   ],
   "permission": {
     "scope.userLocation": {
