@@ -4,6 +4,7 @@ import { tl } from '../../../utils/tl.js';
 // pages/events/show/show.js
 Page({
   data: {
+    showNotifyUser: true,
     showLanding: true,
     showFooterWindow: false,
     showShareMenu: true,
