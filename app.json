@@ -10,7 +10,9 @@
     "pages/events/edit/edit",
     "pages/organizers/show/show",
     "pages/organizers/edit/edit",
-    "pages/events/list/list"
+    "pages/events/list/list",
+    "pages/events/poster/poster",
+    "pages/follow/follow"
   ],
   "permission": {
     "scope.userLocation": {
@@ -23,7 +25,8 @@
     "navbar": "/components/navbar/navbar",
     "card-section": "/components/card-section/card-section",
     "toggle-nav": "/components/toggle-nav/toggle-nav",
-    "footer-window": "/components/footer-window/footer-window"
+    "footer-window": "/components/footer-window/footer-window",
+    "icn": "/components/icon/icon"
   },
   "window": {
     "backgroundTextStyle": "light",

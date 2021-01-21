@@ -6,6 +6,7 @@ Page({
   data: {
     showLanding: true,
     showFooterWindow: false,
+    showShareMenu: true,
     showAnswer: false, // show already selected answer
     showQuestion: false, // show popup question form
     selectedAnswer: null, // answer to additional question
@@ -22,7 +23,12 @@ Page({
     imageHeight: 250,
   },
 
+  closeQuestion() {
+    this.setData({ showQuestion: false })
+  },
+
   showFooterWindow() { this.setData({ showFooterWindow: true}) },
+  showOverview() { this.setData({ showOverviewWindow: true}) },
 
   publishEvent(e) {
     const is_published = e.detail.value == '0'
@@ -56,8 +62,8 @@ Page({
       cancelText: 'Back',
       confirmText: 'Confirm',
       title: 'Cancel Event',
-      content: 'You are about to cancel this event. Do you want to confirm?',
-      success(res) {
+      content: 'Are you sure you want to cancel the event? Attendees who follow +one official account will be notified',
+      success(res) { 
         console.log(res)
         if (res.confirm) {
           const path = `${BC.getHost()}/events/${that.data.event.id}`
@@ -117,6 +123,7 @@ Page({
         console.log(answer)
         console.log('question', this.data.event.question)
         if (answer == 'yes' && this.data.event.question && this.data.event.question != '') {
+          // TO BE CHANGED
           console.log('show question and answers')
           this.setData({ showQuestion: true })
         } else {
@@ -133,6 +140,17 @@ Page({
           title: 'Authorize user info',
           content: 'Please allow us to obtain user info to continue'
         })
+      }
+    })
+  },
+
+  subscribeMsg() {
+    console.log('here')
+    const tmplIds = ['xPKgCkbxIH8fHg_A19fVs21l-VrpGAkY-VXtXLpd0SM']
+    wx.requestSubscribeMessage({ 
+      tmplIds, 
+      complete(res) {
+        console.log(res)
       }
     })
   },
@@ -162,7 +180,7 @@ Page({
   },
 
   onShow() {
-    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false })
+    this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false, showShareMenu: false })
     // wx.showLoading({ title: 'Loading' })
     let id;
 
@@ -174,8 +192,6 @@ Page({
       id = this.options.id
     }
 
-    console.log({id})
-
     BC.userInfoReady(this)
     BC.getData(`events/${id}`).then(res=>{
       tl(this, false).then(tlRes=> this.setData({ t: tlRes.events.show }))
@@ -186,31 +202,6 @@ Page({
       }
       wx.hideLoading()
     })
-  },
-
-  getQr() {
-    // IF event.mp_qr_code IS NULL, THIS IS THE PATH TO GENERATE THE QR CODE
-    let id = this.data.event.id
-    BC.getData(`events/${id}/get_qr`, {shouldSetData: false}).then(res=> {
-      // I RETURN THE WHOLE EVENT OBJECT
-      console.log('getqr res', res)
-    })
-  },
-
-  openMap() {
-    const e = this.data.event
-
-    wx.openLocation({
-      name: e.venue_name,
-      address: e.address,
-      latitude: e.latitude,
-      longitude: e.longitude,
-    })
-  },
-
-  navToOrganizer() {
-    const url = `/pages/organizers/show/show?id=${this.data.creator.id}`
-    wx.navigateTo({ url })
   },
 
   onShareAppMessage: function () {
@@ -231,7 +222,7 @@ Page({
   showImage() {
     const { event } = this.data
     wx.previewImage({
-      urls: [event.image],
+      urls: [event.image_lg],
     })
   },
 

@@ -1,8 +1,14 @@
 <!-- <tabbar /> -->
 <view class="cu-bar tabbar shadow foot relative" style="border: none; border-radius: 50rpx 50rpx 0 0;">
-  
+  <button open-type="contact" wx:if="{{pageCur=='tab2'}}"
+    class="pa20 bold duration3 bg-dim grey b b-grey-light absolute z9 row-center f28" 
+    style="border-radius: 30rpx; right: 40rpx; top: -100rpx; width: unset;" >
+    <icn name="feedback" size="sm" />
+    <view class="ml">Feedback</view>
+  </button>
+
   <view class="w100 absolute row-center" style="top: 0;">
-    <navigator url="/pages/events/create/create" class="relative white row-center radius40" 
+    <navigator url="/pages/events/create/create" class="relative white row-center radius40 z9" 
       style="width: 110rpx; height: 110rpx; top: -30rpx; box-shadow: 0px 4px 5px rgba(255, 201, 60, 0.5); background: linear-gradient(137.06deg, #FF6F3C 15.36%, #FFC97B 100%);">
       <image src="/images/tabbar/plus.svg" style="width: 40rpx; height: 40rpx;" mode="aspectFit"></image>
     </navigator>

@@ -1,0 +1,23 @@
+<formInput title="Show as Published" info="{{publishInfo}}">
+  <view class="px20">
+    <view class="row-between">
+      <view class="row-start" bindtap="selectPublished" data-select="{{true}}">
+        <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+          class="mr20 duration3 {{event.is_published?'bg-sec':'opacity-3 bg-grey-light'}}">
+        </view>
+        <view class="duration3 {{event.is_published?'sec':'grey-light'}}">
+          Published
+        </view>
+      </view>
+
+      <view class="row-start" bindtap="selectPublished" data-select="{{false}}">
+        <view style="height: 40rpx; width: 40rpx; border-radius: 50%;" 
+          class="mr20 duration3 {{!event.is_published?'bg-sec':'opacity-3 bg-grey-light'}}">
+        </view>
+        <view class="duration3 {{!event.is_published?'sec':'grey-light'}}">
+          Unpublished
+        </view>
+      </view>
+    </view>
+  </view>
+</formInput>

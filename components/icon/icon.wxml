@@ -1,0 +1,1 @@
+<image class="icon{{size?'-':''}}{{size}}" src="/images/icons/{{name}}.{{fileType?fileType:'svg'}}" mode="aspectFit"/>
