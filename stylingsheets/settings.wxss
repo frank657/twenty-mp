@@ -7,7 +7,7 @@ page {
   --pri: #FF6F3C;
   --sec: #FF9A3C;
   --ter: #155263;
-  --dim: rgba(0,0,0,0.02);
+  --dim: #f8f8f8;
   --white: #fff;
   --black: #000;
   --white: #fff;
@@ -44,6 +44,10 @@ page {
   /* content f28 */
   /* color: var(--greyDark); */
   font-size: 28rpx;
+}
+
+icn {
+  display: flex;
 }
 
 .wrapper {

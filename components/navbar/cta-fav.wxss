@@ -1,0 +1,18 @@
+/* components/navbar/cta-fav.wxss */
+@import '/app';
+
+page {
+  --cta-dark: #ffd4ad;
+}
+
+.cta-bg {
+  background-color: #fff1e3;
+}
+
+.cta-bg-dark {
+  background-color: var(--cta-dark);
+}
+
+.cta-b-dark {
+  border: 2rpx solid var(--cta-dark);
+}

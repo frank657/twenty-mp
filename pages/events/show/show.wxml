@@ -3,6 +3,7 @@
 <image bindtap="showImage" src="{{event.image_lg}}" mode="aspectFill" class="w100 fixed" style="height: {{imageHeight}}px;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
+  <!-- EVENT STATUSES -->
   <view wx:if="{{userInfo.organization.id == creator.id}}" class="row-start mb30">
     <picker class="px20 py f22 mr radius50 {{event.is_published?'bg-green':'bg-red-light'}}"
       range="{{adminPublish}}"
@@ -43,43 +44,54 @@
 
 <!-- FOOTER -->
 <view wx:if="{{!showQuestion}}" class="show-footer bg-white">
-  <view wx:if="{{userInfo.organization.id == creator.id}}" bindtap="showFooterWindow"
-    class="pa20 bold duration3 bg-ter white absolute z9"
-    style="border-radius: 30rpx; right: 40rpx; top: -100rpx;" >
-    Manage
+  <!-- MANAGE (IF ADMIN) -->
+  <view wx:if="{{userInfo.organization.id == creator.id}}" class="absolute z9 row-end" style="right: 40rpx; top: -100rpx;">
+    <view bindtap="showOverview" style="border-radius: 30rpx;"
+      class="pa20 bold duration3 bg-ter white mr20">Overview</view>
+    <view bindtap="showFooterWindow" style="border-radius: 30rpx;"
+      class="pa20 bold duration3 bg-ter white">Manage</view>
   </view>
 
-  <block wx:if="{{event.signup_opens}}">
-    <view class="row-between">
-      <view class="bold ter f28 mr50">Joining?</view>
-
-      <button
-        open-type="getUserInfo"
-        bindgetuserinfo="join"
-        wx:for="{{answers}}" wx:key="index"
-        class="pa20 bold duration3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}"
-        style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;"
-        data-answer="{{item.name}}">{{item.label}}</button>
-    </view>
-
-    <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
-      <view class="grey f24">{{event.question}}</view>
-      <view class="flex items-center mt">
-        <view class="ter f24 medium">{{selected_answer.content}}</view>
-        <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
-      </view>
-    </view>
-  </block>
-
-
-  <block wx:if="{{!event.signup_opens}}">
+  <block wx:if="{{event.destroyed_at}}">
     <view class="w100 row-center">
-      <view class="px30 py20 radius30 bold bg-grey-light white">Signup is closed or not open yet</view>
+      <view class="px30 py20 radius30 bold bg-red-light white">Event is canceled</view>
     </view>
   </block>
+
+  <block wx:else>
+    <block wx:if="{{event.signup_opens}}">
+      <view class="row-between">
+        <view class="bold ter f28 mr50">Joining?</view>
+
+        <button
+          open-type="getUserInfo"
+          bindgetuserinfo="join"
+          wx:for="{{answers}}" wx:key="index"
+          class="pa20 bold duration3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}"
+          style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;"
+          data-answer="{{item.name}}">{{item.label}}</button>
+      </view>
+
+      <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
+        <view class="grey f24">{{event.question}}</view>
+        <view class="flex items-center mt">
+          <view class="ter f24 medium">{{selected_answer.content}}</view>
+          <text catchtap="changeAnswer" class="ml20 bg-sec white f24 radius20 opacity-7" style="padding: 4rpx 10rpx;">change</text>
+        </view>
+      </view>
+    </block>
+
+    <block wx:if="{{!event.signup_opens}}">
+      <view class="w100 row-center">
+        <view class="px30 py20 radius30 bold bg-grey-light white">Signup is not open</view>
+      </view>
+    </block>
+  </block>
+
 </view>
 
 <view wx:if="{{showQuestion}}" class="row-between show-footer bg-white flex column">
+  <icn name="cross" size="sm" class="absolute" style="right: 30rpx; top: 30rpx;" bindtap="closeQuestion"></icn>
   <view class="text-center bold ter f32 w100 mt20">{{event.question}}</view>
   <view class="w100 mt20">
     <picker bindchange="selectAnswer" value="{{index}}" range="{{event.answers}}" range-key="content">
@@ -92,9 +104,40 @@
 
   <button bindtap="submitAnswer" disabled="{{!event.answers[selectedAnswer]}}"
     class="mt30 bold ter f28 {{selectedAnswer||selectedAnswer==0?'btn-footer white bg-sec':'btn-disabled grey-light'}} row-center">Select</button>
-
 </view>
 
+<!-- STATS OVERVIEW -->
+<footer-window wx:if="{{showOverviewWindow}}" trigger="showOverviewWindow" title="Overview">
+  <view class="w100 py30">
+    <view class="py20 mb30">
+      <view class="mb20 thin"><text class="bold f40 mr">{{event.total_viewed}}</text>Views</view>
+      <view class="mb20 thin"><text class="bold f40 mr">{{event.unique_views}}</text>Reached</view>
+      <!-- <view class="mb20"><text class="bold f40 mr">{{event.new_attendees}}</text>New attendees</view> -->
+    </view>
+    <view class="flex mb60">
+      <view class="w30">
+        <view class="bold sec f32 mb">Yes</view>
+        <view class="f40 bold">{{event.attendees.yes.length}}</view>
+      </view>
+      <view class="w30">
+        <view class="bold sec f32 mb">No</view>
+        <view class="f40 bold">{{event.attendees.no.length}}</view>
+      </view>
+      <view class="w30">
+        <view class="bold sec f32 mb">Maybe</view>
+        <view class="f40 bold">{{event.attendees.maybe.length}}</view>
+      </view>
+    </view>
+
+    <view wx:if="{{event.question}}">
+      <view class="bold f32 sec mb20">{{event.question}}</view>
+      <view class="mb20" wx:for="{{event.attendees.yes_answers}}">
+        <view class="thin mb">{{item.answer}}</view>
+        <view class="f40 bold">{{item.attendees.length}}</view>
+      </view>
+    </view>
+  </view>
+</footer-window>
 
 <!-- MANAGE POPUP WINDOW -->
 <footer-window wx:if="{{showFooterWindow}}" trigger="showFooterWindow" title="Manage">
@@ -134,6 +177,11 @@
     <icn name="moments" size="ms"/>
     <view class="ml20">Generate poster</view>
   </navigator>
+</footer-window>
+
+<footer-window wx:if="{{showNotifyUser}}" trigger="showNotifyUser" title="Event updates" center>
+  <view class="mb30 mt100 thin f32 text-center">Get notified when the organizer makes any changes to the event</view>
+  <button bindtap="subscribeMsg" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Ok</button>
 </footer-window>
 
 <landing wx:if="{{showLanding}}" />

@@ -3,19 +3,14 @@ Component({
 
   properties: {
     title: { type: String, value: '' },
-    info: { type: String, value: null }
+    info: { type: String, value: null },
+    showError: { type: Boolean, value: false },
   },
 
-  /**
-   * Component initial data
-   */
   data: {
     
   },
 
-  /**
-   * Component methods
-   */
   methods: {
     showInfo() {
       const { info } = this.data
@@ -24,6 +19,10 @@ Component({
         showCancel: false,
         confirmText: 'OK'
       })
+    },
+
+    hideError() {
+      this.setData({ showError: false })
     }
   }
 })

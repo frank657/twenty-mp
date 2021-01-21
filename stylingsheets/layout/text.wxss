@@ -37,6 +37,7 @@
 .fsbody { font-size: 26rpx;}
 .fmini { font-size: 20rpx;}
 /* WEIGHT */
+.thin { font-weight: 100;}
 .bold { font-weight: bold;}
 .medium { font-weight: 500;}
 .text-shadow { text-shadow:0 1px 3px rgba(0,0,0,0.6);}

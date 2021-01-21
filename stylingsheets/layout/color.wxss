@@ -72,6 +72,8 @@
 .b-blue-cream-dark { border-color: var(--blueCreamDark) }
 .b-blue-cream-vdark { border-color: var(--blueCreamVDark) }
 
+.opacity-10 { opacity: 1; }
 .opacity-7 { opacity: 0.7; }
 .opacity-5 { opacity: 0.5; }
 .opacity-3 { opacity: 0.3; }
+.opacity-0 { opacity: 0; }

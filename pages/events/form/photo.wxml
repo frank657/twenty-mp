@@ -1,0 +1,18 @@
+<view style="height: 400rpx; border-radius: 60rpx; overflow: hidden;" 
+class="w100 shadow{{showError?'-red':''}} row-center relative" catchtap="hideError">
+  <view class="h100 w100 absolute" bindtap="uploadImage" />
+  
+  <view class="column-center" wx:if="{{!event.imageToUpload&&!event.image}}">
+    <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit" 
+      class="my30"></image>
+    <text class="bold f32 ter">Upload a Photo</text>
+  </view>
+  <block wx:else>
+    <image src="{{event.imageToUpload||event.image}}" mode="aspectFill" 
+      class="w100 h100"></image>
+    <image src="/images/icons/cross.svg" mode="aspectFit" 
+      class="pa absolute" 
+      bindtap="removeImage"
+      style="border-radius: 50%; height: 50rpx; width: 50rpx; left 50%; bottom: 20rpx; background: rgba(255,255,255,0.75);"></image>
+  </block>
+</view>

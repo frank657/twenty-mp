@@ -1,239 +1,28 @@
 <view class="pa40">
-  <form bindsubmit="submitEvent">
-    <view style="height: 400rpx; border-radius: 60rpx; overflow: hidden;"
-      class="w100 shadow row-center relative">
-      <view class="h100 w100 absolute" bindtap="uploadImage" />
-      <!-- <block wx:if="{{formType=='create'}}"> -->
-        <view class="column-center" wx:if="{{hasNoImage||!imgTempFile&&!event.image&&!template.image}}">
-          <image src="/images/icons/upload.svg" style="height: 200rpx;" mode="aspectFit"
-            class="my30"></image>
-          <text class="bold f32 ter">{{t.upload_photo}}</text>
-        </view>
-        <!-- wx:if="{{!hasNoImage&&hasNewImage&&(imgTempFile||event.image||template.image)}}" -->
-        <block wx:else>
-          <image src="{{imgTempFile||template.image||event.image}}" mode="aspectFill"
-            class="w100 h100"></image>
-          <image src="/images/icons/cross.svg" mode="aspectFit"
-            class="pa absolute"
-            bindtap="removeImage"
-            style="border-radius: 50%; height: 50rpx; width: 50rpx; left 50%; bottom: 20rpx; background: rgba(255,255,255,0.75);"></image>
-        </block>
-      <!-- </block>   -->
+  <photo event="{{event}}" showError="{{validationErrors.image}}" />
+  <formInput title="Title" showError="{{validationErrors.title}}">
+    <input data-name="title" bindinput="changeInput"
+      class="text-center bg-dim px20 py radius10" value="{{event.title}}"></input>
+  </formInput>
+  <time event="{{event}}" />
+  <location event="{{event}}" showError="{{validationErrors.venue}}" />
+  <attendees event="{{event}}" showError="{{validationErrors.capacity}}" />
+  <formInput title="Description" showError="{{validationErrors.description}}">
+    <textarea data-name="description" bindinput="changeInput" maxlength="-1"
+      class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
+  </formInput>
 
-      <!-- <input name="image" class="dn" value="{{imgTempFile}}"></input> -->
 
-      <!-- <block wx:if="{{formType=='edit'}}">
-        <image src="{{event.image}}" mode="aspectFill" class="w100 h100"></image>
-        <image src="/images/icons/cross.svg" mode="aspectFit"
-          class="pa absolute"
-          bindtap="removeImage"
-          style="border-radius: 50%; height: 50rpx; width: 50rpx; left 50%; bottom: 20rpx; background: rgba(255,255,255,0.75);"></image>
-      </block> -->
-    </view>
+  <signup-open class="{{showOther?'':'dn'}}" event="{{event}}" />
+  <published class="{{showOther?'':'dn'}}" event="{{event}}" />
+  <question  class="{{showOther||event.question?'':'dn'}}"
+    event="{{event}}" formType="{{formType}}" showError="{{validationErrors.question}}" />
 
-    <formInput title="{{t.title}}">
-      <input wx:if="{{formType=='edit'}}" name="title" class="text-center bg-dim px20 py radius10" value="{{event.title}}"></input>
-      <input wx:else name="title" class="text-center bg-dim px20 py radius10" value="{{template?template.title:''}}"></input>
-    </formInput>
+  <!-- ADDITIONAL OPTIONS -->
+  <view class="column-center my50" bindtap="showOtherOptions">
+    <view class="bold sec f32 w100 text-center mb20">{{showOther?'Hide':'Show'}} other options</view>
+    <image src="/images/icons/arrow-{{showOther?'up':'down'}}.svg" mode="aspectFit" class="icon-ms"></image>
+  </view>
 
-    <formInput title="{{t.when}}">
-      <view class="row-between">
-        <view class="text-left w50">
-          <view class="f24 grey">{{t.from}}</view>
-
-          <picker name="start_date"
-            mode="date" value="{{startDate||event.form_date.start.date||today}}" start="{{today}}" end="{{lastDate}}"
-            class="f28 w60 py sec f32 w100"
-            data-type="start"
-            bindchange="bindDateChange">
-            <view class="picker">
-              {{startDate||event.form_date.start.date||today}}
-            </view>
-          </picker>
-
-          <picker name="start_time"
-            mode="time" value="{{startTime||event.form_date.start.time||time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
-            data-type="start"
-            class="f28 w60 py sec f32 w100">
-            <view class="picker">
-              {{startTime||event.form_date.start.time||time}}
-            </view>
-          </picker>
-
-        </view>
-        <view class="text-right w50">
-          <view class="f24 grey">{{t.until}}</view>
-          <picker name="end_date"
-            mode="date"
-            value="{{endDate||startDate||event.form_date.end.date||today}}"
-            start="{{startDate||event.form_date.end.date||today}}" end="{{lastDate}}"
-            class="f28 w60 py sec f32 w100 text-right"
-            data-type="end"
-            bindchange="bindDateChange">
-            <view class="picker">
-              {{endDate||startDate||event.form_date.end.date||today}}
-            </view>
-          </picker>
-
-          <picker name="end_time"
-            mode="time"
-            value="{{endTime||startTime||event.form_date.end.time||defaultEndTime}}"
-            start="00:00"
-            end="23:59"
-            data-type="end"
-            bindchange="bindTimeChange"
-            class="f28 w60 py sec f32 w100 text-right">
-            <view class="picker">
-              {{endTime||startTime||event.form_date.end.time||defaultEndTime}}
-            </view>
-          </picker>
-        </view>
-      </view>
-    </formInput>
-
-    <formInput title="{{t.where}}">
-      <view class="f32 sec text-center mb30" bindtap="pinLocation">{{t.pin_location}}</view>
-
-      <block wx:if="{{address||event.address||template.venue_name}}">
-        <view class="text-center f24 grey my">{{t.address}}</view>
-        <input name="address" value="{{address||event.address||template.address}}" class="text-center bg-dim px20 py radius10"></input>
-      </block>
-
-      <view class="text-center f24 grey my">{{t.venue_name}}</view>
-      <input name="venue_name" value="{{venue||event.venue_name||template.venue_name}}" class="text-center bg-dim px20 py radius10"></input>
-
-      <input class="dn" name="latitude" value="{{lat||event.latitude||template.latitude}}"></input>
-      <input class="dn" name="longitude" value="{{long||event.longitude||template.longitude}}"></input>
-    </formInput>
-
-    <formInput title="{{t.max_attendees}}">
-      <view class="px20">
-        <view class="row-between">
-
-          <view class="row-start" bindtap="selectMaxCapacity" data-max-capacity="{{false}}">
-            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;"
-              class="mr20 duration3 {{!maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
-            </view>
-            <view class="duration3 {{!maxCapacity?'sec':'grey-light'}}">
-              No limit
-            </view>
-          </view>
-
-          <view class="row-start" bindtap="selectMaxCapacity" data-max-capacity="{{true}}">
-            <view style="height: 40rpx; width: 40rpx; border-radius: 50%;"
-              class="mr20 duration3 {{maxCapacity?'bg-sec':'opacity-3 bg-grey-light'}}">
-            </view>
-            <view class="duration3 {{maxCapacity?'sec':'grey-light'}}">
-              Limited spots
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <view wx:if="{{maxCapacity}}" class="column-center">
-        <view class="text-center f24 grey mb mt50">{{t.max}}</view>
-        <input wx:if="{{formType=='edit'}}" name="max_capacity" type="number"
-          value="{{event.max_capacity}}"
-          class="text-center bg-dim px20 py radius10 w30"
-          auto-focus="{{focusMaxCap}}"></input>
-        <input wx:else name="max_capacity" type="number"
-          value="{{template?template.max_capacity:''}}"
-          class="text-center bg-dim px20 py radius10 w30"
-          auto-focus="{{focusMaxCap}}"></input>
-      </view>
-    </formInput>
-
-    <formInput title="{{t.desc}}">
-      <textarea wx:if="{{formType=='edit'}}" name="description" maxlength="-1"
-        class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
-      <textarea wx:else name="description" maxlength="-1"
-        class="bg-dim px20 py radius10 box-b" value="{{template?template.description:''}}"></textarea>
-    </formInput>
-
-    <!-- ADDITIONAL OPTIONS -->
-    <view class="column-center my50" bindtap="showOtherOptions">
-      <view class="bold sec f32 w100 text-center mb20">{{showOther?t.hide_other_options:t.show_other_options}}</view>
-      <image src="/images/icons/arrow-{{showOther?'up':'down'}}.svg" mode="aspectFit" class="icon-ms"></image>
-    </view>
-    <!--  class="{{showOther?'':'dn'}}" -->
-    <view class="{{showOther?'':'dn'}}">
-      <formInput title="{{t.signup_open}}" info="{{t.signup_info}}">
-        <view class="px20">
-          <view class="row-between">
-            <input class="dn" name="signup_opens" value="{{signupOpen}}"></input>
-            <view class="row-start" bindtap="selectSignupOpen" data-select="{{true}}">
-              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;"
-                class="mr20 duration3 {{signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
-              </view>
-              <view class="duration3 {{signupOpen?'sec':'grey-light'}}">
-                Open
-              </view>
-            </view>
-
-            <view class="row-start" bindtap="selectSignupOpen" data-select="{{false}}">
-              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;"
-                class="mr20 duration3 {{!signupOpen?'bg-sec':'opacity-3 bg-grey-light'}}">
-              </view>
-              <view class="duration3 {{!signupOpen?'sec':'grey-light'}}">
-                Closed
-              </view>
-            </view>
-          </view>
-        </view>
-      </formInput>
-
-      <formInput title="{{t.show_published}}" info="{{t.publish_info}}">
-        <view class="px20">
-          <view class="row-between">
-            <input class="dn" name="is_published" value="{{eventPublished}}"></input>
-            <view class="row-start" bindtap="selectPublished" data-select="{{true}}">
-              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;"
-                class="mr20 duration3 {{eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
-              </view>
-              <view class="duration3 {{eventPublished?'sec':'grey-light'}}">
-                Published
-              </view>
-            </view>
-
-            <view class="row-start" bindtap="selectPublished" data-select="{{false}}">
-              <view style="height: 40rpx; width: 40rpx; border-radius: 50%;"
-                class="mr20 duration3 {{!eventPublished?'bg-sec':'opacity-3 bg-grey-light'}}">
-              </view>
-              <view class="duration3 {{!eventPublished?'sec':'grey-light'}}">
-                Unpublished
-              </view>
-            </view>
-          </view>
-        </view>
-      </formInput>
-      <!-- formType=='create'||event.can_add_question -->
-      <formInput title="{{t.custom_q}}" info="{{t.custom_q_info}}">
-        <input wx:if="{{formType=='edit'}}" name="question" class="bg-dim px20 py radius10" value="{{event.question}}"></input>
-        <input wx:else name="question" class="bg-dim px20 py radius10" value="{{template?template.question:''}}"></input>
-
-        <view wx:if="{{answers.length}}" class="mt20 flex column w100">
-          <block wx:for="{{answers}}" wx:key="index">
-            <view class="flex w100 mb20">
-              <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" disable="{{item.id&&formType=='edit'}}" />
-              <view class="ml20 w100">
-                <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}"
-                  class="bg-dim px20 py radius10" value="{{item.id?item.content:item}}"></input>
-              </view>
-            </view>
-          </block>
-        </view>
-
-        <view class="mt20 flex w100" bindtap="addRemoveAnswers" data-action="add">
-          <plus title="+" />
-          <view class="ml20 w100 py px20 grey-light">
-            {{t.click_to_add}}
-          </view>
-        </view>
-      </formInput>
-    </view>
-
-    <!-- <view style="height: 200rpx;"></view> -->
-
-    <button form-type="submit" class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{formType=='create'?t.create:t.update}}</button>
-  </form>
+  <button bindtap="submitEvent" class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{formType=='create'?'Create':'Update'}}</button>
 </view>

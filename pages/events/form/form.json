@@ -2,6 +2,12 @@
   "component": true,
   "usingComponents": {
     "formInput": "./components/input",
-    "plus": "./components/plusButton"
+    "photo": "photo",
+    "location": "location",
+    "time": "time",
+    "attendees": "attendees",
+    "signup-open": "signup-open",
+    "published": "published",
+    "question": "question"
   }
 }

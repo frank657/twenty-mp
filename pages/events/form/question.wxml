@@ -1,0 +1,23 @@
+<formInput title="Custom Question" info="{{questionInfo}}" showError="{{showError}}">
+  <input data-name="question" bindinput="changeInput" 
+    class="bg-dim px20 py radius10" value="{{event.question}}"></input>
+  
+  <view wx:if="{{event.answers.length}}" class="mt20 flex column w100">
+    <block wx:for="{{event.answers}}" wx:key="index">
+      <view class="flex w100 mb20">
+        <plus bind:plusclicked="addRemoveAnswers" title="-" index="{{index}}" disable="{{item.id&&formType=='edit'}}" />
+        <view class="ml20 w100">
+          <input bindblur="addAnswer" data-index="{{index}}" data-id="{{item.id}}" 
+            class="bg-dim px20 py radius10" value="{{item.id?item.content:item}}"></input>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view class="mt20 flex w100" bindtap="addRemoveAnswers" data-action="add">
+    <plus title="+" />
+    <view class="ml20 w100 py px20 grey-light">
+      Click to add an answer
+    </view>
+  </view>
+</formInput>

@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "plus": "./components/plusButton",
+    "formInput": "./components/input"
+  }
+}

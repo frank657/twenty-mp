@@ -23,7 +23,12 @@ Page({
     imageHeight: 250,
   },
 
+  closeQuestion() {
+    this.setData({ showQuestion: false })
+  },
+
   showFooterWindow() { this.setData({ showFooterWindow: true}) },
+  showOverview() { this.setData({ showOverviewWindow: true}) },
 
   publishEvent(e) {
     const is_published = e.detail.value == '0'
@@ -57,7 +62,7 @@ Page({
       cancelText: 'Back',
       confirmText: 'Confirm',
       title: 'Cancel Event',
-      content: 'You are about to cancel this event. Do you want to confirm?',
+      content: 'Are you sure you want to cancel the event? Attendees who follow +one official account will be notified',
       success(res) {
         console.log(res)
         if (res.confirm) {
@@ -118,6 +123,7 @@ Page({
         console.log(answer)
         console.log('question', this.data.event.question)
         if (answer == 'yes' && this.data.event.question && this.data.event.question != '') {
+          // TO BE CHANGED
           console.log('show question and answers')
           this.setData({ showQuestion: true })
         } else {
@@ -134,6 +140,17 @@ Page({
           title: 'Authorize user info',
           content: 'Please allow us to obtain user info to continue'
         })
+      }
+    })
+  },
+
+  subscribeMsg() {
+    console.log('here')
+    const tmplIds = ['xPKgCkbxIH8fHg_A19fVs21l-VrpGAkY-VXtXLpd0SM']
+    wx.requestSubscribeMessage({
+      tmplIds,
+      complete(res) {
+        console.log(res)
       }
     })
   },
