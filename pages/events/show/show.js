@@ -71,7 +71,7 @@ Page({
       cancelText: 'Back',
       confirmText: 'Confirm',
       title: 'Cancel Event',
-      content: 'Are you sure you want to cancel the event? Attendees who follow +one official account will be notified',
+      content: 'Are you sure you want to cancel the event?',
       success(res) {
         console.log(res)
         if (res.confirm) {
