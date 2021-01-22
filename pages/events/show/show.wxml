@@ -39,6 +39,7 @@
       style="border-style: dashed">Create your own event</navigator>
   </view>
 
+  <view wx:if="{{userInfo.organization.id == creator.id}}" style="height: 100rpx;"></view>
   <view style="height: {{selected_answer&&answer=='yes'?300:170}}rpx;"/>
 </view>
 

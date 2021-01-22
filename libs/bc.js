@@ -6,7 +6,7 @@ import { loadTl } from '../utils/tl'
 
 const launchApp = (app) => {
   userLogin(app)
-  BU.setLanguage(app)
+  // BU.setLanguage(app)
   BU.getSafeArea(app)
   // BU.getFonts()
 }

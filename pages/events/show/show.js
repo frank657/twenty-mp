@@ -1,10 +1,12 @@
+const computedBehavior = require('miniprogram-computed')
 const BC = require('../../../libs/bc');
 import { tl } from '../../../utils/tl.js';
 
 // pages/events/show/show.js
 Page({
+  behaviors: [computedBehavior],
   data: {
-    showNotifyUser: true,
+    // showNotifyUser: true,
     showLanding: true,
     showFooterWindow: false,
     showShareMenu: true,
@@ -23,6 +25,12 @@ Page({
     scrollTop: 20,
     imageHeight: 250,
   },
+
+  // computed: {
+  //   isCreator(data) {
+  //     return data.userInfo.organization.id == data.creator.id
+  //   } 
+  // },
 
   closeQuestion() {
     this.setData({ showQuestion: false })
