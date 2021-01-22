@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "@vant/weapp": "^1.6.6",
     "miniprogram-computed": "^4.0.1"
   },
   "devDependencies": {},

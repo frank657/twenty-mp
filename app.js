@@ -20,6 +20,7 @@ App({
       none: '',
       background: '#FFFDF8'
     },
+    // version: '1.3.7',
     version: '1.3.6',
     versionChecked: false,
     lang: 'en', // cn or en
