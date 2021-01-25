@@ -3,39 +3,36 @@
     <view class="text-left w50">
       <view class="f24 grey">from</view>
         
-      <picker name="start_date" 
+      <!-- <picker name="start_date" 
         mode="date" value="{{event.start_date}}" start="{{today}}" end="{{lastDate}}" 
         class="f28 w60 py sec f32 w100" 
         data-type="start"
         bindchange="bindDateChange">
-        <view class="picker">
-          {{event.start_date}}
-        </view>
-      </picker>
+        {{event.start_date}}
+      </picker> -->
+      <view class="f28 w60 py sec f32 w100" bindtap="selectStartDate">{{event.start_date}}</view>
 
       <picker name="start_time" 
         mode="time" value="{{event.start_time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
         data-type="start"
         class="f28 w60 py sec f32 w100">
-        <view class="picker">
-          {{event.start_time}}
-        </view>
+        {{event.start_time}}
       </picker>
     </view>
     
     <view class="text-right w50">
       <view class="f24 grey">until</view>
-      <picker name="end_date" 
+      <!-- <picker name="end_date" 
         mode="date" 
         value="{{event.end_date}}" 
         start="{{event.start_date}}" end="{{lastDate}}" 
         class="f28 w60 py sec f32 w100 text-right" 
         data-type="end"
         bindchange="bindDateChange">
-        <view class="picker">
-          {{event.end_date}}
-        </view>
-      </picker>
+        {{event.end_date}}
+      </picker> -->
+      <view class="f28 w60 py sec f32 w100" bindtap="selectEndDate">{{event.end_date}}</view>
+
 
       <picker name="end_time" 
         mode="time" 
@@ -45,9 +42,7 @@
         data-type="end"
         bindchange="bindTimeChange"
         class="f28 w60 py sec f32 w100 text-right">
-        <view class="picker">
-          {{event.end_time}}
-        </view>
+        {{event.end_time}}
       </picker>
     </view>
   </view>

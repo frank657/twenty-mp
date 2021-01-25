@@ -1,0 +1,45 @@
+<wxs module="m1">
+    var getCurrentTime = function(d){
+        var str = d.year + '/' + (d.month+1) + '/' + d.day
+        return getDate(str).getTime()
+    }
+     module.exports={
+         getTime:getCurrentTime
+     }
+</wxs>
+<view class="wx-calendar-wrapper">
+    <!-- 头部 -->
+    <view class="calendar-header" style="justify-content: space-between;">
+        <view class="icon-group">
+            <text wx:if="{{showChangeYear}}" class="iconfont icon-doubleleft" bindtap="reduceYear"></text>
+            <text class="iconfont icon-left" bindtap="reduceMonth"></text>
+        </view>
+        <view wx:if="{{en}}" class="show-date" style="align-self: center;">{{months_en[month]}} {{year}}</view>
+        <view wx:else class="show-date">{{year}}年{{month+1}}月</view>
+        <view class="icon-group">
+            <text class="iconfont icon-right" bindtap="addMonth"></text>
+            <text wx:if="{{showChangeYear}}" class="iconfont icon-doubleright" bindtap="addYear"></text>
+        </view>
+    </view>
+    <!-- 主体 -->
+    <view class="calendar-body">
+        <view class="weeks-box">
+            <block wx:if="{{en}}">
+                <text wx:for="{{weeks_en}}" wx:key="index">{{item}}</text>
+            </block>
+            <block wx:else>
+                <text wx:for="{{weeks}}" wx:key="index">{{item}}</text>
+            </block>
+        </view>
+        <view class="date-box">
+            <view class="line" wx:for="{{datesList}}" wx:key="index">
+                <view wx:for="{{item}}" wx:for-index="idx" wx:for-item="innerItem" wx:key="idx">
+                    <view class="innerItem {{startDateTimestamp&&startDateTimestamp>m1.getTime(innerItem)?'no-cur':''}} {{innerItem.m!=='cur'?'no-cur':''}} {{todayTimestamp===m1.getTime(innerItem)?'today':''}} {{selectedTimestamp===m1.getTime(innerItem)?'selected':''}} {{innerItem.m==='cur'&&jsonList[innerItem.date]?'had':''}}" 
+                        data-list="{{jsonList[innerItem.date]||[]}}" data-obj="{{innerItem}}" bindtap="{{startDateTimestamp&&startDateTimestamp>m1.getTime(innerItem)?'':'selectDate'}}">
+                        {{showOther?innerItem.day:(innerItem.m==='cur'?innerItem.day:'')}}
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

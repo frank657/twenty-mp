@@ -2,4 +2,4 @@
   <view class="ter bold f32">{{t.page_title.edit}}</view>
 </navbar>
 
-<eventForm t="{{t}}" eventToUpdate="{{event}}" formType='edit'/>
+<eventForm t="{{t}}" eventToUpdate="{{event}}" formType='edit' id="event-form"/>
