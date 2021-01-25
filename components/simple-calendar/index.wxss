@@ -1,0 +1,88 @@
+@import '/app';
+@import './icon/iconfont.wxss';
+.wx-calendar-wrapper {
+  width: 100%;
+}
+.wx-calendar-wrapper .calendar-header {
+  display: flex;
+  justify-content: center;
+  font-size: 28rpx;
+  margin-bottom: 50rpx;
+}
+.wx-calendar-wrapper .calendar-header .icon-group text {
+  margin: 0 20rpx;
+  color: #606266;
+  font-size: 40rpx;
+}
+.wx-calendar-wrapper .calendar-header .show-date {
+  margin: 0 20px;
+}
+.wx-calendar-wrapper .calendar-body .weeks-box {
+  position: relative;
+  display: flex;
+  padding-bottom: 20rpx;
+}
+.wx-calendar-wrapper .calendar-body .weeks-box text {
+  width: 14.285%;
+  text-align: center;
+  font-size: 26rpx;
+  color: #606266;
+}
+.wx-calendar-wrapper .calendar-body .weeks-box:after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: #e3e5e9;
+  -webkit-transform: scale(1, 0.5);
+  transform: scale(1, 0.5);
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+.wx-calendar-wrapper .calendar-body .date-box {
+  padding-top: 10rpx;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line {
+  display: flex;
+  padding: 16rpx 0;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view {
+  width: 14.285%;
+  font-size: 26rpx;
+  color: #606266;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view .innerItem {
+  display: block;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align: center;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view .innerItem.no-cur {
+  color: #e3e5e9;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view .innerItem.today {
+  color: var(--sec);
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view .innerItem.selected {
+  background-color: var(--sec);
+  color: white;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view .innerItem.had {
+  position: relative;
+}
+.wx-calendar-wrapper .calendar-body .date-box .line view .innerItem.had:after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -4rpx;
+  left: 19rpx;
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: var(--sec);
+}

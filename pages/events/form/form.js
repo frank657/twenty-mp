@@ -20,11 +20,31 @@ Component({
   },
 
   data: {
+    showCalendar: true,
     eventPublished: true,
     showOther: false
   },
 
   methods: {
+    getDate(e) {
+      const { type } = e.currentTarget.dataset
+      const { event } = this.data
+      const calendar = this.selectComponent('#calendar')
+      const modal = this.selectComponent('#footer-modal')
+      const time = this.selectComponent('#time')
+
+      time.setTime(type, calendar.getFullDate().date)
+      // if (type=='start') {
+      //   event.start_date = calendar.getFullDate().date
+      // } else {
+      //   event.end_date = calendar.getFullDate().date
+      // }
+      // this.setData({ event })
+
+      
+      modal.closeFooterWindow()
+    },
+
     // INIT DATA
     async initEvent() {
       let event = {signup_opens: true, is_published: true, no_limit: true};

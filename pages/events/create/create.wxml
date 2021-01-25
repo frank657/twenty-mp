@@ -10,4 +10,4 @@
     class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{t.login}}</button>
 </view>
 
-<eventForm t="{{t}}" wx:if="{{userInfoAuth}}" template="{{event}}" />
+<eventForm t="{{t}}" wx:if="{{userInfoAuth}}" template="{{event}}" id="event-form" />

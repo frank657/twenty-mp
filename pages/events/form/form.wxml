@@ -4,7 +4,7 @@
     <input data-name="title" bindinput="changeInput"
       class="text-center bg-dim px20 py radius10" value="{{event.title}}"></input>
   </formInput>
-  <time event="{{event}}" />
+  <time event="{{event}}" id="time" />
   <location event="{{event}}" showError="{{validationErrors.venue}}" />
   <attendees event="{{event}}" showError="{{validationErrors.capacity}}" />
   <formInput title="Description" showError="{{validationErrors.description}}">
@@ -12,11 +12,12 @@
       class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
   </formInput>
 
-
-  <signup-open class="{{showOther?'':'dn'}}" event="{{event}}" />
-  <published class="{{showOther?'':'dn'}}" event="{{event}}" />
-  <question  class="{{showOther||event.question?'':'dn'}}"
+  <!-- <footer-window wx:if="{{showOther}}" trigger="{{showOther}}" title="Extra options"> -->
+    <signup-open class="{{showOther?'':'dn'}}" event="{{event}}" />
+    <published class="{{showOther?'':'dn'}}" event="{{event}}" />
+    <question  class="{{showOther||event.question?'':'dn'}}"
     event="{{event}}" formType="{{formType}}" showError="{{validationErrors.question}}" />
+  <!-- </footer-window> -->
 
   <!-- ADDITIONAL OPTIONS -->
   <view class="column-center my50" bindtap="showOtherOptions">
@@ -24,5 +25,27 @@
     <image src="/images/icons/arrow-{{showOther?'up':'down'}}.svg" mode="aspectFit" class="icon-ms"></image>
   </view>
 
-  <button bindtap="submitEvent" class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{formType=='create'?'Create':'Update'}}</button>
+  <view class="row-center mt100">
+    <!-- <button bindtap="showOtherOptions" class="btn-footer-trans medium f32 sec row-center">Extra options</button> -->
+    <button bindtap="submitEvent" class="bold f32 btn-footer bg-sec white row-center">{{formType=='create'?'Create':'Update'}}</button>
+  </view>
 </view>
+
+<!-- CALENDAR -->
+<footer-window id="footer-modal"
+  wx:if="{{showStartDate||showEndDate}}" 
+  title="Select {{showStartDate?'start':'end'}} date" 
+  trigger="{{showStartDate?'showStartDate':'showEndDate'}}">
+  <view style="height: 750rpx;" class="pt60">
+    <simple-calendar bindselect="selectStartDate" 
+      initialDate="{{showStartDate?event.start_date:event.end_date}}" 
+      startDate="{{showEndDate?event.start_date:''}}"
+      en showChangeYear="{{false}}" id="calendar"/>
+  </view>
+
+  <view class="row-center">
+    <button bindtap="getDate" 
+      data-type="{{showStartDate?'start':'end'}}" 
+      class="bold f32 btn-footer bg-sec white row-center">Select date</button>
+  </view>
+</footer-window>

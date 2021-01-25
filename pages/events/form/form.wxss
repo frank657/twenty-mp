@@ -13,3 +13,12 @@
   margin-bottom: 80rpx;
   padding: 26rpx 0;
 }
+
+.btn-footer-trans {
+  background-color: transparent !important;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 80rpx;
+  margin-bottom: 80rpx;
+  padding: 26rpx 0;
+}
