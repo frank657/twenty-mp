@@ -6,7 +6,7 @@ import { tl } from '../../../utils/tl.js';
 Page({
   behaviors: [computedBehavior],
   data: {
-    // showNotifyUser: true,
+    showNotifyUser: true,
     showLanding: true,
     showFooterWindow: false,
     showShareMenu: true,
@@ -155,11 +155,20 @@ Page({
 
   subscribeMsg() {
     console.log('here')
-    const tmplIds = ['xPKgCkbxIH8fHg_A19fVs21l-VrpGAkY-VXtXLpd0SM']
+    const tmplIds = ['xPKgCkbxIH8fHg_A19fVs21l-VrpGAkY-VXtXLpd0SM', "ucS0CihfvS0RYl_opsL_aX5wIYik5kpkFMlTs4K__c4", "d2HtjouxVT4sXQ7ebXIKc18OGGzxIIuyzvLhvKKyutk"]
+    const _this = this
     wx.requestSubscribeMessage({
       tmplIds,
       complete(res) {
         console.log(res)
+        // send user's response back
+        if (res.errMsg === "requestSubscribeMessage:ok") {
+          delete res.errMsg
+          let data = { templates: res }
+          BC.post(`${BC.getHost()}events/${_this.data.event.id}/log_notification`, data).then(res => {
+            console.log(res)
+          })
+        }
       }
     })
   },
