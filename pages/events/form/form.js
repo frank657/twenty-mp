@@ -175,25 +175,28 @@ Component({
         const body = this.getEventBody()
         wx.showLoading({title: 'Loading'})
         if (pd.formType=='create') {
-          BC.post(BC.getHost()+'events', body).then(res=>{
-            console.log('form res', res)
-            if (res.status=='success') {
-              this.uploadFile(res.event.id, imageToUpload)
-            }
-          })
+          // BC.post(BC.getHost()+'events', body).then(res=>{
+          //   console.log('form res', res)
+          //   if (res.status=='success') {
+          //     this.uploadFile(res.event.id, imageToUpload)
+          //   }
+          // })
+          this.uploadFile(BC.getHost()+'events', imageToUpload, body)
+
         } else if (pd.formType=='edit') {
-          console.log('edit')
+          // const id = pd.event.id
+          // BC.put(BC.getHost()+'events/'+id, body).then(res=>{
+          //   console.log('here', res)
+          //   if (res.status=='success') {
+          //     if (imageToUpload) {
+          //       this.uploadFile(res.event.id, imageToUpload)
+          //     } else {
+          //       wx.navigateBack()
+          //     }
+          //   }
+          // })
           const id = pd.event.id
-          BC.put(BC.getHost()+'events/'+id, body).then(res=>{
-            console.log('here', res)
-            if (res.status=='success') {
-              if (imageToUpload) {
-                this.uploadFile(res.event.id, imageToUpload)
-              } else {
-                wx.navigateBack()
-              }
-            }
-          })
+          this.uploadFile(`${BC.getHost()}events/${id}`, imageToUpload, body)
         }
       } else {
         this.setData({ validationErrors })
@@ -207,45 +210,30 @@ Component({
       }
     },
 
-    uploadFile(id, img) {
+    uploadFile(url, filePath, formData) {
       const pd = this.data
       const formType = pd.formType
-      const path = `${BC.getHost()}events/${id}/upload`
-
-      const upload = (path, img) => {
-        wx.uploadFile({
-          url: path,
-          filePath: img,
-          name: 'image',
-          header: app.globalData.headers,
-          formData: {},
-          success (res){
-            const data = JSON.parse(res.data)
-            if (data.status == 'success') {
-              if (formType=='create') {
-                console.log('event created')
-                wx.redirectTo({
-                  url: `/pages/events/show/show?id=${id}`,
-                })
-              } else if (formType=='edit') {
-                wx.navigateBack()
-              }
-              console.log('uploaded', data)
-              wx.hideLoading()
-            } else {
-              wx.showModal({
-                showCancel: false,
-                confirmText: 'OK',
-                title: 'Upload failed',
-                content: 'Please try again'
-              })
-              wx.hideLoading()
-            }
+      const header = app.globalData.headers
+      // const path = `${BC.getHost()}events/${id}/upload`
+      
+      wx.uploadFile({ url, filePath, name: 'image', header, formData,
+        success (res){
+          const data = JSON.parse(res.data)
+          wx.hideLoading()
+          if (data.status == 'success') {
+            if (formType=='create') wx.redirectTo({ url: `/pages/events/show/show?id=${res.event.id}` })
+            if (formType=='edit') wx.navigateBack()
+          } else {
+            console.log('something wrong', res)
+            wx.showModal({
+              showCancel: false,
+              confirmText: 'OK',
+              title: res.title,
+              content: res.content
+            })
           }
-        })
-      }
-
-      upload(path, img)
+        }
+      })
     },
   }
 })
