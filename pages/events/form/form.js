@@ -228,8 +228,8 @@ Component({
             wx.showModal({
               showCancel: false,
               confirmText: 'OK',
-              title: res.title,
-              content: res.content
+              title: res.data.msg.title,
+              content: res.data.msg.content
             })
           }
         }
