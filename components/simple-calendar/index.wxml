@@ -34,7 +34,7 @@
         <view class="date-box">
             <view class="line" wx:for="{{datesList}}" wx:key="index">
                 <view wx:for="{{item}}" wx:for-index="idx" wx:for-item="innerItem" wx:key="idx">
-                    <view class="innerItem {{startDateTimestamp&&startDateTimestamp>m1.getTime(innerItem)?'no-cur':''}} {{innerItem.m!=='cur'?'no-cur':''}} {{todayTimestamp===m1.getTime(innerItem)?'today':''}} {{selectedTimestamp===m1.getTime(innerItem)?'selected':''}} {{innerItem.m==='cur'&&jsonList[innerItem.date]?'had':''}}" 
+                    <view class="innerItem {{startDateTimestamp&&m1.getTime(innerItem)>=startDateTimestamp&&m1.getTime(innerItem)<selectedTimestamp?'selected':''}} {{startDateTimestamp&&startDateTimestamp>m1.getTime(innerItem)?'no-cur':''}} {{innerItem.m!=='cur'?'no-cur':''}} {{todayTimestamp===m1.getTime(innerItem)?'today':''}} {{selectedTimestamp===m1.getTime(innerItem)?'selected':''}} {{innerItem.m==='cur'&&jsonList[innerItem.date]?'had':''}}" 
                         data-list="{{jsonList[innerItem.date]||[]}}" data-obj="{{innerItem}}" bindtap="{{startDateTimestamp&&startDateTimestamp>m1.getTime(innerItem)?'':'selectDate'}}">
                         {{showOther?innerItem.day:(innerItem.m==='cur'?innerItem.day:'')}}
                     </view>

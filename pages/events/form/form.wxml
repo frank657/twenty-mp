@@ -9,7 +9,7 @@
   <attendees event="{{event}}" showError="{{validationErrors.capacity}}" />
   <formInput title="Description" showError="{{validationErrors.description}}">
     <textarea data-name="description" bindinput="changeInput" maxlength="-1"
-      class="bg-dim px20 py radius10 box-b" value="{{event.description}}"></textarea>
+      class="bg-dim px20 py radius10 box-b w100" value="{{event.description}}"></textarea>
   </formInput>
 
   <!-- <footer-window wx:if="{{showOther}}" trigger="{{showOther}}" title="Extra options"> -->
@@ -32,13 +32,12 @@
 </view>
 
 <!-- CALENDAR -->
-<footer-window id="footer-modal"
+<footer-window id="footer-modal" speed="4"
   wx:if="{{showStartDate||showEndDate}}" 
   title="Select {{showStartDate?'start':'end'}} date" 
   trigger="{{showStartDate?'showStartDate':'showEndDate'}}">
   <view style="height: 750rpx;" class="pt60">
-    <simple-calendar bindselect="selectStartDate" 
-      initialDate="{{showStartDate?event.start_date:event.end_date}}" 
+    <simple-calendar initialDate="{{showStartDate?event.start_date:event.end_date}}" 
       startDate="{{showEndDate?event.start_date:''}}"
       en showChangeYear="{{false}}" id="calendar"/>
   </view>

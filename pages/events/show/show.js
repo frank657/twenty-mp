@@ -6,7 +6,7 @@ import { tl } from '../../../utils/tl.js';
 Page({
   behaviors: [computedBehavior],
   data: {
-    showNotifyUser: true,
+    // showNotifyUser: true,
     showLanding: true,
     showFooterWindow: false,
     showShareMenu: true,

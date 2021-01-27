@@ -1,7 +1,7 @@
 <view class="fixed a0 z9999" catchtouchmove="doNothing">
   <view class="absolute a0 transition-3" style="background: rgba(0, 0, 0, {{show?0.5:0}});" bindtap="closeFooterWindow"></view>
   
-  <view class="footer-window {{show?'':'hide'}}">
+  <view class="footer-window {{show?'':'hide'}}" style="transition: 0.{{speed}}s;">
     <view class="w100 mb20 relative">
       <view class="ter bold f36 {{center?'text-center':''}}">{{title}}</view>
       <image src="/images/icons/cross.svg" class="icon-sm absolute t0" style="right: -30rpx;" 

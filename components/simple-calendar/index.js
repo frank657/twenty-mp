@@ -432,7 +432,7 @@ Component({
     },
 
     serializeDate(date) {
-      const dateInstance = new Date(date)
+      const dateInstance = new Date(date.split('-').map(n=>n.length==1?'0'+n:n).join('-'))
       const formattedDate = {}
       formattedDate.date = date
       formattedDate.day = dateInstance.getDate()
@@ -446,12 +446,12 @@ Component({
       const fullDate = this.serializeDate(date)
       this.setDate(fullDate)
       setTimeout(() => {
-        this.setData({ 
+        this.setData({
           year: fullDate.year,
           month: fullDate.month,
           datesArr: this.getAllDates(fullDate.year, fullDate.month)
         })
-      }, 100);
+      }, 300);
     }
   }
 });
