@@ -32,3 +32,20 @@
   border-radius: 80rpx;
   padding: 24rpx 0;
 }
+
+.rsvp-btn {
+  border-radius: 30rpx; 
+  min-height: unset !important; 
+  width: unset !important; 
+  margin-right: 0;
+  padding: 20rpx;
+  font-weight: bold;
+  transition: 0.3s;
+  background-color: white;
+  color: var(--greyLight);
+}
+
+.rsvp-btn.selected {
+  background-color: var(--sec) !important;
+  color: white !important;
+}
