@@ -126,6 +126,7 @@ Page({
   joinWithSubscribe(e) {
     const { answer } = e.currentTarget.dataset
     const { question } = this.data.event
+    this.setData({answer})
     if (answer!=this.data.attending_status) {
       this.subscribeMsg()
       if (answer == 'yes' && question && question != '') {
