@@ -185,6 +185,10 @@ Page({
     })
   },
 
+  onLoad(options) {
+    if (options.triggerSubscribe) this.setData({ showSubscribeAgain: true })
+  },
+
   onShow() {
     this.setData({ showMore: false, screenHeight: wx.getSystemInfoSync().screenHeight, showFooterWindow: false, showShareMenu: false })
     // wx.showLoading({ title: 'Loading' })

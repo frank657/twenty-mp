@@ -1,4 +1,4 @@
-<navbar navType='float' />
+<navbar float />
 <image bindtap="showImage" src="{{event.image_lg}}" mode="aspectFill" class="w100 fixed" style="height: {{imageHeight}}px;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
@@ -179,6 +179,11 @@
 
 <footer-window wx:if="{{showNotifyUser}}" trigger="showNotifyUser" title="Event updates" id="notify" center>
   <view class="mb30 mt100 thin f32 text-center">Get notified when the organizer makes any changes to the event</view>
+  <button bindtap="subscribeMsg" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Ok</button>
+</footer-window>
+
+<footer-window wx:if="{{showSubscribeAgain}}" trigger="showSubscribeAgain" title="Get updated again?" id="notify" center>
+  <view class="mb30 mt100 thin f32 text-center">Event details have been changed. Do you want to get updated again when there are changes?</view>
   <button bindtap="subscribeMsg" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Ok</button>
 </footer-window>
 

@@ -1,5 +1,5 @@
-<navbar>
-  <view wx:if="{{isOrganization}}" class="column-center" style="align-self: flex-start;">
+<navbar shineThru>
+  <view wx:if="{{isOrganization}}" class="column-center pb20" style="align-self: flex-start;">
     <image mode="aspectFill" src="{{organization.avatar}}" class="mb20"
       style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" />
     <view class="bold ter f36">

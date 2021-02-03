@@ -8,8 +8,8 @@
   <location event="{{event}}" showError="{{validationErrors.venue}}" />
   <attendees event="{{event}}" showError="{{validationErrors.capacity}}" />
   <formInput title="Description" showError="{{validationErrors.description}}">
-    <textarea data-name="description" bindinput="changeInput" maxlength="-1"
-      class="bg-dim px20 py radius10 box-b w100" value="{{event.description}}"></textarea>
+    <textarea data-name="description" bindinput="changeInput" maxlength="-1" auto-height
+      class="bg-dim px20 py radius10 box-b w100" style="min-height: 300rpx;" value="{{event.description}}"></textarea>
   </formInput>
 
   <!-- <footer-window wx:if="{{showOther}}" trigger="{{showOther}}" title="Extra options"> -->
