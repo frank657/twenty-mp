@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<navbar navType="float" />
+<navbar float />
   
 <events wx:if="{{pageCur == 'tab1'}}" events="{{events}}"/>
 <profile wx:if="{{pageCur == 'tab2'}}"/>

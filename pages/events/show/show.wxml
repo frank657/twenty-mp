@@ -1,5 +1,4 @@
-<navbar navType='float' />
-
+<navbar float />
 <image bindtap="showImage" src="{{event.image_lg}}" mode="aspectFill" class="w100 fixed" style="height: {{imageHeight}}px;"/>
 
 <view class="relative bg-white w100 py50 px40 box-b" style="top: 450rpx; border-radius: 40rpx 40rpx 0 0; overflow: hidden;">
@@ -64,13 +63,11 @@
       <view class="row-between">
         <view class="bold ter f28 mr50">Joining?</view>
 
-        <button
-          open-type="getUserInfo"
-          bindgetuserinfo="join"
-          wx:for="{{answers}}" wx:key="index"
-          class="pa20 bold duration3 {{attending_status==item.name?'bg-sec white':'grey-light bg-white'}}"
-          style="border-radius: 30rpx; min-height: unset !important; width: unset !important; margin-right: 0;"
-          data-answer="{{item.name}}">{{item.label}}</button>
+        <button wx:if="{{userInfo.avatar}}" wx:for="{{answers}}" wx:key="index" bindtap="{{item.name=='yes'?'joinWithSubscribe':'join'}}" data-answer="{{item.name}}"
+          class="rsvp-btn {{attending_status==item.name?'selected':''}}">{{item.label}}</button>
+          
+        <button wx:if="{{!userInfo.avatar}}" wx:for="{{answers}}" wx:key="index" open-type="getUserInfo" bindgetuserinfo="join" data-answer="{{item.name}}"
+          class="rsvp-btn {{attending_status==item.name?'selected':''}}">{{item.label}}</button>
       </view>
 
       <view wx:if="{{showAnswer&&answer=='yes'}}" class="flex column mt30">
@@ -180,8 +177,13 @@
   </navigator>
 </footer-window>
 
-<footer-window wx:if="{{showNotifyUser}}" trigger="showNotifyUser" title="Event updates" center>
+<footer-window wx:if="{{showNotifyUser}}" trigger="showNotifyUser" title="Event updates" id="notify" center>
   <view class="mb30 mt100 thin f32 text-center">Get notified when the organizer makes any changes to the event</view>
+  <button bindtap="subscribeMsg" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Ok</button>
+</footer-window>
+
+<footer-window wx:if="{{showSubscribeAgain}}" trigger="showSubscribeAgain" title="Get updated again?" id="notify" center>
+  <view class="mb30 mt100 thin f32 text-center">Event details have been changed. Do you want to get updated again when there are changes?</view>
   <button bindtap="subscribeMsg" class="mt100 bold ter f32 btn-footer bg-sec white row-center">Ok</button>
 </footer-window>
 

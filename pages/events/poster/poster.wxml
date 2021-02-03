@@ -1,5 +1,5 @@
 <!--pages/events/share-canvas/share-canvas.wxml-->
-<navbar navType='float' />
+<navbar float />
 
 <view class="vh100 w100 relative ofh column-end">
   <!-- <view class="canvas-bg" style="background-image: url('/images/placeholder.jpg');"></view> -->

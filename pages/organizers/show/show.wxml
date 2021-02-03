@@ -1,4 +1,4 @@
-<navbar navType="float" />
+<navbar float />
 
 <view>
   <organizer-header t="{{t}}" organization="{{organization}}" />

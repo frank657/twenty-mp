@@ -1,4 +1,4 @@
-<navbar navType="float" />
+<navbar float />
 
 <view wx:if="{{!userInfoAuth}}" class="row-center" style="height: 80vh;">
   <view class="column-center">
