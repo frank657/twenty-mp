@@ -97,12 +97,16 @@ Component({
       if (type == 'start') { 
         event.start_time = e.detail.value
         if (this.isSameDay(event.start_date, event.end_date)) {
+          this.setData({ endTimeStart: event.start_time })
           if (!this.timeEndIsAfterStart(event.start_time, event.end_time)) {
             event.end_time = event.start_time
           }
         }
       }
-      if (type == 'end') { event.end_time = e.detail.value }
+      if (type == 'end') { 
+        console.log('end')
+        event.end_time = e.detail.value 
+      }
       this.page.setData({ event })
     },
 
