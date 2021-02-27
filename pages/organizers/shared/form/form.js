@@ -3,7 +3,8 @@ const regeneratorRuntime = require('../../../../utils/runtime');
 
 Component({
   properties: {
-    organization: Object
+    organization: Object,
+    t: Object
   },
 
   data: {

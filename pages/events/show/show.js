@@ -1,8 +1,13 @@
+const computedBehavior = require('miniprogram-computed')
 const BC = require('../../../libs/bc');
+import { tl } from '../../../utils/tl.js';
 
 // pages/events/show/show.js
 Page({
+  behaviors: [computedBehavior],
   data: {
+    // showNotifyUser: true,
+    tmplIds: ['xPKgCkbxIH8fHg_A19fVs21l-VrpGAkY-VXtXLpd0SM', "ucS0CihfvS0RYl_opsL_aX5wIYik5kpkFMlTs4K__c4", "d2HtjouxVT4sXQ7ebXIKc18OGGzxIIuyzvLhvKKyutk"],
     showLanding: true,
     showFooterWindow: false,
     showShareMenu: true,
@@ -22,11 +27,15 @@ Page({
     imageHeight: 250,
   },
 
-  closeQuestion() {
-    this.setData({ showQuestion: false })
+  computed: {
+    // isCreator: function (data) {
+    //   // return data.userInfo.organization.id == data.creator.id
+    // },
   },
 
+  closeQuestion() { this.setData({ showQuestion: false }) },
   showFooterWindow() { this.setData({ showFooterWindow: true}) },
+  showOverview() { this.setData({ showOverviewWindow: true}) },
 
   publishEvent(e) {
     const is_published = e.detail.value == '0'
@@ -35,7 +44,7 @@ Page({
       BC.put(url, {event: {is_published}}).then(res=>{
         this.setData({event: res.event})
       })
-    } 
+    }
   },
 
   openSignup(e) {
@@ -49,19 +58,13 @@ Page({
     }
   },
 
-  clickMore() {
-    this.setData({showMore: !this.data.showMore})
-  },
+  clickMore() { this.setData({showMore: !this.data.showMore}) },
 
   deleteEvent() {
     const that = this
-    wx.showModal({
-      cancelColor: '#000',
-      cancelText: 'Back',
-      confirmText: 'Confirm',
-      title: 'Cancel Event',
-      content: 'You are about to cancel this event. Do you want to confirm?',
-      success(res) { 
+    wx.showModal({ cancelColor: '#000', cancelText: 'Back', confirmText: 'Confirm', title: 'Cancel Event',
+      content: 'Are you sure you want to cancel the event?',
+      success(res) {
         console.log(res)
         if (res.confirm) {
           const path = `${BC.getHost()}/events/${that.data.event.id}`
@@ -82,61 +85,77 @@ Page({
     })
   },
 
-  selectAnswer(e) {
-    console.log(e)
-    this.setData({selectedAnswer: parseInt(e.detail.value)})
-  },
-
-  changeAnswer() {
-    this.setData({ showQuestion: true })
-  },
+  selectAnswer(e) { this.setData({selectedAnswer: parseInt(e.detail.value)}) },
+  changeAnswer() { this.setData({ showQuestion: true }) },
 
   submitAnswer(e) {
-    // this.setData({ showQuestion: false })
     wx.showLoading({ title: 'Loading' })
-    
     const data = { attendee: { status: this.data.answer, answer_id: this.data.event.answers[this.data.selectedAnswer]['id'] } }
-    console.log('data', data)
     if (this.data.selectedAnswer != null) {
       this.submitRsvp(data);
     } else {
       wx.hideLoading()
-      wx.showModal({
-        showCancel: false,
-        confirmText: 'OK',
-        title: 'Failed',
-        content: 'Please choose an answer'
-      })
+      wx.showModal({ showCancel: false, confirmText: 'OK', title: 'Failed', content: 'Please choose an answer' })
     }
   },
 
   join(e) {
-    wx.showLoading({mask: true})
-    BC.getUserInfo().then(res=>{
-      console.log('userinfo', res)
-      if (res.avatar) {
-        // wx.showLoading({ title: 'Loading' })
-        const { answer } = e.currentTarget.dataset
-        this.setData({ answer })  
-        console.log(answer)
-        console.log('question', this.data.event.question)
-        if (answer == 'yes' && this.data.event.question && this.data.event.question != '') {
-          console.log('show question and answers')
-          this.setData({ showQuestion: true })
+    const { answer } = e.currentTarget.dataset
+    if (answer!=this.data.attending_status) {
+      wx.showLoading({mask: true})
+      BC.getUserInfo().then(res=>{
+        console.log('userinfo', res)
+        if (res.avatar) {
+          this.setData({ answer, shouldShowSubscribe: answer == 'yes' })
+          const { question } = this.data.event
+          if (answer == 'yes' && question && question != '') {
+            this.setData({ showQuestion: true })
+          } else {
+            const data = { attendee: { status: answer } }
+            this.submitRsvp(data);
+          }
+          wx.hideLoading()
         } else {
-          const data = { attendee: { status: answer } }
-          this.submitRsvp(data);
+          wx.hideLoading()
+          wx.showModal({ showCancel: false, confirmText: 'OK', title: 'Authorize user info', content: 'Please allow us to obtain user info to continue' })
         }
-        
-        wx.hideLoading()
+      })
+    }
+  },
+
+  joinWithSubscribe(e) {
+    const { answer } = e.currentTarget.dataset
+    const { question } = this.data.event
+    this.setData({answer})
+    if (answer!=this.data.attending_status) {
+      this.subscribeMsg()
+      if (answer == 'yes' && question && question != '') {
+        this.setData({ showQuestion: true })
       } else {
-        wx.hideLoading()
-        wx.showModal({
-          showCancel: false,
-          confirmText: 'OK',
-          title: 'Authorize user info',
-          content: 'Please allow us to obtain user info to continue'
-        })
+        const data = { attendee: { status: answer } }
+        this.submitRsvp(data);
+      }
+    }
+  }, 
+
+  subscribeMsg() {
+    // console.log('here', e.currentTarget.dataset)
+    const { tmplIds } = this.data
+    const that = this
+    wx.requestSubscribeMessage({
+      tmplIds,
+      complete(res) {
+        console.log(res)
+        // send user's response back
+        if (res.errMsg === "requestSubscribeMessage:ok") {
+          delete res.errMsg
+          let data = { templates: res }
+          BC.post(`${BC.getHost()}events/${that.data.event.id}/log_notification`, data).then(res => {
+            const comp = that.selectComponent('#notify')
+            if (comp) comp.closeFooterWindow()
+            console.log(res)
+          })
+        }
       }
     })
   },
@@ -146,11 +165,12 @@ Page({
       console.log('signed', res)
       if (res.status == 'success') {
         this.setData({ event: res.event, attending_status: res.attending_status, selected_answer: res.selected_answer })
-        wx.showToast({ title: 'Thank you!' })
+        wx.showToast({ icon: 'none', title: 'Thank you!' })
         this.setData({ showQuestion: false })
         if (res.event.question != '' && res.selected_answer != null) {
           this.setData({ showAnswer: true })
         }
+        if (res.attending_status=='yes'&&this.data.shouldShowSubscribe) this.setData({ showNotifyUser: true })
       } else {
         wx.hideLoading()
         const title = res.title ? res.title : 'Failed to sign up'
@@ -163,6 +183,10 @@ Page({
         })
       }
     })
+  },
+
+  onLoad(options) {
+    if (options.triggerSubscribe) this.setData({ showSubscribeAgain: true })
   },
 
   onShow() {
@@ -180,6 +204,7 @@ Page({
 
     BC.userInfoReady(this)
     BC.getData(`events/${id}`).then(res=>{
+      tl(this, false).then(tlRes=> this.setData({ t: tlRes.events.show }))
       this.setData({ answer: res.attending_status, showLanding: false })
       // this.setData({ answer: res.attending_status, selectedAnswer: res.selected_answer })
       if (res.event.question != ''  && res.selected_answer != null) {
@@ -192,7 +217,7 @@ Page({
   onShareAppMessage: function () {
     const e = this.data.event
     const t = e.start_time
-    let h = parseInt(t.time) 
+    let h = parseInt(t.time)
     const i = t.time.indexOf(':')
     const m = t.time.slice(i+1, i+3)
     const mm = m=='00'?'':`:${m}`
@@ -218,5 +243,5 @@ Page({
     // const scrollTop = e.detail.scrollTop
     // if (scrollTop<=0) imageHeight -= scrollTop
     // this.setData({imageHeight})
-  },
+  }
 })

@@ -4,7 +4,8 @@ const BC = require('../../libs/bc.js')
 Component({
   properties: {
     shrinkLogo: { type: Boolean, value: false },
-    navType: { type: String, value: 'stack' },
+    float: Boolean,
+    shineThru: Boolean,
     hideTitleBar: { type: Boolean, value: false },
     background: { type: String, value: 'transparent' }
   },

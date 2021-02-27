@@ -2,7 +2,9 @@
 Component({
   properties: {
     title: String,
-    trigger: String
+    trigger: String,
+    center: Boolean,
+    speed: { type: String, value: '3'}
   },
 
   data: {

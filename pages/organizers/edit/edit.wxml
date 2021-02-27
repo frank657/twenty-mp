@@ -1,5 +1,5 @@
 <navbar background="white">
-  <view class="ter bold f32">EDIT PROFILE</view>
+  <view class="ter bold f32">{{t.title}}</view>
 </navbar>
 
-<form organization="{{organization}}" />
+<form t="{{t}}" organization="{{organization}}" />

@@ -1,0 +1,6 @@
+<view wx:if="{{showComponent}}" bindtap="hideCta"
+  class="absolute flex column items-end duration3 opacity-{{show?10:0}}" 
+  style="right: 30rpx; transform: translateY(-20rpx);">
+  <view class="cta-bg-dark" style="width: 20rpx; height: 20rpx; margin-right: 90rpx; transform: rotate(45deg) translateY(70%);"></view>
+  <view class="cta-bg cta-b-dark pa20 radius10 z9 sec">Add to favorite for easy access</view>
+</view>

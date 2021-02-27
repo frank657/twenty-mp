@@ -11,19 +11,40 @@ Component({
   ready() {
     this.initEvent()
   },
-  
+
   properties: {
     template: { type: Object, value: null, observer() { this.initEvent() } },
     eventToUpdate: { type: Object, value: null, observer() { this.initEvent() } },
-    formType: { type: String, value: 'create' }
+    formType: { type: String, value: 'create' },
+    t: Object
   },
 
   data: {
+    showCalendar: true,
     eventPublished: true,
     showOther: false
   },
 
   methods: {
+    getDate(e) {
+      const { type } = e.currentTarget.dataset
+      const { event } = this.data
+      const calendar = this.selectComponent('#calendar')
+      const modal = this.selectComponent('#footer-modal')
+      const time = this.selectComponent('#time')
+
+      time.setTime(type, calendar.getFullDate().date)
+      // if (type=='start') {
+      //   event.start_date = calendar.getFullDate().date
+      // } else {
+      //   event.end_date = calendar.getFullDate().date
+      // }
+      // this.setData({ event })
+
+      
+      modal.closeFooterWindow()
+    },
+
     // INIT DATA
     async initEvent() {
       let event = {signup_opens: true, is_published: true, no_limit: true};
@@ -37,21 +58,21 @@ Component({
       console.log('event', event)
     },
 
-    async initFields({id, title, description, image, form_date, 
-      venue_name, address, latitude, longitude, max_capacity, 
+    async initFields({id, title, description, image, form_date,
+      venue_name, address, latitude, longitude, max_capacity,
       question, answers, is_published, signup_opens}) {
-      
+
       const start_date = form_date.start.date
       const start_time = form_date.start.time
       const end_date = form_date.end.date
       const end_time = form_date.end.time
       const no_limit = !max_capacity
-      
-      const event = {id, title, description, image, start_date, start_time, end_date, end_time, 
-        venue_name, address, latitude, longitude, max_capacity, no_limit, 
+
+      const event = {id, title, description, image, start_date, start_time, end_date, end_time,
+        venue_name, address, latitude, longitude, max_capacity, no_limit,
         question, answers, is_published, signup_opens}
 
-      if (!event.question) { 
+      if (!event.question) {
         delete event.question
         delete event.answers
       }
@@ -106,7 +127,7 @@ Component({
       max_capacity = parseInt(max_capacity)
       return (max_capacity && !no_limit) || no_limit
     },
-    
+
     validateEvent() {
       const validationErrors = {}
       const { event } = this.data
@@ -119,7 +140,7 @@ Component({
       return validationErrors
     },
     // VALIDATION END
-    
+
     // REQUEST
     getEventBody() {
       const event = {...this.data.event}
@@ -136,7 +157,7 @@ Component({
       event.organization_id = app.globalData.userInfo.organization.id
       const answers = event.answers
       delete event.imageToUpload
-      
+
       const data = { event }
       if (event.question) data.answers = event.answers
       delete event.answers
@@ -152,27 +173,25 @@ Component({
       if (isValid) {
         const { imageToUpload } = this.data.event
         const body = this.getEventBody()
-        wx.showLoading({title: 'Loading'})    
+        wx.showLoading({title: 'Loading'})
         if (pd.formType=='create') {
-          BC.post(BC.getHost()+'events', body).then(res=>{
-            console.log('form res', res)
-            if (res.status=='success') {
-              this.uploadFile(res.event.id, imageToUpload)
-            }
-          })
+          this.uploadFile(BC.getHost()+'events', imageToUpload, body)
         } else if (pd.formType=='edit') {
-          console.log('edit')
           const id = pd.event.id
-          BC.put(BC.getHost()+'events/'+id, body).then(res=>{
-            console.log('here', res)
-            if (res.status=='success') {
-              if (imageToUpload) {
-                this.uploadFile(res.event.id, imageToUpload)
-              } else {
+          if (imageToUpload) {
+            this.uploadFile(`${BC.getHost()}events/${id}`, imageToUpload, body)
+          } else {
+            BC.post(BC.getHost()+'events/'+id, body).then(res=>{
+              console.log('here', res)
+              if (res.status=='success') {
                 wx.navigateBack()
+              } else {
+                console.log('something wrong', res)
+                wx.hideLoading()
+                wx.showModal({ showCancel: false, confirmText: 'OK', title: res.msg.title, content: res.msg.content })
               }
-            }
-          })
+            })
+          }
         }
       } else {
         this.setData({ validationErrors })
@@ -186,45 +205,36 @@ Component({
       }
     },
 
-    uploadFile(id, img) {
-      const pd = this.data
-      const formType = pd.formType
-      const path = `${BC.getHost()}events/${id}/upload`
+    uploadFile(url, filePath, formData) {
+      const pd = this.data, formType = pd.formType, header = app.globalData.headers
+      formData = this.stringifyData(formData)
+      console.log(formData)
 
-      const upload = (path, img) => {
-        wx.uploadFile({
-          url: path, 
-          filePath: img,
-          name: 'image',
-          header: app.globalData.headers,
-          formData: {},
-          success (res){
-            const data = JSON.parse(res.data)
-            if (data.status == 'success') {
-              if (formType=='create') {
-                console.log('event created')
-                wx.redirectTo({
-                  url: `/pages/events/show/show?id=${id}`,
-                })
-              } else if (formType=='edit') {
-                wx.navigateBack()
-              }
-              console.log('uploaded', data)
-              wx.hideLoading()
-            } else {
-              wx.showModal({
-                showCancel: false,
-                confirmText: 'OK',
-                title: 'Upload failed',
-                content: 'Please try again'
-              })
-              wx.hideLoading()
-            }
+      wx.uploadFile({ url, filePath, name: 'image', header, formData,
+        success (res){
+          const data = JSON.parse(res.data)
+          console.log('data', data)
+          wx.hideLoading()
+          if (data.status == 'success') {
+            if (formType=='create') wx.redirectTo({ url: `/pages/events/show/show?id=${data.event.id}` })
+            if (formType=='edit') wx.navigateBack()
+          } else {
+            console.log('something wrong', res)
+            wx.showModal({ showCancel: false, confirmText: 'OK', title: data.msg.title, content: data.msg.content })
           }
-        })
-      }
-
-      upload(path, img)
+        }
+      })
     },
+
+    stringifyData(data) {
+      let event = { 'event': JSON.stringify(data.event) }
+      if (data.answers) {
+        let answers = { 'answers': JSON.stringify(data.answers)}
+        data = {...event, ...answers}
+      } else {
+        data = event
+      }
+      return data
+    }
   }
 })

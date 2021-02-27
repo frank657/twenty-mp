@@ -2,11 +2,13 @@ const BC = require('../../libs/bc');
 
 Component({
   properties: {
-    organization: { type: Object, value: {} }
+    organization: { type: Object, value: {} },
+    t: Object,
+    profile_type: Array
   },
 
   data: {
-    profile_type: ['Public profile', 'Private profile']
+    // profile_type: ['Public profile', 'Private profile']
   },
 
   methods: {

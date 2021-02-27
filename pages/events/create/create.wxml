@@ -1,13 +1,13 @@
 <navbar background="white">
-  <view class="ter bold f32">CREATE EVENT</view>
+  <view class="ter bold f32">{{t.page_title.create}}</view>
 </navbar>
 
 <view wx:if="{{!userInfoAuth}}" class="w100 column-center relative mt100">
-  <view class="f32 mb30 bold ter">Log in to create an event</view>
+  <view class="f32 mb30 bold ter">{{t.login_to_create}}</view>
   <button open-type="getUserInfo" 
     bindgetuserinfo="signIn" 
     style="margin-top: 0;"
-    class="mt100 bold ter f32 btn-footer bg-sec white row-center">Login</button>
+    class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{t.login}}</button>
 </view>
 
-<eventForm wx:if="{{userInfoAuth}}" template="{{event}}" />
+<eventForm t="{{t}}" wx:if="{{userInfoAuth}}" template="{{event}}" id="event-form" />

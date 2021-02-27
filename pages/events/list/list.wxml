@@ -1,5 +1,5 @@
-<navbar>
-  <view wx:if="{{isOrganization}}" class="column-center" style="align-self: flex-start;">
+<navbar shineThru>
+  <view wx:if="{{isOrganization}}" class="column-center pb20" style="align-self: flex-start;">
     <image mode="aspectFill" src="{{organization.avatar}}" class="mb20"
       style="height: 100rpx; width: 100rpx; border-radius: 35%; flex-shrink: 0;" />
     <view class="bold ter f36">
@@ -7,7 +7,7 @@
     </view>
   </view>
   <view wx:else class="bold ter f36">
-    {{pageData.pageTitle}}
+    {{t.event_type[pageData.eventType]}}
   </view>
 </navbar>
 
@@ -24,7 +24,7 @@
       <view style="height: 14rpx; width: 30rpx;" class="radius50 bg-{{showUpcoming?'trans':'sec'}} duration3 mt"></view>
     </view>
   </view> -->
-  <toggle-nav wx:if="{{pageData.typeParam!='viewed'}}" 
+  <toggle-nav t="{{t}}" wx:if="{{pageData.typeParam!='viewed'}}" 
     showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleList" left />
 </view>
 
@@ -35,7 +35,7 @@
 <view wx:else class="px40">
   <card wx:for="{{events}}" wx:key="index" event="{{item}}" />
 
-  <view wx:if="{{!hasNextPage}}" class="row-center grey-light f28 my20">no more</view>
+  <view wx:if="{{!hasNextPage}}" class="row-center grey-light f28 my20">{{t.no_more}}</view>
   <view wx:if="{{showLoading}}" class="w100 row-center mb20">
     <image class="icon-md" src="/images/icons/loaders/puff.svg" mode="aspectFit" />
   </view>

@@ -1,27 +1,27 @@
-<navbar navType="float" />
+<navbar float />
 
 <view wx:if="{{!userInfoAuth}}" class="row-center" style="height: 80vh;">
   <view class="column-center">
-    <view class="bold grey-light f48 mb20">Hi there!</view>
-    <view class="bold ter f36 mb40">Please log in to see your profile</view>
+    <view class="bold grey-light f48 mb20">{{t.hi_there}}</view>
+    <view class="bold ter f36 mb40">{{t.please_login}}</view>
     <button open-type="getUserInfo" 
       bindgetuserinfo="signIn" 
       style="margin-top: 0;"
-      class="mt100 bold ter f32 btn-footer bg-sec white row-center">Login</button>
+      class="mt100 bold ter f32 btn-footer bg-sec white row-center">{{t.login}}</button>
   </view>
 </view>
 
 <view wx:if="{{userInfoAuth}}">
-  <organizer-header organization="{{organization}}" />
+  <organizer-header profile_type="{{t.profile_type}}" t="{{t}}" organization="{{organization}}" />
 
   <view class="mb50">
     <view class="px40">
-      <toggle-nav title="My Events" showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
+      <toggle-nav t="{{t}}" title="{{t.my_events}}" showUpcoming="{{showUpcoming}}" bind:toggleNav="toggleNav" />
     </view>
 
-    <card-section wx:if="{{showUpcoming}}" cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
+    <card-section t="{{t}}" wx:if="{{showUpcoming}}" cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
       events="{{organization.events.upcoming}}" eventType="created" listTime="upcoming" />
-    <card-section wx:if="{{!showUpcoming}}" cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
+    <card-section t="{{t}}" wx:if="{{!showUpcoming}}" cardType="profile" bind:compTriggeredEvent="compTriggeredEvent"
       events="{{organization.events.past}}" eventType="created" listTime="past" />
   </view>
 </view>

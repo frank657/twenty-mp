@@ -64,8 +64,8 @@ const getPx = (rpx) => {
 
 const setLanguage = (app) => {
   const l = wx.getSystemInfoSync().language
-  app.globalData.lang = (l == "zh" || l == "zh_CN" || l == "zh_TW" || l == "zh_HK") ? 'cn' : "en"
-  // app.globalData.lang = 'cn'
+  // app.globalData.lang = (l == "zh" || l == "zh_CN" || l == "zh_TW" || l == "zh_HK") ? 'cn' : "en"
+  app.globalData.lang = 'cn'
 }
 
 const getSafeArea = (app) => {

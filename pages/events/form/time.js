@@ -31,9 +31,17 @@ Component({
       }
     },
 
-    bindDateChange: function(e) {
+    selectStartDate() { this.page.setData({ showStartDate: true }) },
+    selectEndDate() { this.page.setData({ showEndDate: true }) },
+
+    // XXXXXXXXXXXXXX
+    // NO LONGER USED
+    // XXXXXXXXXXXXXX
+    bindDateChange(e) {
       const { type } = e.currentTarget.dataset
       const { event } = this.page.data
+
+      // IF END DATE IS BEFORE START, SET SAME DATE
       if (type == 'start') { 
         event.start_date = e.detail.value 
         if (!this.dateEndIsAfterStart(event.start_date, event.end_date)) {
@@ -42,6 +50,35 @@ Component({
       }
       if (type == 'end') { event.end_date = e.detail.value }
       
+      // IF ITS SAME DATE, SET TIME LIMITS
+      if (this.isSameDay(event.start_date, event.end_date)) {
+        this.setData({ endTimeStart: event.start_time })
+        if (!this.timeEndIsAfterStart(event.start_time, event.end_time)) {
+          event.end_time = event.start_time
+        }
+      } else { 
+        this.setData({ endTimeStart: '00:00' })
+      }
+      
+      this.page.setData({ event })
+    },
+    // XXXXXXXXXXXXXXXXXXXXXXXXX
+
+    setTime(type, date) {
+      const { event } = this.page.data
+
+      // IF END DATE IS BEFORE START, SET SAME DATE
+      if (type == 'start') { 
+        event.start_date = date 
+        if (!this.dateEndIsAfterStart(event.start_date, event.end_date)) {
+          event.end_date = event.start_date
+        }
+      }
+      if (type == 'end') { 
+        event.end_date = date
+      }
+      
+      // IF ITS SAME DATE, SET TIME LIMITS
       if (this.isSameDay(event.start_date, event.end_date)) {
         this.setData({ endTimeStart: event.start_time })
         if (!this.timeEndIsAfterStart(event.start_time, event.end_time)) {
@@ -54,18 +91,22 @@ Component({
       this.page.setData({ event })
     },
     
-    bindTimeChange: function(e) {
+    bindTimeChange(e) {
       const { type } = e.currentTarget.dataset
       const { event } = this.page.data
       if (type == 'start') { 
         event.start_time = e.detail.value
         if (this.isSameDay(event.start_date, event.end_date)) {
+          this.setData({ endTimeStart: event.start_time })
           if (!this.timeEndIsAfterStart(event.start_time, event.end_time)) {
             event.end_time = event.start_time
           }
         }
       }
-      if (type == 'end') { event.end_time = e.detail.value }
+      if (type == 'end') { 
+        console.log('end')
+        event.end_time = e.detail.value 
+      }
       this.page.setData({ event })
     },
 

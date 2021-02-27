@@ -97,7 +97,7 @@ let get = (url, data = {}) => {
     }
   })
   url += params.join("&")
-console.log('url', url)
+  console.log('url', url)
   return new Promise(
     (resolve, reject) => {
       wx.request({
